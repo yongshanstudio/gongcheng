@@ -87,7 +87,7 @@ mark{background:#ffe866;color:#1f2a33;padding:0 2px;border-radius:2px}.kbsol{min
 <footer id="meter" class="m" style="max-width:1100px;margin:0 auto;padding:0 16px 24px"></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="shim.js?v=2"></script>
+<script src="shim.js?v=3"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 const D=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};let T=D(0);setInterval(()=>{const n=D(0);if(n!=T){const old=T;T=n;if(typeof cm!='undefined'&&cm==old.slice(0,7))cm=T.slice(0,7);if(typeof csel!='undefined'&&csel==old)csel=T;try{R()}catch(x){}}},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&D(0)!=T){const old=T;T=D(0);if(cm==old.slice(0,7))cm=T.slice(0,7);if(csel==old)csel=T;try{R()}catch(x){}}});
@@ -121,7 +121,7 @@ if(db){try{const m=await db.doc('meta/main').get();await loadCloud(m.exists?m.da
 await SIGNALL(S);R();meter()}
 const $=s=>document.querySelector(s),e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),M=n=>Number(n).toLocaleString();
 const cn=id=>(S.cases.find(c=>c.id==id)||{}).name||'';
-let fin=null,V='dash',cur=null,flt='';
+let fin=null,V='cal',cur=null,flt='';
 const NAV=[['dash','營運總覽'],['cases','案件'],['cal','日曆'],['plan','總進度表'],['kb','經驗庫'],['day','每日任務'],['board','工程進度'],['chk','工程檢核'],['mat','備料追蹤'],['hb','完工小手冊']],ST={todo:'未開始',doing:'進行中',stuck:'卡關',done:'完成'};
 const opts=(o,v)=>o.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join(''),copts=v=>S.cases.map(c=>`<option value=${c.id} ${c.id==v?'selected':''}>${e(c.name)}</option>`).join('');
 const DEF={tasks:{st:'todo',sub:[]},checks:{st:'待檢'},mats:{st:'已訂'},cases:{st:'洽談',paid:0}};
