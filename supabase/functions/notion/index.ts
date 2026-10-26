@@ -161,8 +161,101 @@ async function run(tool: string, input: any) {
   throw new TE("tool_error", "unknown tool " + tool);
 }
 
+
+// ---------- Siri 捷徑：說一句話 → 新增工程任務 ----------
+const WD = "日一二三四五六";
+const CN: Record<string, number> = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 日: 0, 天: 0 };
+const tw = () => new Date(Date.now() + 8 * 3600e3);
+const ymd = (d: Date) => d.toISOString().slice(0, 10);
+const addD = (d: Date, n: number) => new Date(d.getTime() + n * 864e5);
+function parseDate(t: string): { d: string; rest: string } {
+  const now = tw();
+  const rules: [RegExp, (m: RegExpMatchArray) => Date | null][] = [
+    [/大後天/, () => addD(now, 3)],
+    [/後天/, () => addD(now, 2)],
+    [/明天|明日/, () => addD(now, 1)],
+    [/今天|今日/, () => now],
+    [/(下)?(?:個)?(?:週|周|星期|禮拜)([一二三四五六日天])/, (m) => {
+      const want = CN[m[2]], cur = now.getUTCDay();
+      let diff = (want - cur + 7) % 7;
+      if (m[1]) diff = ((want || 7) - (cur || 7)) + 7; // 下週X：下一週的那天（週一為一週開始）
+      return addD(now, diff);
+    }],
+    [/(\d{1,2})\s*[\/月]\s*(\d{1,2})\s*[日號号]?/, (m) => {
+      let d = new Date(Date.UTC(now.getUTCFullYear(), +m[1] - 1, +m[2]));
+      if (ymd(d) < ymd(addD(now, -60))) d = new Date(Date.UTC(now.getUTCFullYear() + 1, +m[1] - 1, +m[2]));
+      return d;
+    }],
+    [/(\d{1,2})\s*[日號号]/, (m) => {
+      let d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), +m[1]));
+      if (ymd(d) < ymd(now)) d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, +m[1]));
+      return d;
+    }],
+  ];
+  for (const [re, f] of rules) {
+    const m = t.match(re);
+    if (m) { const d = f(m); if (d) return { d: ymd(d), rest: t.replace(m[0], " ") }; }
+  }
+  return { d: ymd(now), rest: t };
+}
+function dbKey() {
+  try { const j = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS") || "{}"); const v = Object.values(j)[0]; if (v) return String(v); } catch (_) { /* */ }
+  return Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "";
+}
+async function rest(method: string, path: string, body?: unknown) {
+  const k = dbKey();
+  const h: Record<string, string> = { apikey: k, "Content-Type": "application/json", Prefer: "resolution=merge-duplicates" };
+  if (k.startsWith("eyJ")) h.Authorization = "Bearer " + k;
+  const r = await fetch(SB_URL + "/rest/v1/" + path, { method, headers: h, body: body ? JSON.stringify(body) : undefined });
+  if (!r.ok) throw new TE("tool_error", "資料庫寫入失敗：" + (await r.text()).slice(0, 200));
+  return method === "GET" ? r.json() : null;
+}
+async function siri(text: string) {
+  text = String(text || "").trim();
+  if (!text) return "沒有聽到內容，請再說一次。";
+  const { d, rest: r0 } = parseDate(text);
+  const cases: any[] = (await rest("GET", "docs?col=eq.cases&select=data")).map((x: any) => x.data).filter((c: any) => c.id >= 100);
+  const flat = (x: string) => x.replace(/\s+/g, "");
+  let hit: any = null, used = "";
+  for (const c of cases.sort((a, b) => b.id - a.id)) {
+    const full = flat(c.name || "");
+    const parts = [full, ...String(c.name || "").split(/\s+/)].filter((p) => p.length >= 2);
+    const p = parts.find((p) => flat(r0).includes(p));
+    if (p) { hit = c; used = p; break; }
+  }
+  let name = r0;
+  if (used) name = flat(name).replace(used, "");
+  name = name.replace(/^[\s,，。、的要去把幫我提醒]+|[\s,，。、]+$/g, "").replace(/\s+/g, " ").trim() || text;
+  const id = Date.now();
+  const t: Record<string, unknown> = { id, c: hit ? hit.id : 0, n: name, w: "", s: d, e: d, st: "todo", sub: [] };
+  // 同步建立 Notion 行事曆頁面
+  try {
+    TOKEN = Deno.env.get("NOTION_TOKEN") || "";
+    if (TOKEN) {
+      const ds = "0426695c-9862-45d8-b2df-bd4a2c6e1b09";
+      const nn = name + (hit ? "｜" + hit.name : "");
+      const r: any = await run("notion-create-pages", { parent: { data_source_id: ds }, pages: [{ properties: { Name: nn, "date:Date:start": d, "date:Date:end": null, "date:Date:is_datetime": 0, "狀態": "未開始", AppID: String(id) } }] });
+      const m = String(r.pages[0].url).match(/([0-9a-f]{32})/);
+      if (m) { t.np = m[1]; t.nh = JSON.stringify([nn, d, d, "未開始"]); }
+    }
+  } catch (_) { /* Notion 失敗時，App 打開後會自動補同步 */ }
+  await rest("POST", "docs", { col: "tasks", id: String(id), data: t });
+  const dd = new Date(d + "T00:00:00Z");
+  return `已加入 ${dd.getUTCMonth() + 1}/${dd.getUTCDate()}（${WD[dd.getUTCDay()]}）：${name}${hit ? "，案件 " + hit.name : "，其他行程"}`;
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
+  const sk = req.headers.get("x-siri-key");
+  if (sk !== null) {
+    const want = Deno.env.get("SIRI_KEY") || "";
+    if (!want || sk !== want) return new Response("密碼不正確，請檢查捷徑設定。", { status: 401 });
+    try {
+      SCHEMA = null;
+      const b = await req.json().catch(() => ({}));
+      return new Response(await siri(b.text), { headers: { "Content-Type": "text/plain; charset=utf-8" } });
+    } catch (x) { return new Response("新增失敗：" + String((x as Error).message || x).slice(0, 150), { status: 500 }); }
+  }
   try {
     const auth = req.headers.get("Authorization") || "";
     const u = await fetch(SB_URL + "/auth/v1/user", { headers: { Authorization: auth, apikey: SB_KEY } });
