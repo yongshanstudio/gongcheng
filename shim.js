@@ -32,7 +32,14 @@ const assets={
 /* ---------- 下載 ---------- */
 const downloads={async save({filename,data}){const bl=data instanceof Blob?data:new Blob([data],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(bl),a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}};
 
-window.claude={use:async n=>{if(n==='db')return db;if(n==='assets')return assets;if(n==='downloads')return downloads;throw new Error('not available: '+n)}};
+/* ---------- Notion：透過 Supabase 雲端程式 notion 轉呼叫 ---------- */
+const NDS0='0426695c-9862-45d8-b2df-bd4a2c6e1b09';
+const mcp={async callTool(srv,tool,input){const {data}=await sb.auth.getSession();if(!data.session)throw{code:'unauthorized',message:'請重新登入'};
+  let r;try{r=await fetch(SB_URL+'/functions/v1/notion',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB_KEY,Authorization:'Bearer '+data.session.access_token},body:JSON.stringify({tool,input:Object.assign({},input,{ds:NDS0})})})}catch(x){throw{code:'server_unavailable',message:String(x)}}
+  let j=null;try{j=await r.json()}catch(x){}
+  if(r.status===404||!j)throw{code:'no_function',message:'notion 雲端程式尚未部署'};
+  if(!j.ok)throw{code:j.code,message:j.message};return{payload:j.payload}}};
+window.claude={use:async n=>{if(n==='db')return db;if(n==='assets')return assets;if(n==='downloads')return downloads;if(n==='mcp')return mcp;throw new Error('not available: '+n)}};
 
 /* 簽名網址每 6 天更新一次（App 長時間開著時） */
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-suAt>6*864e5&&window.R){SIGNALL(window.GS&&GS()).then(()=>R())}});

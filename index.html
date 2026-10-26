@@ -87,7 +87,7 @@ mark{background:#ffe866;color:#1f2a33;padding:0 2px;border-radius:2px}.kbsol{min
 <footer id="meter" class="m" style="max-width:1100px;margin:0 auto;padding:0 16px 24px"></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="shim.js?v=1"></script>
+<script src="shim.js?v=2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 const D=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};let T=D(0);setInterval(()=>{const n=D(0);if(n!=T){const old=T;T=n;if(typeof cm!='undefined'&&cm==old.slice(0,7))cm=T.slice(0,7);if(typeof csel!='undefined'&&csel==old)csel=T;try{R()}catch(x){}}},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&D(0)!=T){const old=T;T=D(0);if(cm==old.slice(0,7))cm=T.slice(0,7);if(csel==old)csel=T;try{R()}catch(x){}}});
@@ -434,7 +434,7 @@ npid=u=>{const m=String(u||'').replace(/-/g,'').match(/[0-9a-f]{32}/g);return m?
 ndate=(v,dt)=>{if(!v)return '';if(!dt||v.length<=10)return v.slice(0,10);const x=new Date(v);return isNaN(x)?v.slice(0,10):new Date(x.getTime()+8*3600e3).toISOString().slice(0,10)},
 nprops=t=>({Name:nname(t),'date:Date:start':t.s,'date:Date:end':t.e>t.s?t.e:null,'date:Date:is_datetime':0,'狀態':nst(t.st),AppID:String(t.id)});
 async function ncall(tool,input){const r=await MC.callTool('Notion',tool,input,{cache:false});return r.payload}
-const nerr=x=>{const c=x&&x.code;return c=='needs_reauth'?'Notion 連線過期，請到 claude.ai 設定 → Connectors 重新連接 Notion。':c=='server_not_connected'?'尚未連接 Notion，請到 claude.ai 設定 → Connectors 加入 Notion。':c=='not_in_manifest'?'你沒有允許這個頁面使用 Notion，可從頁面的權限選單開啟。':c=='selection_required'?'你連了不只一個 Notion，請在跳出的視窗選擇要用哪一個。':c=='tool_error'?(/usage_limit|allowance/.test(x.message||'')?'Notion 查詢次數暫時用完了，約一小時內會自動恢復。':'Notion 回報錯誤：'+String(x.message||'').slice(0,120)):c=='server_unavailable'?'Notion 暫時連不上，稍後會再試。':'與 Notion 同步失敗（'+(c||String(x&&x.message||x).slice(0,120))+'）'};
+const nerr=x=>{const c=x&&x.code;return ['bad_token','not_shared','no_token','unauthorized'].includes(c)?String(x.message):c=='no_function'?'Notion 同步的雲端程式還沒部署到 Supabase。':c=='needs_reauth'?'Notion 連線過期，請到 claude.ai 設定 → Connectors 重新連接 Notion。':c=='server_not_connected'?'尚未連接 Notion，請到 claude.ai 設定 → Connectors 加入 Notion。':c=='not_in_manifest'?'你沒有允許這個頁面使用 Notion，可從頁面的權限選單開啟。':c=='selection_required'?'你連了不只一個 Notion，請在跳出的視窗選擇要用哪一個。':c=='tool_error'?(/usage_limit|allowance/.test(x.message||'')?'Notion 查詢次數暫時用完了，約一小時內會自動恢復。':'Notion 回報錯誤：'+String(x.message||'').slice(0,120)):c=='server_unavailable'?'Notion 暫時連不上，稍後會再試。':'與 Notion 同步失敗（'+(c||String(x&&x.message||x).slice(0,120))+'）'};
 function nq(){if(!NS.on)return;clearTimeout(nqT);nqT=setTimeout(npush,1500)}
 async function nall(){let out=[],cur=null;for(let i=0;i<10;i++){const d={mode:'view',view_url:NVIEW,page_size:100};if(cur)d.start_cursor=cur;const p=await ncall('notion-query-data-sources',{data:d});out=out.concat((p&&p.results)||[]);if(!p||!p.has_more||!p.next_cursor)break;cur=p.next_cursor}return out}
 async function npush(){S.ndel=S.ndel||[];S.ndid=S.ndid||[];if(!MC||!NS.ready||NS.busy){if(NS.busy)nq();return}NS.busy=1;let ch=0;
