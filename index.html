@@ -1,0 +1,499 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>永山工程</title>
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="永山工程"><meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#1f2a33"><link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icons/icon-180.png"><link rel="icon" href="icons/icon-192.png">
+<style>
+:root{--bg:#eef1f3;--c:#fff;--t:#1f2a33;--m:#6b7a86;--a:#1d6f7a;--ok:#3f7d58;--bad:#b8432f;--w:#c58a1b;--l:#d8dfe4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#141a1f;--c:#1e262d;--t:#e6ecf0;--m:#8fa0ac;--l:#33404a}}
+:root[data-theme=dark]{--bg:#141a1f;--c:#1e262d;--t:#e6ecf0;--m:#8fa0ac;--l:#33404a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:15px/1.6 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+header{position:relative;background:#1f2a33;color:#fff;padding:12px 16px 0}
+h1{margin:0 0 8px;font-size:18px;outline:0}
+#nav{display:flex;gap:4px;overflow-x:auto}
+#nav button{background:none;border:0;color:#9fb0bc;padding:8px 14px;font:inherit;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+#nav .on{color:#fff;border-color:#4fb3c0}
+main{max-width:1100px;margin:0 auto;padding:16px}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.k{background:var(--c);border-left:4px solid var(--a);padding:10px 14px;border-radius:4px}.k b{display:block;font-size:24px}
+small,.m{color:var(--m);font-size:13px}
+.p{background:var(--c);border-radius:6px;padding:14px 16px;margin-bottom:16px;overflow-x:auto}.p h3{margin:0 0 8px;font-size:16px}
+.risk{border-left:4px solid var(--bad)}.risk h3{color:var(--bad)}
+.r{padding:6px 0;border-top:1px solid var(--l)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+input,select{font:inherit;padding:6px 8px;border:1px solid var(--l);border-radius:4px;background:var(--c);color:var(--t);max-width:100%}
+button{font:inherit;cursor:pointer}form button,.pri{background:var(--a);color:#fff;border:0;border-radius:4px;padding:7px 14px}
+.x{background:none;border:1px solid var(--l);color:var(--m);border-radius:4px;padding:3px 10px;font-size:13px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.col h4{margin:0 0 8px;padding:6px 10px;color:#fff;border-radius:4px}
+.todo{background:#7d8a94}.doing{background:var(--w)}.stuck{background:var(--bad)}.done{background:var(--ok)}
+.cd{background:var(--c);border-radius:4px;padding:10px;margin-bottom:8px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;border-top:1px solid var(--l);white-space:nowrap}tr[onclick]{cursor:pointer}tr[onclick]:hover{background:var(--bg)}
+.pb{height:8px;background:var(--l);border-radius:4px;margin:4px 0 10px}.pb i{display:block;height:100%;background:var(--a);border-radius:4px}
+.gw{overflow-x:auto}.gr{display:flex;border-top:1px solid var(--l);height:30px;align-items:center}
+.gl{width:150px;flex:none;position:sticky;left:0;background:var(--c);z-index:2;padding:0 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px}
+.gh{display:flex}.dc{width:26px;flex:none;text-align:center;font-size:12px;line-height:1.1;color:var(--m)}.dc small{display:block;height:12px;font-size:10px;white-space:nowrap;overflow:visible}.we{background:rgba(127,127,127,.12)}.td{background:var(--a);color:#fff}
+.gt{position:relative;height:100%;background:repeating-linear-gradient(90deg,var(--l) 0 1px,transparent 1px 26px)}
+.tl{position:absolute;top:0;bottom:0;width:2px;background:var(--bad);z-index:1}
+.bb{position:absolute;top:6px;height:18px;border-radius:3px;overflow:hidden;cursor:pointer;color:#fff;font-size:11px;line-height:18px;padding-left:4px}.bb i{position:absolute;left:0;top:0;bottom:0;background:rgba(0,0,0,.28)}.bb span{position:relative}
+.bb{touch-action:none;cursor:grab}.th{position:relative;display:inline-block}.th img{height:64px;border-radius:4px;cursor:zoom-in;display:block}.th .x{position:absolute;top:2px;right:2px;background:var(--c);padding:0 6px}
+.cb{position:absolute;top:11px;height:8px;background:var(--t);opacity:.55;border-radius:2px}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}.g2 .p{margin-bottom:0}.chip{display:inline-block;background:var(--bg);border-radius:12px;padding:2px 12px;margin:3px 6px 3px 0}.sum{display:flex;gap:28px;flex-wrap:wrap;align-items:baseline}.sum b{font-size:20px}
+.mm{display:flex;align-items:center;min-width:max-content}
+.mr{flex:none;background:var(--a);color:#fff;border-radius:14px;padding:14px 16px;max-width:170px;font-weight:700}
+.mb{margin-left:28px;padding-left:22px;border-left:2px solid var(--l);display:flex;flex-direction:column;gap:14px}
+.mbr{display:flex;align-items:flex-start;gap:12px;position:relative}
+.mbr::before{content:'';position:absolute;left:-22px;top:20px;width:22px;border-top:2px solid var(--bc)}
+.bn{flex:none;width:150px;border:2px solid var(--bc);border-radius:18px;padding:6px 12px;font-weight:600;background:var(--c)}.bn small{display:block;font-weight:400}
+.bi{padding-left:12px;border-left:2px dashed var(--bc);min-width:260px}.it{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:2px 0}
+@media(max-width:640px){.mm{min-width:0;flex-direction:column;align-items:stretch}.mb{margin:12px 0 0 8px}.mbr{flex-direction:column}.bn{width:auto}.bi{min-width:0}}
+.ed{outline:0;border-bottom:1px dashed transparent;cursor:text}.ed:hover,.ed:focus{border-bottom-color:var(--m)}
+.tg{border:1px solid var(--l);border-radius:6px;padding:8px 12px;margin-top:12px}.tg summary{cursor:pointer;font-weight:600}.tgb{margin-top:10px}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;background:var(--l);border:1px solid var(--l)}
+.cw{background:var(--bg);text-align:center;padding:4px;font-size:13px;color:var(--m)}
+.cc{background:var(--c);min-height:92px;padding:3px;cursor:pointer;overflow:hidden}.cc.o{background:var(--bg);cursor:default}.cc.sel{outline:2px solid var(--a);outline-offset:-2px}
+.cc b{font-size:12px;font-weight:600}.cc.tdy b{background:var(--a);color:#fff;border-radius:10px;padding:0 6px}
+.ch{display:block;color:#fff;font-size:11px;line-height:1.5;padding:0 4px;margin-top:2px;border-radius:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ch.done{opacity:.45}
+@media(max-width:640px){.cc{min-height:60px}.ch{font-size:9px;padding:0 2px}}
+.qr{display:grid;grid-template-columns:minmax(160px,2fr) 110px 76px minmax(160px,3fr);gap:8px;align-items:center;padding:4px 0;border-top:1px solid var(--l)}
+.qr.qh{font-size:12px;color:var(--m);border-top:0;padding:0 0 2px}
+.qn{width:100%;font-size:13px;padding:4px 8px}.qq{font-size:13px;color:var(--m);white-space:nowrap}.qp{font-size:13px;color:var(--m);white-space:nowrap}.qnw{display:flex;gap:6px}
+@media(max-width:640px){.qr{grid-template-columns:minmax(0,1fr) auto auto}.qr>.qn,.qr>.qnw{grid-column:1/-1}.qr.qh{display:none}}
+.hbr{border-top:1px solid var(--l);padding:10px 0}.hbr h4{margin:0 0 6px;font-size:15px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hbc{border:1px solid var(--l);border-radius:6px;margin-bottom:8px;padding:6px 10px}.hbc summary{cursor:pointer}.hbf{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:10px}.hbf label{display:flex;flex-direction:column;font-size:12px;color:var(--m);gap:3px}.hbf input,.hbf textarea{width:100%;font-size:13px;padding:5px 8px;font-family:inherit}.hbw{grid-column:1/-1}.hbp img{height:80px;border-radius:4px;vertical-align:middle}.hbp{display:flex;align-items:center}
+.hbo{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;flex-direction:column;padding:12px;gap:8px}.hbo iframe{flex:1;border:0;background:#fff;border-radius:6px}
+.chd{border-bottom:1px solid var(--l);margin-bottom:18px;padding-bottom:10px}.chd small{letter-spacing:.2em;color:var(--a)}.chd h2{margin:2px 0 0;font-size:28px;font-weight:600}
+main.wide{max-width:none;padding:16px 10%}.cly{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;align-items:start}@media(max-width:640px){main.wide{padding:12px}}@media(max-width:860px){.cly{grid-template-columns:1fr}}
+.cnav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.cym{font-size:20px;margin:0 4px}.cbtn{background:var(--c);border:1px solid var(--l);border-radius:8px;padding:6px 14px;color:var(--t);cursor:pointer;font:inherit}.cnav select{margin-left:auto}
+.clg{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:13px;margin-bottom:10px}.clg label{display:inline-flex;align-items:center;gap:5px;cursor:pointer;position:relative}.clg i{width:11px;height:11px;border-radius:3px;border:1px solid rgba(0,0,0,.15)}.clg input{position:absolute;opacity:0;width:11px;height:11px;cursor:pointer}
+.cgr{border:1px solid var(--l);border-radius:8px;overflow:hidden;background:var(--c)}.cwh{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));background:var(--bg)}.cwh div{padding:6px 10px;font-size:13px;color:var(--m);border-right:1px solid var(--l)}.sun,.cwh .sun{color:var(--bad)}
+.cwk{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:30px repeat(4,24px) 18px;min-height:160px;border-top:1px solid var(--l);row-gap:3px}
+.kd{grid-row:1/-1;border-right:1px solid var(--l);padding:4px 8px;cursor:pointer}.kd:hover{background:rgba(29,111,122,.05)}.kd.sel{background:rgba(29,111,122,.1)}.kd.o .kn{color:var(--m);opacity:.55}.kd.sun .kn{color:var(--bad)}
+.kn{font-size:14px;display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center}.kn.tdy{background:var(--a);color:#fff!important;border-radius:50%;font-weight:600}
+.kb{z-index:1;margin:0 4px;border-radius:5px;font-size:12px;line-height:24px;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}.kb.cl{margin-left:0;border-top-left-radius:0;border-bottom-left-radius:0}.kb.cr{margin-right:0;border-top-right-radius:0;border-bottom-right-radius:0}.kb.done{opacity:.45}
+.khol{font-size:11px;color:var(--bad);margin-left:4px;white-space:nowrap}.kd.hol:not(.sel){background:rgba(184,67,47,.05)}@media(max-width:640px){.khol{display:none}}.cmore{grid-row:6;z-index:1;padding-left:10px;font-size:11px;pointer-events:none}
+.csd h3{font-size:20px;margin:4px 0 12px}.cev{border-left:4px solid;padding:8px 0 10px 12px;border-bottom:1px solid var(--l);margin-bottom:6px}.cet{display:flex;justify-content:space-between;gap:8px}.lk{background:none;border:0;color:var(--a);cursor:pointer;font-size:13px;padding:0 4px}
+.cadd{background:var(--c);border:1px solid var(--l);border-radius:10px;padding:14px;margin-top:16px;display:flex;flex-direction:column;gap:8px}.cadd input,.cadd select{width:100%}.cadd label{display:flex;flex-direction:column;gap:2px}.cr2{display:flex;gap:8px}.cr2>*{flex:1;min-width:0}
+@media(max-width:640px){.cwk{grid-template-rows:24px repeat(4,18px) 14px;min-height:118px}.kb{font-size:10px;line-height:18px;padding:0 3px;margin:0 1px}.kd{padding:2px}.kn{font-size:12px;min-width:22px;height:22px;line-height:22px}.cwh div{padding:4px}}
+.cd.flash{outline:3px solid var(--a);outline-offset:4px;border-radius:6px;transition:outline-color 1s}
+.kbx{background:#fff8e6;border:1px solid #f0d58a;border-radius:6px;padding:6px 10px;margin-bottom:8px;color:#1f2a33}.kbx summary{cursor:pointer;font-weight:600}.kbi{border-top:1px solid var(--l);padding:8px 0}.kbx .kbi{border-color:#f0d58a}.kbf input,.kbf select,.kbf textarea{font-size:14px;padding:6px 8px}
+.dsg{border-top:1px solid var(--l);padding:8px 0}.dsg summary{cursor:pointer}.dig{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.dif{display:flex;flex-direction:column;font-size:12px;color:var(--m);gap:2px}.dif input,.dif select{font-size:14px;padding:5px 8px;width:100%}.mtg{margin:6px 0}.mtr{display:grid;grid-template-columns:1.2fr 1fr 1.2fr 1.6fr auto;gap:6px;margin:4px 0;align-items:center}.mtr input{font-size:13px;padding:4px 8px;min-width:0}@media(max-width:640px){.dig{grid-template-columns:1fr 1fr}.dif[style]{grid-column:1/-1!important}.mtr{grid-template-columns:1fr 1fr}}
+mark{background:#ffe866;color:#1f2a33;padding:0 2px;border-radius:2px}.kbsol{min-height:70px;border:1px solid var(--l);border-radius:4px;padding:6px 8px;background:var(--c);color:var(--t);font-size:14px;line-height:1.7;outline:0}.kbsol:focus{border-color:var(--a)}.kbsol:empty:before{content:attr(data-ph);color:var(--m)}.hlb{background:#ffe866;border:1px solid #e5c93a;border-radius:4px;padding:2px 10px;color:#1f2a33}.kbg>summary{cursor:pointer;font-size:16px;list-style:none;display:flex;gap:8px;align-items:center}.kbg>summary:before{content:'▸';color:var(--m);transition:transform .15s}.kbg[open]>summary:before{transform:rotate(90deg)}.kbg[open]>summary{margin-bottom:6px}
+</style></head><body>
+<header><button class="x" onclick="EX()" style="position:absolute;right:16px;top:10px;color:#9fb0bc;border-color:#3a4852">匯出備份</button><h1 id="co" contenteditable onblur="S.co=this.textContent;save()"></h1><nav id="nav"></nav></header>
+<div id="warn" class="p" hidden style="margin:12px 16px 0;color:var(--bad)">儲存空間已滿，最新的變更沒有存下來。請刪除一些照片後再試。</div>
+<main id="main"></main>
+<footer id="meter" class="m" style="max-width:1100px;margin:0 auto;padding:0 16px 24px"></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="shim.js?v=1"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+const D=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};let T=D(0);setInterval(()=>{const n=D(0);if(n!=T){const old=T;T=n;if(typeof cm!='undefined'&&cm==old.slice(0,7))cm=T.slice(0,7);if(typeof csel!='undefined'&&csel==old)csel=T;try{R()}catch(x){}}},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&D(0)!=T){const old=T;T=D(0);if(cm==old.slice(0,7))cm=T.slice(0,7);if(csel==old)csel=T;try{R()}catch(x){}}});
+let q=100;const sb=(n,d,done)=>({id:q++,n,d,done:!!done});
+let S;try{S=JSON.parse(localStorage.getItem('gc2'))}catch(x){}
+if(!S)S={co:'我的設計公司',
+cases:[{id:1,name:'A宅 次臥改更衣室',owner:'陳先生',st:'洽談',contract:256000,paid:0},{id:2,name:'B宅 公領域改造',owner:'王先生',st:'施工',contract:1286000,paid:900000},{id:3,name:'C宅 全室翻新',owner:'林小姐',st:'施工',contract:2845000,paid:1422000}],
+tasks:[{id:1,c:3,n:'拆除',w:'拆除',s:D(-30),e:D(-26),st:'done',sub:[sb('RC牆面打除',D(-30),1),sb('廢料清運',D(-27),1)]},{id:2,c:3,n:'水電配管',w:'水電',s:D(-25),e:D(-20),st:'done',sub:[sb('給水管全面更換',D(-24),1),sb('迴路增設',D(-22),1)]},{id:3,c:3,n:'主浴防水重做（待業主決議）',w:'泥作',s:D(-21),e:D(-17),st:'stuck',sub:[sb('壁癌面刮除',D(-21),1),sb('防水塗佈兩道＋試水',D(-17))]},{id:4,c:3,n:'客浴泥作',w:'泥作',s:D(-3),e:D(2),st:'doing',sub:[sb('地坪整平',D(-3),1),sb('壁磚鋪貼',D(-1),1),sb('填縫收邊',D(2))]},{id:5,c:3,n:'泥作收尾',w:'泥作',s:D(3),e:D(5),st:'todo',sub:[]},{id:6,c:3,n:'木作進場',w:'木作',s:D(6),e:D(12),st:'todo',sub:[sb('天花板',D(6)),sb('電視主牆',D(9)),sb('房門',D(12))]},{id:7,c:3,n:'系統櫃安裝',w:'系統櫃',s:D(13),e:D(16),st:'todo',sub:[]},{id:8,c:3,n:'油漆',w:'油漆',s:D(17),e:D(22),st:'todo',sub:[]},{id:9,c:3,n:'清潔與驗收',w:'驗收',s:D(23),e:D(25),st:'todo',sub:[]},{id:10,c:2,n:'缺失修正',w:'泥作',s:D(2),e:D(2),st:'todo',sub:[]},{id:11,c:2,n:'正式驗收',w:'驗收',s:D(5),e:D(5),st:'todo',sub:[]},{id:12,c:1,n:'現場丈量',w:'設計',s:T,e:T,st:'doing',sub:[]}],
+checks:[{id:1,c:3,n:'主浴防水兩道＋試水',st:'待檢'},{id:2,c:2,n:'主浴洩水坡度、五金安裝',st:'不通過'},{id:3,c:2,n:'廚房壁磚空心敲檢',st:'通過'}],
+mats:[{id:1,c:3,n:'系統櫃五金＋封板材料',eta:D(7),st:'已訂'}]};
+S.logs=S.logs||{};S.branches=S.branches||[];S.qgroups=S.qgroups||[];S.addons=S.addons||[];let db,AS,prev={},busy=0,dirty=0;
+const warn=m=>{const w=document.getElementById('warn');w.textContent=m||'';w.hidden=!m};
+const save=()=>{nq();if(db)sync();else try{localStorage.setItem('gc2',JSON.stringify(S))}catch(x){warn('儲存空間已滿，最新的變更沒有存下來。請刪除一些照片後再試。')}};
+const ps=u=>u.startsWith('data:')?u:SURL(u);window.GS=()=>S;
+function recs(){const o={};['cases','tasks','checks','mats','branches','qgroups','addons','hb','trash','kb'].forEach(c=>(S[c]||[]).forEach(r=>o[c+'/'+r.id]=r));Object.entries(S.logs).forEach(([k,l])=>{if(l.n||l.p.length)o['logs/'+k.replace('|','_')]={k,n:l.n,p:l.p}});o['meta/main']={co:S.co,ndel:S.ndel||[],ndid:(S.ndid||[]).slice(-500)};return o}
+function snap(){prev={};const o=recs();for(const k in o)prev[k]=JSON.stringify(o[k])}
+async function sync(){if(busy){dirty=1;return}busy=1;try{do{dirty=0;const o=recs();for(const k in o){const j=JSON.stringify(o[k]);if(prev[k]!==j){await db.doc(k).set(o[k]);prev[k]=j}}for(const k in prev)if(!(k in o)){await db.doc(k).delete();delete prev[k]}}while(dirty);warn('')}catch(x){warn('雲端同步失敗，最新的變更還沒存到雲端。請檢查網路後再操作一次。')}busy=0}
+async function loadCloud(m){const g=async n=>(await db.collection(n).get()).docs.map(d=>JSON.parse(JSON.stringify(d.data())));
+const [cs,ts,ck,mt,lg,br,qgs,ads,hbs,trs,kbs]=await Promise.all(['cases','tasks','checks','mats','logs','branches','qgroups','addons','hb','trash','kb'].map(g)),o=(a,b)=>a.id-b.id;
+const dz=new Set(cs.filter(c=>c.id<100).map(c=>c.id)),bad=x=>x.id<100||dz.has(x.c);[['cases',cs],['tasks',ts],['checks',ck],['mats',mt],['branches',br],['qgroups',qgs],['addons',ads]].forEach(([n,a])=>a.filter(x=>n=='cases'?x.id<100:bad(x)).forEach(x=>db.doc(n+'/'+x.id).delete().catch(()=>{})));
+S={co:m.co,kb:kbs.sort((a,b)=>b.id-a.id),ndel:m.ndel||[],ndid:m.ndid||[],trash:trs.filter(x=>Date.now()-x.at<30*864e5).sort((a,b)=>b.at-a.at),cases:cs.filter(x=>x.id>=100).sort(o),tasks:ts.filter(x=>!bad(x)).sort(o),checks:ck.filter(x=>!bad(x)).sort(o),mats:mt.filter(x=>!bad(x)).sort(o),branches:br.filter(x=>!bad(x)).sort(o),qgroups:qgs.filter(x=>!bad(x)).sort(o),addons:ads.filter(x=>!bad(x)).sort(o),hb:hbs.sort(o),logs:{}};lg.forEach(l=>S.logs[l.k]={n:l.n,p:l.p});snap()}
+const d2b=u=>{const b=atob(u.split(',')[1]),a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return new Blob([a],{type:'image/jpeg'})};
+const b2d=b=>new Promise(r=>{const f=new FileReader;f.onload=()=>r(f.result);f.readAsDataURL(b)});
+async function seed(){if(AS)for(const l of Object.values(S.logs))for(let i=0;i<l.p.length;i++)if(l.p[i].startsWith('data:')){try{l.p[i]=(await AS.upload(d2b(l.p[i]))).id}catch(x){}}prev={};await sync()}
+async function meter(){if(!AS)return;try{const r=(await AS.list()).usage;document.getElementById('meter').textContent='照片儲存：已用 '+(r.bytes/1048576).toFixed(1)+' / '+Math.round(r.maxBytes/1048576)+' MB，'+r.files+' / '+r.maxFiles+' 個檔案'}catch(x){}}
+async function EX(){const c=window.claude,dl=c?await c.use('downloads'):null;if(!dl){warn('這裡無法下載，請在發佈後的頁面使用。');return}try{await dl.save({filename:'工程管理備份-'+T+'.json',data:JSON.stringify(S)})}catch(x){}}
+async function boot(){document.getElementById('main').innerHTML='<div class=p>載入中…</div>';
+try{const c=window.claude;db=c?await c.use('db'):null;AS=c?await c.use('assets'):null;if(c&&db)c.use('mcp').then(x=>{MC=db?x:null;if(MC){NS.on=1;npull()}}).catch(()=>{})}catch(x){db=AS=null}
+const EMP=()=>({co:'我的設計公司',cases:[],tasks:[],checks:[],mats:[],branches:[],qgroups:[],addons:[],hb:[],trash:[],kb:[],logs:{},ndel:[],ndid:[]});
+if(db){try{const m=await db.doc('meta/main').get();await loadCloud(m.exists?m.data():{co:'我的設計公司'})}catch(x){db=null;S=EMP();warn('暫時連不上雲端，為了避免資料錯亂，目前不顯示任何資料。請稍後重新整理頁面。')}}else{S=EMP();warn('目前未連上雲端，請檢查網路後重新整理。')}
+await SIGNALL(S);R();meter()}
+const $=s=>document.querySelector(s),e=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),M=n=>Number(n).toLocaleString();
+const cn=id=>(S.cases.find(c=>c.id==id)||{}).name||'';
+let fin=null,V='dash',cur=null,flt='';
+const NAV=[['dash','營運總覽'],['cases','案件'],['cal','日曆'],['plan','總進度表'],['kb','經驗庫'],['day','每日任務'],['board','工程進度'],['chk','工程檢核'],['mat','備料追蹤'],['hb','完工小手冊']],ST={todo:'未開始',doing:'進行中',stuck:'卡關',done:'完成'};
+const opts=(o,v)=>o.map(x=>`<option ${x==v?'selected':''}>${x}</option>`).join(''),copts=v=>S.cases.map(c=>`<option value=${c.id} ${c.id==v?'selected':''}>${e(c.name)}</option>`).join('');
+const DEF={tasks:{st:'todo',sub:[]},checks:{st:'待檢'},mats:{st:'已訂'},cases:{st:'洽談',paid:0}};
+function A(k,ev){ev.preventDefault();const o=Object.fromEntries(new FormData(ev.target));if(o.c)o.c=+o.c;if('contract'in o)o.contract=+o.contract||0;if(k=='tasks')o.sub=[];S[k].push({id:Date.now(),...DEF[k],...o});save();R()}
+function U(k,id,f,v){S[k].find(x=>x.id==id)[f]=v;save();R()}
+function X(k,id){if(k=='tasks'||k=='cases'){const tk=S.tasks.filter(t=>k=='tasks'?t.id==id:t.c==id),lg={};tk.forEach(t=>{if(t.np)(S.ndel=S.ndel||[]).push(t.np);(S.ndid=S.ndid||[]).push(String(t.id));Object.keys(S.logs).filter(j=>j.split('|')[0]==t.id).forEach(j=>lg[j]=S.logs[j])});
+const b=k=='tasks'?{tasks:tk}:{cases:S.cases.filter(c=>c.id==id),tasks:tk,...Object.fromEntries(['checks','mats','branches','qgroups','addons'].map(j=>[j,S[j].filter(x=>x.c==id)])),hb:(S.hb||[]).filter(x=>x.id==id)};
+const nm=k=='tasks'?(tk[0]?tk[0].n+'（'+cn(tk[0].c)+'）':''):cn(id);if(nm)(S.trash=S.trash||[]).unshift({id:Date.now(),at:Date.now(),k,nm,b,lg});
+if(k=='cases')Object.keys(lg).forEach(j=>delete S.logs[j])}S[k]=S[k].filter(x=>x.id!=id);if(k=='tasks')Object.keys(S.logs).filter(j=>j.split('|')[0]==id).forEach(j=>delete S.logs[j]);if(k=='cases'){['tasks','checks','mats','branches','qgroups','addons'].forEach(j=>S[j]=S[j].filter(x=>x.c!=id));S.hb=(S.hb||[]).filter(x=>x.id!=id);cur=null}save();R()}
+function dash(){const A=S.tasks.filter(t=>t.c),nm=t=>e(cn(t.c)),go=t=>`onclick="openT(${t.c})" style="cursor:pointer"`,
+od=A.filter(t=>t.st!='done'&&t.e<T),sk=A.filter(t=>t.st=='stuck'),bad=S.checks.filter(k=>k.st=='不通過'),late=S.mats.filter(m=>m.st=='已訂'&&m.eta<T),
+un=S.addons.filter(a=>a.sg!='已簽認'),rk=od.length+sk.length+bad.length+late.length+un.length,td=A.filter(t=>t.st!='done'&&t.s<=T&&t.e>=T),
+nx=A.filter(t=>t.st=='todo'&&t.s>T&&dd(T,t.s)<=7).sort((a,b)=>a.s<b.s?-1:1),
+ws={};A.filter(t=>t.st!='done'&&t.s<=shd(T,6)&&t.e>=T).forEach(t=>ws[t.w||'未填工種']=(ws[t.w||'未填工種']||0)+1);
+const bt=S.cases.map(c=>({c,n:S.branches.filter(b=>b.c==c.id).reduce((a,b)=>a+left(b),0)})).filter(x=>x.n),tot=S.cases.reduce((a,c)=>a+c.contract,0),pd=S.cases.reduce((a,c)=>a+c.paid,0),n=x=>S.cases.filter(c=>c.st==x).length,pc=tot?Math.round(pd/tot*100):0,
+k=(a,b,c,col)=>`<div class=k style="border-color:${col}"><small>${a}</small><b>${b}</b><small>${c||'　'}</small></div>`,
+sec=(t,h)=>h?`<div style="margin-top:12px"><b>${t}</b>${h}</div>`:'';
+return `<h2 style="margin:0 0 2px">營運總覽</h2><div class=m style="margin-bottom:14px">${T.replace(/-/g,' / ')}　公司營運即時概覽</div>
+<div class=g>${k('洽談中',n('洽談'),'件案件','#c58a1b')}${k('設計中',n('設計'),'件案件','#8a5fb0')}${k('施工中',n('施工'),'件案件','#3f7d58')}${k('全部案件',S.cases.length,'完工 '+n('完工')+' 件','#6b7a86')}${k('收款達成',pc+'%',M(pd)+' / '+M(tot),'#1d6f7a')}</div>
+<div class="p sum"><span class=m>累計</span><span class=m>合約總額 <b>${M(tot)}</b> 元</span><span class=m>已收款 <b>${M(pd)}</b> 元</span><span class=m>待收款 <b>${M(tot-pd)}</b> 元</span></div>
+<div class="p ${rk?'risk':''}"><h3>風險警告（${rk} 項需要處理）</h3>${
+sec(`任務逾期（${od.length}）`,od.map(t=>`<div class=r ${go(t)}><b>${nm(t)}</b>　${e(t.n)}　<span class=m>應於 ${t.e} 完成（已逾 ${dd(t.e,T)} 天）</span></div>`).join(''))+
+sec(`任務卡關（${sk.length}）`,sk.map(t=>`<div class=r ${go(t)}><b>${nm(t)}</b>　${e(t.n)}</div>`).join(''))+
+sec(`工程檢核不通過（${bad.length}）`,bad.map(x=>`<div class=r><b>${e(cn(x.c))}</b>　${e(x.n)}</div>`).join(''))+
+sec(`備料逾期未到貨（${late.length}）`,late.map(m=>`<div class=r><b>${e(cn(m.c))}</b>　${e(m.n)}　<span class=m>預計 ${m.eta}</span></div>`).join(''))+sec(`追加單待業主簽認（${un.length}）`,un.map(a=>`<div class=r><b>${e(cn(a.c))}</b>　${e(a.n)}　<span class=m>追加日 ${a.d}（已 ${dd(a.d,T)} 天）</span></div>`).join(''))||'<span class=m>目前沒有需要處理的事項</span>'}</div>
+<div class=g2><div class=p><h3>今日施作（${td.length}）</h3>${td.length?`<table><tr><th>案場<th>任務<th>工種<th>進度</tr>${td.map(t=>`<tr ${go(t)}><td>${nm(t)}<td>${e(t.n)}<td>${e(t.w)}<td>${prog(t)}%</tr>`).join('')}</table>`:'<span class=m>今天沒有排定的施作</span>'}</div>
+<div class=p><h3>未來 7 天即將開工（${nx.length}）</h3>${nx.map(t=>`<div class=r ${go(t)}><b>${nm(t)}</b>　${e(t.n)}　<span class=m>${t.s} 開始</span></div>`).join('')||'<span class=m>未來 7 天沒有排定的開工</span>'}</div></div>
+<div class=p style="margin-top:16px"><h3>各案待辦事項（心智圖）</h3>${bt.map(x=>`<div class=r onclick="openT(${x.c.id})" style="cursor:pointer"><b>${e(x.c.name)}</b>　剩 ${x.n} 項待辦</div>`).join('')||'<span class=m>目前沒有心智圖待辦</span>'}</div>
+<div class=p style="margin-top:16px"><h3>本週活躍工種（${Object.keys(ws).length}）</h3>${Object.entries(ws).map(([w,c])=>`<span class=chip>${e(w)}・${c} 項</span>`).join('')||'<span class=m>本週沒有進行中的工種</span>'}</div>`}
+function board(){const L=S.tasks.filter(t=>t.c&&(!flt||t.c==flt));
+return `<div class=bar><select onchange="flt=this.value;R()"><option value="">全部案件</option>${copts(flt)}</select></div>
+<form class=bar onsubmit="A('tasks',event)"><select name=c>${copts()}</select><input name=n placeholder="任務名稱" required>${tsel('w','','onchange="TNF(this)"')}<input type=date name=s value=${T}><input type=date name=e value=${T}><button>新增任務</button></form>
+<div class=cols>${Object.keys(ST).map(s=>`<div class=col><h4 class=${s}>${ST[s]}（${L.filter(t=>t.st==s).length}）</h4>${L.filter(t=>t.st==s).map(t=>`<div class=cd><small>${e(cn(t.c))}</small><div>${e(t.n)}</div><small>${e(t.w)}　${t.s} ~ ${t.e}</small><div class=bar style="margin:8px 0 0"><select onchange="U('tasks',${t.id},'st',this.value)">${Object.keys(ST).map(x=>`<option value=${x} ${x==s?'selected':''}>${ST[x]}</option>`).join('')}</select><button class=x onclick="X('tasks',${t.id})">刪除</button></div></div>`).join('')}</div>`).join('')}</div>`}
+function cases(){if(cur){const c=S.cases.find(x=>x.id==cur),ts=S.tasks.filter(t=>t.c==cur),dn=ts.filter(t=>t.st=='done').length,pr=ts.length?Math.round(dn/ts.length*100):0,pp=c.contract?Math.round(c.paid/c.contract*100):0;
+return `<button class=x onclick="cur=null;R()">返回案件列表</button><div class=p style="margin-top:12px"><h3>${e(c.name)}</h3><div class=bar style="margin:6px 0 0"><label>業主 <input value="${e(c.owner)}" placeholder="填寫業主姓名" onchange="U('cases',${c.id},'owner',this.value.trim())"></label></div><div class=bar style="margin-top:10px"><label>狀態 <select onchange="U('cases',${c.id},'st',this.value)">${opts(['洽談','設計','施工','完工'],c.st)}</select></label><label>合約開工日 <input type=date value="${c.cs||''}" onchange="U('cases',${c.id},'cs',this.value)"></label><label>合約完工日 <input type=date value="${c.ce||''}" onchange="U('cases',${c.id},'ce',this.value)"></label><label>案件顏色 <input type=color value="${cc(c.id)}" onchange="U('cases',${c.id},'col',this.value)" style="width:44px;height:32px;padding:0"></label></div>
+${c.cs&&c.ce&&c.ce>=c.cs?`<div class=m style="margin-bottom:8px">合約工期 ${dd(c.cs,c.ce)+1} 天，${c.ce>=T?'距合約完工還有 '+dd(T,c.ce)+' 天':'已超過合約完工日 '+dd(c.ce,T)+' 天'}</div>`:''}${progUI(c,ts,dn)}<details class=tg ${fin==c.id?'open':''} ontoggle="fin=this.open?${c.id}:null"><summary>財務與報價單 <small>合約金額、已收款、收款進度、簽約報價單</small></summary><div class=tgb>
+<div class=bar><label>合約金額 <input type=number value=${c.contract} onchange="U('cases',${c.id},'contract',+this.value)"></label><label>已收款 <input type=number value=${c.paid} onchange="U('cases',${c.id},'paid',+this.value)"></label></div>
+收款進度 ${pp}%<div class=pb><i style="width:${pp}%"></i></div>
+<div><b>簽約報價單</b>${(c.qt||[]).map(q=>`<div class=r><a href="#" data-i="${q.id}" data-n="${e(q.n)}" onclick="VQ(event,this.dataset.i,this.dataset.n)">${e(q.n)}</a>　<small>${q.d}</small> <button class=x onclick="QD(${c.id},'${q.id}')">刪除</button></div>`).join('')||'<div class=m>尚未上傳</div>'}
+<label class=x style="cursor:pointer;display:inline-block;margin-top:8px">＋ 上傳報價單<input type=file accept=".pdf,.csv,image/*" hidden onchange="QU(${c.id},this)"></label>
+<div class=m style="margin-top:6px">可上傳 PDF、圖片或 CSV，單檔 20MB 以內。Excel（.xlsx）無法直接上傳，請先另存成 PDF。</div></div></div></details>
+<details class=tg ${dwo==c.id?'open':''} ontoggle="dwo=this.open?${c.id}:null"><summary>空間圖面規劃 <small>${(c.dw||[]).length?(c.dw.length+' 份圖面'):'平面圖、立面圖、施工圖等 PDF'}</small></summary><div class=tgb>
+${(c.dw||[]).map(q=>`<div class=r><a href="#" data-i="${q.id}" data-n="${e(q.n)}" onclick="VQ(event,this.dataset.i,this.dataset.n)">${e(q.n)}</a>　<small>${q.d}</small> <button class=x onclick="DWD(${c.id},'${q.id}')">刪除</button></div>`).join('')||'<div class=m>尚未上傳</div>'}
+<label class=x style="cursor:pointer;display:inline-block;margin-top:8px">＋ 上傳圖面 PDF<input type=file accept=".pdf" multiple hidden onchange="DWU(${c.id},this)"></label>
+<div class=m style="margin-top:6px">可一次選多個 PDF，單檔 20MB 以內。</div></div></details>${diUI(c)}</div>
+${qpanel(c)}${addonPanel(c)}${mind(c)}<div class=p><h3>日期進度表</h3><div class=m style="margin-bottom:8px">拖曳橫條改日期，拖左右兩端改開始或結束日。</div><div class=gw>${gantt(ts,[c])}</div></div>
+<div class=p><h3>任務與細項</h3><div class=m style="margin-bottom:8px">工種可從下拉選單挑選，也可選「＋ 新增工種…」自訂。</div>${ts.map(tcard).join('')}<form class=bar onsubmit="A('tasks',event)"><input type=hidden name=c value=${c.id}><input name=n placeholder="新任務名稱" required>${tsel('w','','onchange="TNF(this)"')}<input type=date name=s value=${T}><input type=date name=e value=${T}><button>新增任務</button></form></div>${dbtn(c.id)}`}
+return `<form class=bar onsubmit="A('cases',event)"><input name=name placeholder="案名" required><input name=owner placeholder="業主"><input type=number name=contract placeholder="合約金額"><button>新增案件</button></form>
+<div class=p><table><tr><th>案名<th>業主<th>狀態<th>合約金額<th>已收款<th>工程進度<th></tr>${S.cases.map(c=>`<tr onclick="cur=${c.id};R()"><td>${e(c.name)}<td>${e(c.owner)}<td>${c.st}<td>${M(c.contract)}<td>${M(c.paid)}<td>${cp(c).p}%<td>${dbtn(c.id)}</tr>`).join('')}</table></div>${trashUI()}`}
+function chk(){return `<form class=bar onsubmit="A('checks',event)"><select name=c>${copts()}</select><input name=n placeholder="檢核項目" required size=30><button>新增檢核</button></form><div class=p>${S.checks.map(k=>`<div class=r><b>${e(cn(k.c))}</b>　${e(k.n)}　<select onchange="U('checks',${k.id},'st',this.value)">${opts(['待檢','通過','不通過'],k.st)}</select> <button class=x onclick="X('checks',${k.id})">刪除</button></div>`).join('')||'<span class=m>還沒有檢核項目</span>'}</div>`}
+function mat(){return `<form class=bar onsubmit="A('mats',event)"><select name=c>${copts()}</select><input name=n placeholder="備料項目" required><input type=date name=eta value=${T}><button>新增備料</button></form><div class=p>${S.mats.map(k=>`<div class=r><b>${e(cn(k.c))}</b>　${e(k.n)}　<span class=m>預計到貨 ${k.eta}</span>　<select onchange="U('mats',${k.id},'st',this.value)">${opts(['已訂','到貨','已使用'],k.st)}</select> <button class=x onclick="X('mats',${k.id})">刪除</button></div>`).join('')||'<span class=m>還沒有備料項目</span>'}</div>`}
+const W=26,dd=(a,b)=>Math.round((new Date(b)-new Date(a))/864e5),task=id=>S.tasks.find(t=>t.id==id),prog=t=>t.sub.length?Math.round(t.sub.filter(x=>x.done).length/t.sub.length*100):(t.st=='done'?100:0);
+function SA(id,ev){ev.preventDefault();const f=new FormData(ev.target);task(id).sub.push({id:Date.now(),n:f.get('n'),d:f.get('d')||T,done:false});save();R()}
+function SB(tid,id,f,v){task(tid).sub.find(x=>x.id==id)[f]=v;save();R()}
+function SX(tid,id){const t=task(tid);t.sub=t.sub.filter(x=>x.id!=id);save();R()}
+function openT(c){V='cases';cur=c;R();window.scrollTo(0,0)}
+function gantt(L,cs){const gs=cs.map(c=>[c,L.filter(t=>t.c==c.id)]).filter(g=>g[1].length);if(!gs.length)return '<span class=m>還沒有任務，新增後會顯示在這裡</span>';
+const lo=Math.min(0,...L.map(t=>dd(T,t.s)))-2,hi=Math.max(0,...L.map(t=>dd(T,t.e)))+2,n=hi-lo+1,w=n*W,X0=a=>(dd(T,a)-lo)*W,
+hd=Array.from({length:n},(_,i)=>{const d=D(lo+i),g=new Date(d).getUTCDay();return `<div class="dc ${g%6?'':'we'} ${d==T?'td':''}"><small>${+d.slice(8)==1||!i?(+d.slice(5,7))+'月':''}</small>${+d.slice(8)}</div>`}).join(''),
+row=(l,b)=>`<div class=gr><div class=gl>${l}</div><div class=gt style="width:${w}px"><i class=tl style="left:${X0(T)+W/2}px"></i>${b}</div></div>`;
+return `<div style="width:${150+w}px"><div class=gr><div class=gl></div><div class=gh style="width:${w}px">${hd}</div></div>`+gs.map(([c,ts])=>{const a=Math.min(...ts.map(t=>X0(t.s))),b=Math.max(...ts.map(t=>X0(t.e)+W));return (cs.length>1?row(`<b>${e(c.name)}</b>`,`<div class=cb style="left:${a}px;width:${b-a}px"></div>`):'')+ts.map(t=>row(e(t.n),`<div class="bb ${t.st}" style="left:${X0(t.s)}px;width:${(dd(t.s,t.e)+1)*W}px" onpointerdown="DG(event,${t.id})" title="${e(t.n)} ${prog(t)}%"><i style="width:${prog(t)}%"></i><span>${prog(t)}%</span></div>`)).join('')}).join('')+'</div>'}
+function plan(){return `<div class=p><h3>公司總進度表</h3><div class=m style="margin-bottom:8px">紅線是今天。拖曳橫條可改日期，拖左右兩端可改開始或結束日，點一下進入該案件。</div><div class=gw>${gantt(S.tasks,S.cases)}</div></div>`}
+const subs=(t,f)=>t.sub.filter(f).map(x=>`<div class=r><label><input type=checkbox ${x.done?'checked':''} onchange="SB(${t.id},${x.id},'done',this.checked)"> <span style="${x.done?'text-decoration:line-through;color:var(--m)':''}">${e(x.n)}</span></label> <small>${x.d}</small> <button class=x onclick="SX(${t.id},${x.id})">刪</button><textarea rows=1 placeholder="備註（現場狀況、注意事項）" onchange="SN(${t.id},${x.id},this.value)" style="display:block;width:100%;margin-top:4px;font:inherit;font-size:13px;background:var(--c);color:var(--t);border:1px solid var(--l);border-radius:4px;padding:4px 8px">${e(x.note||'')}</textarea></div>`).join('');
+const tcard=t=>`<div class=cd><div class=bar style="margin:0"><b class=ed contenteditable="plaintext-only" onkeydown="EK(event)" onblur="EN('tasks',${t.id},'n',this.textContent,this)">${e(t.n)}</b><label class=m>工種 ${tsel(null,t.w,`onchange="TW(${t.id},this)"`)}</label><label class=m>開始 <input type=date value="${t.s}" onchange="TD(${t.id},'s',this.value)"></label><label class=m>結束 <input type=date value="${t.e}" onchange="TD(${t.id},'e',this.value)"></label><small>進度 ${prog(t)}%</small><select onchange="U('tasks',${t.id},'st',this.value)">${Object.keys(ST).map(x=>`<option value=${x} ${x==t.st?'selected':''}>${ST[x]}</option>`).join('')}</select><button class=x onclick="X('tasks',${t.id})">刪除</button></div>${subs({id:t.id,sub:[...t.sub].sort((a,b)=>a.d<b.d?-1:1)},()=>true)}<form class=bar style="margin:6px 0 0" onsubmit="SA(${t.id},event)"><input name=n placeholder="新增細項" required><input type=date name=d value=${T}><button>加入</button></form></div>`;
+const tday=(t,d)=>`<div class=cd id="tk_${t.id}" data-np="${t.np||''}">${kbBox(t)}<div class=bar style="margin:0"><b class=ed contenteditable="plaintext-only" onkeydown="EK(event)" onblur="EN('tasks',${t.id},'n',this.textContent,this)">${e(t.n)}</b><select onchange="U('tasks',${t.id},'st',this.value)">${Object.keys(ST).map(x=>`<option value=${x} ${x==t.st?'selected':''}>${SI[x]} ${ST[x]}</option>`).join('')}</select><select title="案件" onchange="U('tasks',${t.id},'c',+this.value)"><option value=0 ${t.c===0?'selected':''}>其他行程（Notion）</option>${copts(t.c)}</select>${tsel(null,t.w,`onchange="TW(${t.id},this)"`)}<label class=m>開始 <input type=date value="${t.s}" onchange="TD(${t.id},'s',this.value)"></label><label class=m>結束 <input type=date value="${t.e}" onchange="TD(${t.id},'e',this.value)"></label><small>進度 ${prog(t)}%</small>${t.np?`<a class=m href="https://www.notion.so/${t.np}" target=_blank rel=noopener>Notion</a>`:''}<button class=x onclick="if(confirm('刪除「${e(t.n).replace(/'/g,'')}」？（可在案件頁的最近刪除復原）'))X('tasks',${t.id})">刪除</button></div>${subs(t,x=>x.d==d)||'<small>這一天還沒有填寫內容</small>'}<form class=bar style="margin:6px 0 0" onsubmit="SA(${t.id},event)"><input name=n placeholder="當天的工作內容" required><input type=hidden name=d value=${d}><button>加入</button></form>${logUI(t,d)}</div>`;
+let dsel='';
+function day(){if(NS.on)setTimeout(()=>npull(),0);const d=dsel||T;PRM(d);const sh=n=>`dsel=D(${dd(T,d)+n});R()`,act=S.tasks.filter(t=>(t.s<=d&&t.e>=d)||t.sub.some(x=>x.d==d)||S.logs[t.id+'|'+d]),ev=NEV.filter(x=>x.s<=d&&x.e>=d),dt=new Date(d+'T00:00:00Z'),h=HOL(d);
+return `<div class=bar><button class=x onclick="${sh(-1)}">前一天</button><input type=date value=${d} onchange="dsel=this.value;R()"><button class=x onclick="${sh(1)}">後一天</button><button class=x onclick="dsel='';R()">今天</button><b style="font-size:18px;margin-left:8px">${dt.getUTCMonth()+1} 月 ${dt.getUTCDate()} 日 週${wd[dt.getUTCDay()]}</b>${h?`<span style="color:var(--bad)">${h}</span>`:''}${NS.on?`<span class=m>🔗 與日曆、Notion 同步${NS.busy?'・同步中…':''}</span>`:''}</div>
+<form class="bar p" style="padding:10px 14px" onsubmit="csel='${d}';CA(event)"><input name=n placeholder="新增當天安排，例如：泥作打底" required style="flex:1;min-width:180px"><select name=c>${copts(cfl)}${NS.on?'<option value=n>📅 其他行程（只放 Notion）</option>':''}</select>${tsel('w','','onchange="TNF(this)"')}<label class=m>連續到 <input type=date name=e min="${d}"></label><button>加入 ${d.slice(5).replace('-','/')}</button></form>`
++(S.cases.map(c=>{const L=act.filter(t=>t.c==c.id);return L.length?`<div class=p><h3><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${cc(c.id)};margin-right:6px"></span>${e(c.name)}</h3>${L.map(t=>tday(t,d)).join('')}</div>`:''}).join(''))
++(act.some(t=>t.c===0)?`<div class=p><h3><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#e4e1ea;margin-right:6px"></span>其他行程（Notion）</h3>${act.filter(t=>t.c===0).map(t=>tday(t,d)).join('')}</div>`:'')
++(ev.length?`<div class=p><h3>其他行程（Notion）</h3>${ev.map(x=>`<div class=cd><div class=bar style="margin:0"><b class=ed contenteditable="plaintext-only" onkeydown="EK(event)" onblur="NRN('${x.np}',this.textContent)">${e(x.n)}</b><select onchange="NST('${x.np}',this.value)">${['todo','doing','done'].map(k=>`<option value=${k} ${k==x.st?'selected':''}>${SI[k]} ${ST[k]}</option>`).join('')}</select><label class=m>開始 <input type=date value="${x.s}" onchange="NTD('${x.np}','s',this.value)"></label><label class=m>結束 <input type=date value="${x.e}" onchange="NTD('${x.np}','e',this.value)"></label><a class=m href="https://www.notion.so/${x.np}" target=_blank rel=noopener>在 Notion 開啟</a><button class=x onclick="if(confirm('刪除「${e(x.n).replace(/'/g,'')}」？（Notion 上會移到垃圾桶）'))NDEL('${x.np}')">刪除</button></div></div>`).join('')}</div>`:'')
++(!act.length&&!ev.length?'<div class=p><span class=m>這一天沒有排定的任務</span></div>':'')}
+function PRM(d){if(!NS.ready)return;const L=NEV.filter(x=>x.s<=d&&x.e>=d);if(!L.length)return;L.forEach((x,i)=>S.tasks.push({id:Date.now()+i,c:0,n:x.n,w:'',s:x.s,e:x.e,st:x.st,sub:[],np:x.np,nh:null}));NEV=NEV.filter(x=>!L.includes(x));save()}
+function GOT(ev,id,np,d0,n){const r=ev.currentTarget.getBoundingClientRect(),k=Math.min(n-1,Math.max(0,Math.floor((ev.clientX-r.left)/(r.width/n)))),d=shd(d0,k);GOD(id,np,d)}
+function GOD(id,np,d){V='day';dsel=d;csel=d;R();window.scrollTo(0,0);
+setTimeout(()=>{const el=document.getElementById('tk_'+id)||(np&&document.querySelector('[data-np="'+np+'"]'));if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),2200)}},60)}
+function NRN(np,v){v=v.trim();const x=NEV.find(z=>z.np==np);if(!x||!v||v==x.n)return;x.n=v;NUP(np,{Name:v})}
+function NST(np,v){const x=NEV.find(z=>z.np==np);if(!x)return;x.st=v;R();NUP(np,{'狀態':nst(v)})}
+const shd=(d,n)=>D(dd(T,d)+n);
+function DG(ev,id){const t=task(id),b=ev.currentTarget,r=b.getBoundingClientRect(),x0=ev.clientX,m=ev.clientX-r.left<8?'s':r.right-ev.clientX<8?'e':'m',L0=b.offsetLeft,W0=b.offsetWidth;let dn=0,mv=0;b.setPointerCapture(ev.pointerId);
+b.onpointermove=v=>{const dx=v.clientX-x0;if(Math.abs(dx)>3)mv=1;dn=Math.round(dx/W);if(m=='m')b.style.left=L0+dn*W+'px';else if(m=='s'){dn=Math.min(dn,W0/W-1);b.style.left=L0+dn*W+'px';b.style.width=W0-dn*W+'px'}else{dn=Math.max(dn,1-W0/W);b.style.width=W0+dn*W+'px'}};
+b.onpointercancel=()=>R();
+b.onpointerup=()=>{b.onpointermove=b.onpointerup=null;if(!mv){openT(t.c);return}if(dn){if(m!='e')t.s=shd(t.s,dn);if(m!='s')t.e=shd(t.e,dn);save()}R()}}
+const lg=(t,d)=>S.logs[t.id+'|'+d]||{n:'',p:[]};
+let LE={};
+const logUI=(t,d)=>{const k=t.id+'|'+d,n=lg(t,d).n,ed=LE[k]||!n;return `<div style="margin-top:8px">${ed?`<textarea id="ln_${t.id}_${d}" placeholder="當天備註（現場狀況、問題、決議）" style="width:100%;min-height:54px;font:inherit;background:var(--c);color:var(--t);border:1px solid var(--l);border-radius:4px;padding:6px 8px">${e(n)}</textarea><div class=bar style="margin:4px 0 0"><button class=pri onclick="LNC(${t.id},'${d}')">確認備註</button>${n?`<button class=x onclick="LE['${k}']=0;R()">取消</button>`:''}</div>`:`<div style="background:var(--bg);border-radius:6px;padding:8px 10px;white-space:pre-wrap;font-size:14px"><small class=m>當天備註</small><br>${e(n)}</div><div class=bar style="margin:4px 0 0"><button class=x onclick="LE['${k}']=1;R()">編輯備註</button><button class=x onclick="KBF={tid:${t.id},d:'${d}'};R()">⭐ 存成經驗</button>${t.np?'<small class=m>已同步到 Notion</small>':''}</div>`}${KBF&&KBF.tid==t.id&&KBF.d==d?`<div class=p style="margin-top:8px;border:1px dashed var(--a)">${kbForm({w:t.w,k:t.n,sol:n,src:(cn(t.c)||'其他行程')+'・'+t.n+'・'+d,cancel:'KBF=null;R()'},'KBA(event)')}</div>`:''}</div><div class=bar>${lg(t,d).p.map((u,i)=>`<span class=th><img src="${ps(u)}" onclick="PV(this.src)"><button class=x onclick="LD(${t.id},'${d}',${i})">×</button></span>`).join('')}<label class=x style="cursor:pointer">＋ 照片<input type=file accept="image/*" multiple hidden onchange="LP(${t.id},'${d}',this)"></label></div>`};
+function LNC(id,d){const el=document.getElementById('ln_'+id+'_'+d);if(!el)return;LG(id,d).n=el.value.trim();LE[id+'|'+d]=0;save();R()}
+function LG(id,d){const k=id+'|'+d;return S.logs[k]||(S.logs[k]={n:'',p:[]})}
+function LN(id,d,v){LG(id,d).n=v;save()}
+function LD(id,d,i){const x=LG(id,d).p.splice(i,1)[0];if(AS&&x&&!x.startsWith('data:'))AS.delete(x).catch(()=>{});save();R();meter()}
+function LP(id,d,inp){Promise.all([...inp.files].map(f=>new Promise(r=>{const i=new Image,u=URL.createObjectURL(f);i.onload=()=>{const k=Math.min(1,900/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(r,'image/jpeg',.7)};i.onerror=()=>r(null);i.src=u}))).then(async a=>{for(const b of a.filter(Boolean)){try{LG(id,d).p.push(AS?(await AS.upload(b)).id:await b2d(b))}catch(x){warn('照片上傳失敗，請稍後再試。')}}save();R();meter()})}
+function PV(src){const o=document.createElement('div');o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:9';o.onclick=()=>o.remove();o.innerHTML='<img src="'+src+'" style="max-width:95%;max-height:95%">';document.body.append(o)}
+const BC=['#1d6f7a','#c58a1b','#8a5fb0','#3f7d58','#b8432f','#2f6fb0'],bra=id=>S.branches.find(b=>b.id==id),left=b=>b.items.filter(i=>!i.done).length;
+function BA(ev,c){ev.preventDefault();S.branches.push({id:Date.now(),c,n:new FormData(ev.target).get('n'),items:[]});save();R()}
+function IA(ev,b){ev.preventDefault();bra(b).items.push({id:Date.now(),n:new FormData(ev.target).get('n'),done:false});save();R()}
+function IB(b,i,v){bra(b).items.find(x=>x.id==i).done=v;save();R()}
+function ID(b,i){const B=bra(b);B.items=B.items.filter(x=>x.id!=i);save();R()}
+function mind(c){const bs=S.branches.filter(b=>b.c==c.id),tot=bs.reduce((a,b)=>a+left(b),0);
+return `<div class=p><h3>待辦心智圖</h3><div class=m style="margin-bottom:8px">把這個案子要處理的事，依工種或項目分成分支，勾選代表已完成。點任何名稱（案名、分支、待辦）都能直接修改，按 Enter 完成。</div><div class=gw><div class=mm><div class=mr><span class=ed contenteditable="plaintext-only" onkeydown="EK(event)" onblur="EN('cases',${c.id},'name',this.textContent,this)">${e(c.name)}</span><small style="display:block;font-weight:400">還有 ${tot} 項待辦</small></div><div class=mb>${bs.map((b,i)=>`<div class=mbr style="--bc:${BC[i%6]}"><div class=bn><span class=ed contenteditable="plaintext-only" onkeydown="EK(event)" onblur="EN('branches',${b.id},'n',this.textContent,this)">${e(b.n)}</span><small>剩 ${left(b)} / ${b.items.length} 項</small><button class=x style="margin-top:4px" onclick="X('branches',${b.id})">刪除分支</button></div><div class=bi>${b.items.map(t=>`<div class=it><span><input type=checkbox ${t.done?'checked':''} onchange="IB(${b.id},${t.id},this.checked)"> <span class=ed contenteditable="plaintext-only" onkeydown="EK(event)" onblur="EI(${b.id},${t.id},this.textContent,this)" style="${t.done?'text-decoration:line-through;color:var(--m)':''}">${e(t.n)}</span></span><button class=x onclick="ID(${b.id},${t.id})">刪</button></div>`).join('')}<form class=bar style="margin:4px 0 0" onsubmit="IA(event,${b.id})"><input name=n placeholder="新增待辦" required size=16><button>＋</button></form></div></div>`).join('')}<form class=bar style="margin:0" onsubmit="BA(event,${c.id})"><input name=n placeholder="新增分支（例如：水電、磁磚）" required size=24><button>新增分支</button></form></div></div></div></div>`}
+function EK(ev){if(ev.key=='Enter'){ev.preventDefault();ev.target.blur()}}
+function EN(k,id,f,v,el){v=v.trim();const r=S[k].find(x=>x.id==id);if(!v){el.textContent=r[f];return}if(v!=r[f]){r[f]=v;save()}}
+function EI(b,i,v,el){const t=bra(b).items.find(x=>x.id==i);v=v.trim();if(!v){el.textContent=t.n;return}if(v!=t.n){t.n=v;save()}}
+async function QU(cid,inp){const f=inp.files[0];if(!f)return;const x=(f.name.split('.').pop()||'').toLowerCase(),T0={pdf:'application/pdf',csv:'text/csv'},t=T0[x]||(f.type.startsWith('image/')?f.type:'');
+if(/^xlsx?$/.test(x)){warn('Excel 檔無法直接上傳，請先另存成 PDF 再上傳。');return}
+if(!t){warn('只能上傳 PDF、圖片或 CSV 檔。');return}if(f.size>20*1048576){warn('檔案超過 20MB，請先壓縮。');return}
+if(!AS){warn('目前未連上雲端，無法上傳檔案。');return}
+try{const u=await AS.upload(f,{type:t}),c=S.cases.find(y=>y.id==cid);(c.qt=c.qt||[]).push({id:u.id,n:f.name,d:T});save();warn('')}catch(err){warn('報價單上傳失敗，請稍後再試。')}R();meter()}
+const hbMiss=i=>[['sp','規格'],['cp','使用重點'],['u','說明書'],['s','客服']].filter(([k])=>!i[k]).map(x=>x[1]).join('、');
+let dio=null,dis={};
+const MTC=['磁磚','木皮','系統板','油漆','石材','五金','其他'];
+const dsec=(c,k,title,sub,body)=>`<details class=dsg ${dis[c.id+k]?'open':''} ontoggle="dis['${c.id+k}']=this.open"><summary><b>${title}</b> <small class=m>${sub}</small></summary><div class=tgb>${body}</div></details>`;
+function diUI(c){const d=c.di||{},f=(k,l,ph,w)=>`<label class=dif style="${w?'grid-column:span '+w:''}"><span>${l}</span><input value="${e(d[k]||'')}" placeholder="${ph||''}" onchange="DI(${c.id},'${k}',this.value)"></label>`,
+mt=c.mt||[],h=hbd(c.id),eqn=h.rooms.reduce((a,r)=>a+r.items.length,0),filled=['addr','pin','pq','age','rm','fl'].filter(k=>d[k]).length;
+const basic=`<div class=dig>${f('addr','地址','新北市三重區…',3)}${f('pin','室內坪數','例：28')}${f('pq','權狀坪數','例：35')}${f('age','屋齡','例：25 年')}${f('rm','格局','例：3 房 2 廳 2 衛')}${f('fl','樓層','例：3F／共 7F')}<label class=dif><span>電梯</span><select onchange="DI(${c.id},'el',this.value)">${['','有電梯','無電梯'].map(x=>`<option ${x==(d.el||'')?'selected':''} value="${x}">${x||'未填'}</option>`).join('')}</select></label>${f('note','其他備註','例：管委會限平日 9–17 施工',3)}</div>`;
+const mats=`${MTC.map(cat=>{const L=mt.filter(x=>x.cat==cat);return L.length?`<div class=mtg><small class=m>${cat}</small>${L.map(x=>`<div class=mtr><input value="${e(x.sp||'')}" placeholder="使用位置" onchange="DMU(${c.id},${x.id},'sp',this.value)"><input value="${e(x.b||'')}" placeholder="品牌" onchange="DMU(${c.id},${x.id},'b',this.value)"><input value="${e(x.m||'')}" placeholder="型號／色號" onchange="DMU(${c.id},${x.id},'m',this.value)"><input value="${e(x.nt||'')}" placeholder="備註（尺寸、數量、廠商）" onchange="DMU(${c.id},${x.id},'nt',this.value)"><button class=x onclick="DMD(${c.id},${x.id})">刪</button></div>`).join('')}</div>`:''}).join('')||'<div class=m>還沒有建材資料</div>'}
+<form class=bar style="margin-top:8px" onsubmit="DMA(event,${c.id})"><select name=cat>${MTC.map(x=>`<option>${x}</option>`).join('')}</select><input name=sp placeholder="使用位置（例：客浴壁面）"><input name=b placeholder="品牌"><input name=m placeholder="型號／色號" required><button>＋ 新增</button></form>`;
+const eq=`${h.rooms.filter(r=>r.items.length).map(r=>`<div class=mtg><small class=m>${e(r.n)}</small>${r.items.map(i=>`<div class=mtr><input value="${e(i.n)}" placeholder="設備" onchange="DEU(${c.id},${r.id},${i.id},'n',this.value)"><input value="${e(i.b||'')}" placeholder="品牌" onchange="DEU(${c.id},${r.id},${i.id},'b',this.value)"><input value="${e(i.m||'')}" placeholder="型號" onchange="DEU(${c.id},${r.id},${i.id},'m',this.value)"><span class=m style="font-size:12px">${hbMiss(i)?'⏳ 缺：'+hbMiss(i):'✅ 手冊資料齊全'}</span><button class=x onclick="DED(${c.id},${r.id},${i.id})">刪</button></div>${i.pr||i.nt||i.st?`<div class=m style="font-size:12px;margin:-2px 0 6px 4px">${[i.st&&(i.st=='已確認'?'✅ ':'⚠️ ')+e(i.st),i.pr&&e(i.pr),i.nt&&'確認事項：'+e(i.nt)].filter(Boolean).join('　')}</div>`:''}`).join('')}</div>`).join('')||'<div class=m>還沒有設備</div>'}
+<form class=bar style="margin-top:8px" onsubmit="DEA(event,${c.id})"><input name=r list=hbrl2 placeholder="空間（例：廚房）" required size=8><datalist id=hbrl2>${Object.keys(HBR).map(x=>`<option>${x}</option>`).join('')}</datalist><input name=n list=hbil2 placeholder="設備（例：IH 調理爐）" required><datalist id=hbil2>${HBI.map(x=>`<option>${x}</option>`).join('')}</datalist><input name=b placeholder="品牌"><input name=m placeholder="型號"><button>＋ 新增</button></form>
+<div class=m style="margin-top:6px">這裡的設備與「完工小手冊」是同一份資料，缺少的資料可在 Claude 對話中請 Claude 搜尋原廠資料補上。<a href="#" onclick="event.preventDefault();hc=${c.id};V='hb';R()">到完工小手冊查看</a></div>`;
+return `<details class=tg ${dio==c.id?'open':''} ontoggle="dio=this.open?${c.id}:null"><summary>設計資訊 <small>基本資料${filled?'（已填 '+filled+' 項）':''}、建材 ${mt.length} 項、設備 ${eqn} 項</small></summary><div class=tgb>
+${dsec(c,'b','🏠 基本資料','地址、坪數、屋齡、格局、樓層',basic)}${dsec(c,'m','🧱 建材與色號','磁磚、木皮／系統板、油漆、石材、五金',mats)}${dsec(c,'e','🔌 設備清單','廚具、衛浴、燈具、空調（與完工小手冊共用）',eq)}</div></details>`}
+const cs_=id=>S.cases.find(x=>x.id==id);
+function DI(id,k,v){const c=cs_(id);(c.di=c.di||{})[k]=v.trim();save()}
+function DMA(ev,id){ev.preventDefault();const o=Object.fromEntries(new FormData(ev.target)),c=cs_(id);(c.mt=c.mt||[]).push({id:Date.now(),cat:o.cat,sp:o.sp.trim(),b:o.b.trim(),m:o.m.trim(),nt:''});dis[id+'m']=1;save();R()}
+function DMU(id,mid,k,v){cs_(id).mt.find(x=>x.id==mid)[k]=v.trim();save()}
+function DMD(id,mid){const c=cs_(id);c.mt=c.mt.filter(x=>x.id!=mid);save();R()}
+function DEA(ev,id){ev.preventDefault();const o=Object.fromEntries(new FormData(ev.target)),h=hbd(id),rn=o.r.trim();let r=h.rooms.find(x=>x.n==rn);if(!r){r={id:Date.now(),n:rn,items:[]};h.rooms.push(r)}r.items.push({id:Date.now()+1,n:o.n.trim(),b:o.b.trim(),m:o.m.trim(),u:'',s:'',sp:'',cp:'',ph:''});dis[id+'e']=1;save();R()}
+function DEU(id,rid,iid,k,v){hbd(id).rooms.find(r=>r.id==rid).items.find(i=>i.id==iid)[k]=v.trim();save()}
+function DED(id,rid,iid){if(!confirm('刪除這項設備？（完工小手冊也會一起刪除）'))return;const r=hbd(id).rooms.find(r=>r.id==rid);r.items=r.items.filter(i=>i.id!=iid);save();R()}
+let dwo=null;
+async function DWU(cid,inp){const F=[...inp.files];if(!F.length)return;if(!AS){warn('目前未連上雲端，無法上傳檔案。');return}const c=S.cases.find(y=>y.id==cid);c.dw=c.dw||[];let bad=0;
+for(const f of F){if(!/\.pdf$/i.test(f.name)){warn('空間圖面規劃只能上傳 PDF 檔：'+f.name);bad=1;continue}if(f.size>20*1048576){warn('檔案超過 20MB，請先壓縮：'+f.name);bad=1;continue}
+try{const u=await AS.upload(f,{type:'application/pdf'});c.dw.push({id:u.id,n:f.name,d:T})}catch(err){warn('圖面上傳失敗：'+f.name);bad=1}}
+if(!bad)warn('');dwo=cid;save();R();meter()}
+function DWD(cid,id){const c=S.cases.find(y=>y.id==cid);c.dw=(c.dw||[]).filter(q=>q.id!=id);if(AS)AS.delete(id).catch(()=>{});save();R();meter()}
+function QD(cid,id){const c=S.cases.find(y=>y.id==cid);c.qt=(c.qt||[]).filter(q=>q.id!=id);if(AS)AS.delete(id).catch(()=>{});save();R();meter()}
+function VQ(ev,id,n){ev.preventDefault();const x=n.split('.').pop().toLowerCase(),o=document.createElement('div');
+o.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9;display:flex;flex-direction:column';
+o.innerHTML=`<div style="background:#1f2a33;color:#fff;padding:10px 16px;display:flex;justify-content:space-between;gap:12px"><span>${e(n)}</span><button class=x style="color:#fff;border-color:#4b5b66" onclick="this.parentNode.parentNode.remove()">關閉</button></div><div class=vb style="flex:1;overflow:auto;padding:12px;text-align:center;color:#fff">載入中…</div>`;
+document.body.append(o);const b=o.querySelector('.vb');
+if(x=='pdf')(async()=>{try{if(!window.pdfjsLib){await new Promise((ok,no)=>{const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';s.onload=ok;s.onerror=no;document.head.append(s)});pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'}
+const buf=await(await fetch(ps(id))).arrayBuffer(),doc=await pdfjsLib.getDocument({data:buf}).promise;b.innerHTML='';
+for(let i=1;i<=doc.numPages;i++){const pg=await doc.getPage(i),w=Math.min(b.clientWidth-24,900),sc=w/pg.getViewport({scale:1}).width,dp=window.devicePixelRatio||1,v=pg.getViewport({scale:sc*dp}),c=document.createElement('canvas');c.width=v.width;c.height=v.height;c.style.cssText='width:'+w+'px;height:auto;max-width:100%;background:#fff;margin:0 auto 12px;display:block';b.append(c);await pg.render({canvasContext:c.getContext('2d'),viewport:v}).promise}}catch(err){b.textContent='無法在頁面內預覽這份 PDF（'+(err&&err.message||err)+'）'}})();
+else if(x=='csv')fetch(ps(id)).then(r=>r.text()).then(t=>{b.innerHTML='<pre style="text-align:left;background:var(--c);color:var(--t);padding:12px;overflow:auto;white-space:pre-wrap">'+e(t)+'</pre>'}).catch(()=>{b.textContent='無法讀取這個檔案'});
+else b.innerHTML='<img src="'+ps(id)+'" style="max-width:100%">'}
+let cm=T.slice(0,7),csel=T,cfl='';
+const wd='日一二三四五六',SI={todo:'⏳',doing:'🔨',stuck:'🚧',done:'✅'},CC=['#bfe3ea','#ddd0f0','#f7cfc4','#cde8d3','#f8e3b0','#c8dcf5','#f2c9df','#d9dfe3'],cc=id=>{const c=S.cases.find(x=>x.id==id);return(c&&c.col)||CC[Math.abs(+id)%CC.length]},tc=h=>{const n=parseInt(h.slice(1),16),l=(0.299*(n>>16)+0.587*((n>>8)&255)+0.114*(n&255))/255;return l>0.62?'#1f2a33':'#fff'};
+function CA(ev){ev.preventDefault();const f=new FormData(ev.target);let e2=f.get('e')||csel;if(e2<csel)e2=csel;if(f.get('c')=='n'){if(!MC){warn('目前沒有連上 Notion，無法新增其他行程。');return}const n=f.get('n');NEV.push({id:'ntmp'+Date.now(),nv:1,n,s:csel,e:e2,st:'todo',c:null});R();ncall('notion-create-pages',{parent:{data_source_id:NDS},pages:[{properties:{Name:n,'date:Date:start':csel,'date:Date:end':e2>csel?e2:null,'date:Date:is_datetime':0,'狀態':'未開始'}}]}).then(()=>{NS.at=0;npull(1)}).catch(x=>{NS.err=nerr(x);R()});return}S.tasks.push({id:Date.now(),c:+f.get('c'),n:f.get('n'),w:f.get('w')||'',s:csel,e:e2,st:'todo',sub:[]});save();R()}
+const HOLR=[['2026-01-01','2026-01-01','元旦'],['2026-02-14','2026-02-22','春節連假',{'2026-02-15':'小年夜','2026-02-16':'除夕','2026-02-17':'春節'}],['2026-02-27','2026-03-01','和平紀念日連假',{'2026-02-28':'和平紀念日'}],['2026-04-03','2026-04-06','兒童節清明節連假',{'2026-04-04':'兒童節','2026-04-05':'清明節'}],['2026-05-01','2026-05-03','勞動節連假',{'2026-05-01':'勞動節'}],['2026-06-19','2026-06-21','端午節連假',{'2026-06-19':'端午節'}],['2026-09-25','2026-09-28','中秋教師節連假',{'2026-09-25':'中秋節','2026-09-28':'教師節'}],['2026-10-09','2026-10-11','國慶日連假',{'2026-10-10':'國慶日'}],['2026-10-24','2026-10-26','光復節連假',{'2026-10-25':'光復節'}],['2026-12-25','2026-12-27','行憲紀念日連假',{'2026-12-25':'行憲紀念日'}],
+['2027-01-01','2027-01-03','元旦連假',{'2027-01-01':'元旦'}],['2027-02-04','2027-02-10','春節連假',{'2027-02-04':'小年夜','2027-02-05':'除夕','2027-02-06':'春節'}],['2027-02-27','2027-03-01','和平紀念日連假',{'2027-02-28':'和平紀念日'}],['2027-04-03','2027-04-06','兒童節清明節連假',{'2027-04-04':'兒童節','2027-04-05':'清明節'}],['2027-04-30','2027-05-02','勞動節連假',{'2027-05-01':'勞動節'}],['2027-06-09','2027-06-09','端午節'],['2027-09-15','2027-09-15','中秋節'],['2027-09-28','2027-09-28','教師節'],['2027-10-09','2027-10-11','國慶日連假',{'2027-10-10':'國慶日'}],['2027-10-23','2027-10-25','光復節連假',{'2027-10-25':'光復節'}],['2027-12-24','2027-12-26','行憲紀念日連假',{'2027-12-25':'行憲紀念日'}],['2027-12-31','2028-01-02','元旦連假',{'2028-01-01':'元旦'}]],
+HOL=d=>{for(const [a,b,n,sp] of HOLR)if(d>=a&&d<=b)return (sp&&sp[d])||n;return ''};
+let ced=null;
+function cal(){if(NS.on)setTimeout(()=>npull(),0);const [y,m]=cm.split('-').map(Number),L=S.tasks.filter(t=>!cfl||t.c==cfl).concat(cfl?[]:NEV),NC='#e4e1ea',bg=t=>t.nv||t.c===0?NC:cc(t.c),
+on=d=>L.filter(t=>t.s<=d&&t.e>=d).sort((a,b)=>a.s<b.s?-1:a.s>b.s?1:(b.e>a.e?1:-1)),pm=n=>{const d=new Date(Date.UTC(y,m-1+n,1));return d.getUTCFullYear()+'-'+String(d.getUTCMonth()+1).padStart(2,'0')},
+ad=(d,n)=>{const x=new Date(d+'T00:00:00Z');x.setUTCDate(x.getUTCDate()+n);return x.toISOString().slice(0,10)},
+f0=(new Date(Date.UTC(y,m-1,1)).getUTCDay()+6)%7,nd=new Date(Date.UTC(y,m,0)).getUTCDate(),wk=Math.ceil((f0+nd)/7),st0=ad(cm+'-01',-f0),NL=4;
+let weeks='';
+for(let w=0;w<wk;w++){const ws=ad(st0,w*7),we=ad(ws,6),days=Array.from({length:7},(_,i)=>ad(ws,i));
+const ts=L.filter(t=>t.s<=we&&t.e>=ws).sort((a,b)=>(a.s<b.s?-1:a.s>b.s?1:(dd(a.s,a.e)>dd(b.s,b.e)?-1:1))),lanes=[],bars=[],hid=Array(7).fill(0);
+for(const t of ts){const s=t.s<ws?0:dd(ws,t.s),e2=t.e>we?6:dd(ws,t.e);let l=0;while(lanes[l]&&lanes[l].some(([a,b])=>!(e2<a||s>b)))l++;(lanes[l]=lanes[l]||[]).push([s,e2]);
+if(l<NL)bars.push(`<div class="kb ${t.st=='done'?'done':''} ${t.s<ws?'cl':''} ${t.e>we?'cr':''}" style="grid-column:${s+1}/${e2+2};grid-row:${l+2};background:${bg(t)};color:${tc(bg(t))}" title="${t.nv?'Notion 行程':e(cn(t.c))}｜${ST[t.st]}｜${e(t.n)}　${t.s} ~ ${t.e}" onclick="event.stopPropagation();GOT(event,'${t.id}','${t.np||''}','${days[s]}',${e2-s+1})">${SI[t.st]} ${e(t.n)}</div>`);else for(let i=s;i<=e2;i++)hid[i]++}
+weeks+=`<div class=cwk>${days.map((d,i)=>`<div class="kd ${d.slice(0,7)!=cm?'o':''} ${d==csel?'sel':''} ${i>=5||HOL(d)?'sun':''} ${HOL(d)?'hol':''}" style="grid-column:${i+1}" onclick="csel='${d}';ced=null;${d.slice(0,7)!=cm?`cm='${d.slice(0,7)}';`:''}R()"><span class="kn ${d==T?'tdy':''}">${+d.slice(8)}</span>${HOL(d)?`<small class=khol>${HOL(d)}</small>`:''}</div>`).join('')}${bars.join('')}${hid.map((n,i)=>n?`<small class=cmore style="grid-column:${i+1}">+${n}</small>`:'').join('')}</div>`}
+const sd=on(csel),dt=new Date(csel+'T00:00:00Z');
+return `<div class=chd><small>CALENDAR</small><h2>行程日曆</h2></div>
+<div class=cly><div>
+<div class=cnav><button class=cbtn onclick="cm='${pm(-1)}';R()">‹</button><b class=cym>${y} 年 ${m} 月</b><button class=cbtn onclick="cm='${pm(1)}';R()">›</button><button class=cbtn onclick="cm=T.slice(0,7);csel=T;R()">今天</button>
+<select onchange="cfl=this.value;R()"><option value="">全部案件</option>${copts(cfl)}</select></div>
+<div class=clg>${S.cases.map(c=>`<label title="點色塊換顏色"><input type=color value="${cc(c.id)}" onchange="U('cases',${c.id},'col',this.value)"><i style="background:${cc(c.id)}"></i>${e(c.name)}</label>`).join('')}${NS.on?`<label><i style="background:#e4e1ea"></i>其他行程（Notion）</label>`:''}<span class=m>⏳ 未開始　🔨 進行中　🚧 卡關　✅ 完成</span></div>
+<div class=m style="margin:-4px 0 10px">${NS.on?`🔗 已連結 Notion「每日記錄」（一個月前起的行程），雙向同步${NS.t?'・上次同步 '+NS.t:''}${NS.busy?'・同步中…':''} <button class=lk onclick="NS.at=0;npull(1)">立即同步</button>${NS.err?`<div style="color:var(--bad)">${e(NS.err)}</div>`:''}`:'Notion 同步需在 claude.ai 上開啟此頁面並允許使用 Notion。'}</div>
+<div class=cgr><div class=cwh>${[...'一二三四五六日'].map((x,i)=>`<div class="${i>=5?'sun':''}">${x}</div>`).join('')}</div>${weeks}</div></div>
+<aside class=csd><h3>${dt.getUTCMonth()+1} 月 ${dt.getUTCDate()} 日 週${wd[dt.getUTCDay()]}${csel==T?' <small>今天</small>':''}${HOL(csel)?` <small style="color:var(--bad)">${HOL(csel)}</small>`:''}</h3>
+${sd.map(t=>{const k=t.nv?`'${t.id}'`:t.id,dr=t.s==t.e?'單日':t.s.slice(5).replace('-','/')+' ~ '+t.e.slice(5).replace('-','/');return `<div class=cev style="border-color:${bg(t)}"><div class=cet><b style="cursor:pointer" title="到每日任務查看" onclick="GOD('${t.id}','${t.np||''}','${csel}')">${SI[t.st]} ${e(t.n)}</b><span><button class=lk onclick="ced=ced==${k}?null:${k};R()">改日期</button><button class=lk title="刪除" onclick="if(confirm('刪除「${e(t.n).replace(/'/g,'')}」？${t.np?'（Notion 上也會一併移到垃圾桶）':''}'))${t.nv?`NDEL('${t.np}')`:`X('tasks',${t.id})`}">✕</button></span></div>
+<div class=m>${t.nv||t.c===0?'其他行程・Notion'+(t.w?'・'+e(t.w):''):e(cn(t.c))+(t.w?'・'+e(t.w):'')}・${dr}${t.nv||!t.c?'':`・<a href="#" onclick="event.preventDefault();openT(${t.c})">開啟案件</a>`}${t.np?` ・<a href="https://www.notion.so/${t.np}" target=_blank rel=noopener>Notion</a>`:''}</div>
+${ced==k?`<div class=bar style="margin:6px 0 0"><input type=date value="${t.s}" onchange="${t.nv?`NTD('${t.np}','s',this.value)`:`TD(${t.id},'s',this.value)`}"> ~ <input type=date value="${t.e}" onchange="${t.nv?`NTD('${t.np}','e',this.value)`:`TD(${t.id},'e',this.value)`}"></div>`:''}</div>`}).join('')||'<div class=m style="padding:12px 0">這一天沒有安排</div>'}
+<form class=cadd onsubmit="CA(event)"><input name=n placeholder="新增安排，例如：泥作打底" required>
+<label class=m>連續到（選填）<input type=date name=e min="${csel}"></label>
+<div class=cr2><select name=c>${copts(cfl)}${NS.on?'<option value=n>📅 其他行程（只放 Notion）</option>':''}</select>${tsel('w','','onchange="TNF(this)"')}</div><button>加入 ${csel.slice(5).replace('-','/')}</button></form></aside></div>`}
+let showAmt=false,qo={};
+const qg=id=>S.qgroups.find(g=>g.id==id),qsum=c=>{const g=S.qgroups.filter(x=>x.c==c.id),sm=a=>a.reduce((t,i)=>t+i.a,0),tot=g.reduce((a,x)=>a+sm(x.items),0),dn=g.reduce((a,x)=>a+sm(x.items.filter(i=>i.done)),0);return{g,tot,dn,p:tot?dn/tot:null}},
+msum=c=>{const b=S.branches.filter(x=>x.c==c.id),n=b.reduce((a,x)=>a+x.items.length,0),d=b.reduce((a,x)=>a+x.items.filter(i=>i.done).length,0);return n?d/n:null};
+function cp(c){const q=qsum(c).p,m=msum(c),w=c.mw==null?10:c.mw;
+if(q!=null&&m!=null)return{p:Math.round(q*(100-w)+m*w),q,m,w,mode:'qm'};
+if(q!=null)return{p:Math.round(q*100),q,m,w:0,mode:'q'};
+if(m!=null)return{p:Math.round(m*100),q,m,w:100,mode:'m'};
+const ts=S.tasks.filter(t=>t.c==c.id);return{p:ts.length?Math.round(ts.filter(t=>t.st=='done').length/ts.length*100):0,q,m,w:0,mode:'t'}}
+function progUI(c,ts,dn){const P=cp(c),d={qm:`報價項目 ${Math.round(P.q*100)}%（占 ${100-P.w}%）＋ 心智圖 ${Math.round(P.m*100)}%（占 ${P.w}%）`,q:'依報價項目的金額比例計算',m:'依心智圖待辦的完成比例計算',t:`依任務完成比例計算（${dn}/${ts.length}）`}[P.mode];
+return `工程進度 <b>${P.p}%</b>　<small class=m>${d}</small><div class=pb><i style="width:${P.p}%"></i></div>${aoLine(c)}`}
+function QI(g,i,v){qg(g).items.find(x=>x.id==i).done=v;save();R()}
+function QG(g,v){qg(g).items.forEach(i=>i.done=!!v);save();R()}
+function QA(ev,g){ev.preventDefault();const f=new FormData(ev.target);qg(g).items.push({id:Date.now(),...mk(f),done:false});save();R()}
+function QGA(ev,c){ev.preventDefault();S.qgroups.push({id:Date.now(),c,n:new FormData(ev.target).get('n'),items:[]});save();R()}
+function gUI(g,tot){const sm=a=>a.reduce((t,i)=>t+i.a,0),gt=sm(g.items),gd=sm(g.items.filter(i=>i.done)),pc=x=>tot?(x/tot*100).toFixed(1):'0';
+return `<details class=tg ${qo[g.id]?'open':''} ontoggle="qo[${g.id}]=this.open"><summary>${e(g.n)} <small class=m>完成 ${gt?Math.round(gd/gt*100):0}%　占整體 ${pc(gt)}%${showAmt?'　'+M(gt)+' 元':''}</small></summary><div class=tgb><div class=bar><button class=x onclick="QG(${g.id},1)">全部完成</button><button class=x onclick="QG(${g.id},0)">全部取消</button><button class=x onclick="X('qgroups',${g.id})">刪除此組</button></div>
+${g.items.length?QH:''}${g.items.map(i=>`<div class=qr><span><input type=checkbox ${i.done?'checked':''} onchange="QI(${g.id},${i.id},this.checked)"> <span style="${i.done?'text-decoration:line-through;color:var(--m)':''}">${e(i.n)}</span></span>${qcols(i,pc)}<input class=qn placeholder="備註" value="${e(i.note||'')}" onchange="QN(${g.id},${i.id},this.value)"></div>`).join('')}
+<form class=bar style="margin-top:6px" onsubmit="QA(event,${g.id})"><input name=n placeholder="項目" required><input name=u placeholder="單位" size=4><input type=number step=any name=q placeholder="數量" required style="width:80px"><input type=number step=any name=p placeholder="單價" required style="width:100px"><button>＋</button></form></div></details>`}
+function qpanel(c){const Q=qsum(c),w=c.mw==null?10:c.mw;
+return `<div class=p><h3>報價項目完成進度</h3><div class=m style="margin-bottom:8px">依報價單分組，完成一項就打勾，系統依各項金額占整份報價的比例計算進度。</div>
+<div class=bar><label>心智圖占整體進度 <input type=number min=0 max=100 style="width:70px" value=${w} onchange="U('cases',${c.id},'mw',Math.min(100,Math.max(0,+this.value||0)))"> %</label><button class=x onclick="showAmt=!showAmt;R()">${showAmt?'隱藏金額':'顯示金額'}</button></div>
+${Q.g.length?`<div style="margin-bottom:8px">報價項目完成 <b>${Math.round((Q.p||0)*100)}%</b>${showAmt?`　<small class=m>${M(Q.dn)} / ${M(Q.tot)} 元</small>`:''}</div>`:''}
+${Q.g.map(g=>gUI(g,Q.tot)).join('')||'<span class=m>尚未建立報價項目，請在下方新增工程分組。</span>'}
+<form class=bar style="margin-top:10px" onsubmit="QGA(event,${c.id})"><input name=n placeholder="新增工程分組（例如：水電工程）" required size=26><button>新增分組</button></form></div>`}
+const TR0=['拆除','保護','泥作','水電','木作','系統櫃','廚具','油漆','燈具','衛浴','玻璃','鋁窗','大門','空調','清潔','驗收','設計','磁磚','地板','鐵工'];
+const trs=v=>[...new Set([...TR0,...S.tasks.map(t=>t.w).filter(Boolean),v].filter(Boolean))];
+const tsel=(name,v,extra)=>`<select ${name?'name='+name:''} ${extra||''}><option value="">工種</option>${trs(v).map(x=>`<option ${x==v?'selected':''}>${e(x)}</option>`).join('')}<option value="__new">＋ 新增工種…</option></select>`;
+function TNF(sel){if(sel.value!='__new')return;const i=document.createElement('input');i.name=sel.name;i.placeholder='輸入新工種';i.size=8;sel.replaceWith(i);i.focus()}
+function TW(id,sel){if(sel.value!='__new'){task(id).w=sel.value;save();R();return}const i=document.createElement('input');i.placeholder='輸入新工種';i.size=8;i.onkeydown=ev=>{if(ev.key=='Enter'){ev.preventDefault();i.blur()}};i.onblur=()=>{const v=i.value.trim();if(v){task(id).w=v;save()}R()};sel.replaceWith(i);i.focus()}
+const QH='<div class="qr qh"><span>項目</span><span>數量</span><span>占比</span><span>備註</span></div>';
+const qcols=(i,pc)=>`<span class=qq>${i.q!=null?`${i.q} ${e(i.u||'')}`:''}${showAmt?`<small class=m style="display:block">單價 ${M(i.p||0)}　複價 ${M(i.a)}</small>`:''}</span><span class=qp>占 ${pc(i.a)}%</span>`;
+function QN(g,i,v){qg(g).items.find(x=>x.id==i).note=v.trim();save()}
+function AN(a,i,v){ad(a).items.find(x=>x.id==i).note=v.trim();save()}
+let ao={},dcf=null;
+function EW(id,v){task(id).w=v.trim();save()}
+function TD(id,f,v){if(!v)return R();const t=task(id);t[f]=v;if(t.e<t.s){if(f=='s')t.e=v;else t.s=v}save();R()}
+function SN(tid,id,v){task(tid).sub.find(x=>x.id==id).note=v.trim();save()}
+const dbtn=id=>dcf==id?`<span onclick="event.stopPropagation()"><button class=x style="color:var(--bad);border-color:var(--bad)" onclick="event.stopPropagation();DC(${id})">確定刪除（連同任務與資料）</button> <button class=x onclick="event.stopPropagation();dcf=null;R()">取消</button></span>`:`<button class=x onclick="event.stopPropagation();DC(${id})">刪除案件</button>`;
+function RS(tid){const x=(S.trash||[]).find(z=>z.id==tid);if(!x)return;for(const [j,a] of Object.entries(x.b)){S[j]=S[j]||[];for(const r of a){if(S[j].some(z=>z.id==r.id))continue;if(j=='tasks'){delete r.np;delete r.nh;delete r.npc;S.ndid=(S.ndid||[]).filter(z=>z!=String(r.id))}S[j].push(r)}S[j].sort((a,b)=>a.id-b.id)}
+Object.assign(S.logs,x.lg||{});S.trash=S.trash.filter(z=>z.id!=tid);save();R()}
+function RP(tid){if(!confirm('永久刪除後就無法復原，確定嗎？'))return;S.trash=(S.trash||[]).filter(z=>z.id!=tid);save();R()}
+const trashUI=()=>(S.trash||[]).length?`<details class=tg><summary>🗑️ 最近刪除 <small>${S.trash.length} 筆，保留 30 天後自動清除</small></summary><div class=tgb>${S.trash.map(x=>`<div class=r>${x.k=='cases'?'案件':'任務'}：<b>${e(x.nm)}</b>　<small class=m>${new Date(x.at).toLocaleString('zh-TW',{hour12:false}).slice(0,-3)} 刪除</small> <button class=x onclick="RS(${x.id})">復原</button> <button class=x onclick="RP(${x.id})">永久刪除</button></div>`).join('')}</div></details>`:'';
+function DC(id){if(dcf==id){dcf=null;X('cases',id)}else{dcf=id;R()}}
+const mk=f=>{const q=+f.get('q')||0,p=+f.get('p')||0;return{n:f.get('n'),u:f.get('u')||'式',q,p,a:Math.round(q*p)}},qi=(i,pc)=>`${i.q!=null?`${i.q} ${e(i.u||'')}`:''}${showAmt?`${i.p!=null?'　單價 '+M(i.p):''}　複價 ${M(i.a)}`:''}　占 ${pc(i.a)}%`;
+const ad=id=>S.addons.find(a=>a.id==id),asum=a=>{const t=l=>l.reduce((x,i)=>x+i.a,0);return{tot:t(a.items),dn:t(a.items.filter(i=>i.done))}};
+const aoLine=c=>{const A=S.addons.filter(a=>a.c==c.id);if(!A.length)return '';const t=A.reduce((x,a)=>x+asum(a).tot,0),d=A.reduce((x,a)=>x+asum(a).dn,0),u=A.filter(a=>a.sg!='已簽認').length;return `<div class=m style="margin:-4px 0 10px">追加工程進度 <b>${t?Math.round(d/t*100):0}%</b>（${A.length} 張追加單${u?`，${u} 張未簽認`:''}，另外計算，不含在上方進度內）</div>`};
+function AA(ev,c){ev.preventDefault();const f=new FormData(ev.target);S.addons.push({id:Date.now(),c,n:f.get('n'),d:f.get('d')||T,sg:'未簽認',sd:'',qt:[],items:[]});save();R()}
+function AU(id,f,v){ad(id)[f]=v;save();R()}
+function AG(id,v){const a=ad(id);a.sg=v;a.sd=v=='已簽認'?(a.sd||T):'';save();R()}
+function AI(id,i,v){ad(id).items.find(x=>x.id==i).done=v;save();R()}
+function AID(id,i){const a=ad(id);a.items=a.items.filter(x=>x.id!=i);save();R()}
+function AIA(ev,id){ev.preventDefault();const f=new FormData(ev.target);ad(id).items.push({id:Date.now(),g:f.get('g')||'',...mk(f),done:false});save();R()}
+function AQD(id,fid){const a=ad(id);a.qt=a.qt.filter(q=>q.id!=fid);if(AS)AS.delete(fid).catch(()=>{});save();R();meter()}
+async function AQU(id,inp){const f=inp.files[0];if(!f)return;const x=(f.name.split('.').pop()||'').toLowerCase(),T0={pdf:'application/pdf',csv:'text/csv'},t=T0[x]||(f.type.startsWith('image/')?f.type:'');
+if(/^xlsx?$/.test(x)){warn('Excel 檔無法直接上傳，請先另存成 PDF 再上傳。');return}
+if(!t){warn('只能上傳 PDF、圖片或 CSV 檔。');return}if(f.size>20*1048576){warn('檔案超過 20MB，請先壓縮。');return}
+if(!AS){warn('目前未連上雲端，無法上傳檔案。');return}
+try{const u=await AS.upload(f,{type:t});ad(id).qt.push({id:u.id,n:f.name,d:T});save();warn('')}catch(err){warn('追加報價單上傳失敗，請稍後再試。')}R();meter()}
+function aUI(a){const sm=asum(a),pc=x=>sm.tot?(x/sm.tot*100).toFixed(1):'0';let lg=null;
+return `<details class=tg ${ao[a.id]?'open':''} ontoggle="ao[${a.id}]=this.open"><summary>${e(a.n)} <small class=m>追加日 ${a.d}　${a.sg}${a.sd?' '+a.sd:''}　完成 ${sm.tot?Math.round(sm.dn/sm.tot*100):0}%${showAmt?'　'+M(sm.tot)+' 元':''}</small></summary><div class=tgb>
+<div class=bar><label>追加日期 <input type=date value="${a.d}" onchange="AU(${a.id},'d',this.value)"></label><label>業主簽認 <select onchange="AG(${a.id},this.value)">${opts(['未簽認','已簽認'],a.sg)}</select></label>${a.sg=='已簽認'?`<label>簽認日期 <input type=date value="${a.sd||''}" onchange="AU(${a.id},'sd',this.value)"></label>`:''}</div>
+<div><b>追加報價單</b>${a.qt.map(q=>`<div class=r><a href="#" data-i="${q.id}" data-n="${e(q.n)}" onclick="VQ(event,this.dataset.i,this.dataset.n)">${e(q.n)}</a>　<small>${q.d}</small> <button class=x onclick="AQD(${a.id},'${q.id}')">刪除</button></div>`).join('')||'<div class=m>尚未上傳</div>'}<label class=x style="cursor:pointer;display:inline-block;margin-top:6px">＋ 上傳追加報價單<input type=file accept=".pdf,.csv,image/*" hidden onchange="AQU(${a.id},this)"></label></div>
+<div style="margin-top:10px"><b>追加項目</b>${a.items.length?QH:''}${a.items.map(i=>{const h=i.g!==lg&&i.g?`<div class=m style="margin-top:6px"><b>${e(i.g)}</b></div>`:'';lg=i.g;return h+`<div class=qr><span><input type=checkbox ${i.done?'checked':''} onchange="AI(${a.id},${i.id},this.checked)"> <span style="${i.done?'text-decoration:line-through;color:var(--m)':''}">${e(i.n)}</span></span>${qcols(i,pc)}<span class=qnw><input class=qn placeholder="備註" value="${e(i.note||'')}" onchange="AN(${a.id},${i.id},this.value)"><button class=x onclick="AID(${a.id},${i.id})">刪</button></span></div>`}).join('')||'<div class=m>尚未建立項目。上傳追加報價單後，告訴我一聲，我會幫你讀取並建立。</div>'}
+<form class=bar style="margin-top:6px" onsubmit="AIA(event,${a.id})"><input name=g placeholder="分組（可空白）" size=10><input name=n placeholder="項目" required><input name=u placeholder="單位" size=4><input type=number step=any name=q placeholder="數量" required style="width:80px"><input type=number step=any name=p placeholder="單價" required style="width:100px"><button>＋</button></form></div>
+<button class=x onclick="X('addons',${a.id})">刪除這張追加單</button></div></details>`}
+function addonPanel(c){const A=S.addons.filter(a=>a.c==c.id);
+return `<div class=p><h3>追加工程</h3><div class=m style="margin-bottom:8px">每張追加單各自計算進度，不計入原合約的工程進度。金額跟著上面的「顯示金額」開關。</div>${A.map(aUI).join('')||'<span class=m>目前沒有追加單</span>'}
+<form class=bar style="margin-top:10px" onsubmit="AA(event,${c.id})"><input name=n placeholder="追加單名稱，例如：追加一" required size=20><label>追加日期 <input type=date name=d value=${T}></label><button>新增追加單</button></form></div>`}
+function R(){$('#nav').innerHTML=NAV.map(([k,n])=>`<button class="${k==V?'on':''}" onclick="V='${k}';cur=null;fin=null;R()">${n}</button>`).join('');$('#co').textContent=S.co;$('#main').innerHTML=({cal,plan,day,dash,board,cases,chk,mat,hb,kb})[V]();$('#main').classList.toggle('wide',V=='cal')}
+let hc=null;
+const HBR={玄關:'ENTRANCE',客廳:'LIVING ROOM',餐廳:'DINING',廚房:'KITCHEN',主臥:'MASTER BEDROOM',次臥:'BEDROOM',書房:'STUDY',主浴:'MASTER BATH',客浴:'BATHROOM',陽台:'BALCONY'},HBI=['IH 調理爐','電視','冷氣','燈具','開關插座','對講機','電鎖','抽油煙機','瓦斯爐','烘碗機','洗碗機','冰箱','熱水器','洗衣機','烘衣機','馬桶','水龍頭','淋浴龍頭','暖風機'];
+const hbd=c=>{S.hb=S.hb||[];let d=S.hb.find(x=>x.id==c);if(!d){d={id:+c,rooms:[],gen:''};S.hb.push(d)}return d};
+function hb(){if(!S.cases.length)return '<span class=m>請先建立案件</span>';if(!hc||!S.cases.some(c=>c.id==hc))hc=S.cases[0].id;const c=S.cases.find(x=>x.id==hc),d=hbd(hc),n=d.rooms.reduce((t,r)=>t+r.items.length,0);
+return `<div class=bar><select onchange="hc=+this.value;R()">${copts(hc)}</select><button onclick="HBG()">📘 一鍵生成完工小手冊</button><span class=m>${d.rooms.length} 個空間、${n} 項設備（每項設備生成一頁）</span><span class=m>填好設備、品牌、型號後，回到 Claude 對話說「幫我補 ○○ 的設備資料」，Claude 會搜尋確認原廠資料後補上規格、使用重點、說明書連結與客服電話（照片仍需自己上傳）。</span></div>
+<div class=p><h3>${e(c.name)}　設備與電器清單</h3>
+<div class=bar><input id=hbn placeholder="新增空間（例：廚房）" list=hbrl><datalist id=hbrl>${Object.keys(HBR).map(x=>`<option>${x}</option>`).join('')}</datalist><button onclick="HR()">＋新增空間</button>${Object.keys(HBR).filter(x=>!d.rooms.some(r=>r.n==x)).slice(0,6).map(x=>`<button class=x onclick="HR('${x}')">${x}</button>`).join('')}</div>
+<datalist id=hbil>${HBI.map(x=>`<option>${x}</option>`).join('')}</datalist>
+${d.rooms.map(r=>`<div class=hbr><h4>${e(r.n)} <button class=x onclick="HRD(${r.id})">刪除空間</button></h4>${r.items.map(i=>`<details class=hbc ${i.n?'':'open'}><summary><b>${e(i.n||'（未命名設備）')}</b> <span class=m>${e([i.b,i.m].filter(Boolean).join(' '))}</span> ${i.ph?'📷':''}${i.u?' 🔗':''} ${i.n&&hbMiss(i)?`<span class=m style="color:#b7791f">⏳ 缺：${hbMiss(i)}</span>`:''}</summary>
+<div class=hbf><label>設備名稱<input list=hbil value="${e(i.n)}" onchange="HU(${r.id},${i.id},'n',this.value)"></label><label>品牌<input value="${e(i.b||'')}" placeholder="Panasonic 國際牌" onchange="HU(${r.id},${i.id},'b',this.value)"></label><label>型號<input value="${e(i.m||'')}" placeholder="KY-A1W70" onchange="HU(${r.id},${i.id},'m',this.value)"></label>
+<label>官方說明書連結（會生成 QR Code）<input value="${e(i.u||'')}" placeholder="https://…" onchange="HU(${r.id},${i.id},'u',this.value)"></label>
+<label>售後服務<input value="${e(i.s||'')}" placeholder="Panasonic 客服專線 0800-098800" onchange="HU(${r.id},${i.id},'s',this.value)"></label>
+<div class=hbp>${i.ph?`<img src="${ps(i.ph)}"> <button class=x onclick="HPD(${r.id},${i.id})">移除照片</button>`:`<label class=x style="cursor:pointer">📷 上傳產品照片<input type=file accept="image/*" hidden onchange="HP(${r.id},${i.id},this)"></label>`}</div>
+<label class=hbw>產品規格（每行一項，用「｜」或冒號分隔名稱與內容）<textarea rows=6 placeholder="電源｜單相 220 V / 60 Hz&#10;本體尺寸｜寬 744 × 深 440 × 高 93 mm" onchange="HU(${r.id},${i.id},'sp',this.value)">${e(i.sp||'')}</textarea></label>
+<label class=hbw>使用重點（每行一點）<textarea rows=5 placeholder="清潔前先關閉電源並待面板冷卻。" onchange="HU(${r.id},${i.id},'cp',this.value)">${e(i.cp||'')}</textarea></label>
+<div><button class=x onclick="HID(${r.id},${i.id})">刪除此設備</button></div></div></details>`).join('')}<button class=x onclick="HI(${r.id})">＋新增設備</button></div>`).join('')||'<span class=m>還沒有空間，先新增一個</span>'}</div>
+<div class=p><h3>手冊前言</h3><textarea style="width:100%;min-height:70px" placeholder="封面下方的說明文字（留空則使用預設：本手冊收錄本案使用之設備規格與官方使用說明書連結，請妥善保存。）" onchange="hbd(hc).gen=this.value;save()">${e(d.gen||'')}</textarea></div>`}
+function HR(n){n=n||$('#hbn').value.trim();if(!n)return;hbd(hc).rooms.push({id:Date.now(),n,items:[]});save();R()}
+function HRD(r){if(!confirm('刪除這個空間與其中設備？'))return;const d=hbd(hc);d.rooms=d.rooms.filter(x=>x.id!=r);save();R()}
+const hr=r=>hbd(hc).rooms.find(x=>x.id==r),hit=(r,i)=>hr(r).items.find(x=>x.id==i);
+function HI(r){hr(r).items.push({id:Date.now(),n:'',b:'',m:'',u:'',s:'',sp:'',cp:'',ph:''});save();R()}
+function HID(r,i){const o=hr(r);o.items=o.items.filter(x=>x.id!=i);save();R()}
+function HU(r,i,f,v){hit(r,i)[f]=v.trim();save()}
+function HPD(r,i){hit(r,i).ph='';save();R()}
+function HP(r,i,inp){const f=inp.files[0];if(!f)return;const im=new Image,u=URL.createObjectURL(f);im.onload=()=>{const k=Math.min(1,1000/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(async b=>{try{hit(r,i).ph=AS?(await AS.upload(b)).id:await b2d(b);save();R();meter()}catch(x){warn('照片上傳失敗，請稍後再試。')}},'image/jpeg',.8)};im.onerror=()=>warn('無法讀取這張圖片。');im.src=u}
+const qrsvg=u=>{try{const q=qrcode(0,'M');q.addData(u);q.make();return q.createSvgTag({cellSize:4,margin:0,scalable:true})}catch(x){return ''}};
+async function hbHTML(c){const d=hbd(c.id),h=t=>e(t||'').replace(/\n/g,'<br>'),L=t=>(t||'').split('\n').map(x=>x.trim()).filter(Boolean),rooms=d.rooms.filter(r=>r.items.some(i=>i.n)),dt=T.slice(0,4)+'.'+T.slice(5,7);
+for(const r of rooms)for(const i of r.items){i.img='';if(i.ph){try{i.img=i.ph.startsWith('data:')?i.ph:await b2d(await (await fetch(ps(i.ph))).blob())}catch(x){}}}
+let pg=3;const pn=n=>String(n).padStart(2,'0'),hd=(a,b)=>`<div class=hd><span>${a}</span><span>${b}</span></div>`,ft=n=>`<div class=ft><span>${e(c.name)}　完工使用手冊</span><span>${pn(n)}</span></div>`;
+const toc=rooms.map((r,k)=>`<div class=tg><div class=tr><b>${pn(k+1)}</b>　${e(r.n)} <small>${HBR[r.n]||''}</small></div>${r.items.filter(i=>i.n).map(i=>`<div class=ti><span>${e(i.n)}　<em>${e([i.b,i.m].filter(Boolean).join(' '))}</em></span><span>${pn(pg++)}</span></div>`).join('')}</div>`).join('');
+pg=3;
+const pages=rooms.map((r,k)=>r.items.filter(i=>i.n).map(i=>{const sp=L(i.sp).map(x=>{const m=x.split(/[｜|]|[:：]/);return [m.shift(),m.join(':')]}),cp=L(i.cp),n=pg++;
+return `<section class=pg>${hd(pn(k+1)+'　'+(HBR[r.n]||''),e(r.n))}<h1>${e(i.n)}</h1><div class=sub>${e([i.b,i.m?'型號 '+i.m:''].filter(Boolean).join('　'))}</div>
+<div class=ph>${i.img?`<img src="${i.img}">`:'<span>產品照片</span>'}</div>
+${sp.length||i.u?`<div class=row><div class=sp><div class=st><small>SPECIFICATIONS</small>產品規格</div>${sp.length?`<table>${sp.map(([a,b])=>`<tr><td>${e(a)}</td><td>${e(b)}</td></tr>`).join('')}</table>`:''}</div>${i.u?`<div class=qr>${qrsvg(i.u)}<div>掃描開啟官方說明書<small>OPERATING MANUAL (PDF)</small></div></div>`:''}</div>`:''}
+${cp.length?`<div class=st style="margin-top:22px"><small>CARE &amp; USE</small>使用重點</div><ol class=cp>${cp.map((x,j)=>`<li><b>${pn(j+1)}</b>${e(x)}</li>`).join('')}</ol>`:''}
+${i.s?`<div class=sv><b>售後服務</b>　${e(i.s)}</div>`:''}${ft(n)}</section>`}).join('')).join('');
+return `<!doctype html><html lang="zh-Hant"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>${e(c.name)} 完工使用手冊</title><style>
+@page{size:A4;margin:0}*{box-sizing:border-box}body{margin:0;background:#e9e7e2;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:#2a2a2a;font-weight:300}
+.pg{position:relative;width:210mm;min-height:297mm;margin:12px auto;background:#fff;padding:18mm 18mm 24mm;break-after:page;overflow:hidden}
+.hd{display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.08em;color:#666;border-bottom:1px solid #222;padding-bottom:6px;margin-bottom:22px}
+.ft{position:absolute;left:18mm;right:18mm;bottom:12mm;display:flex;justify-content:space-between;font-size:9px;color:#888;border-top:1px solid #ddd;padding-top:6px}
+h1{font-size:30px;font-weight:300;margin:0 0 4px}.sub{color:#777;font-size:13px;margin-bottom:18px}
+.ph{height:200px;background:#f1eee8;display:flex;align-items:center;justify-content:center;color:#999;font-size:12px;margin-bottom:24px;overflow:hidden}.ph img{width:100%;height:100%;object-fit:contain}
+.row{display:flex;gap:28px;align-items:flex-start}.sp{flex:1}.st{border-bottom:1px solid #222;padding-bottom:6px;margin-bottom:0;font-size:14px;font-weight:400}.st small{color:#8a7f6a;font-size:9.5px;letter-spacing:.08em;margin-right:18px;font-weight:300}
+table{width:100%;border-collapse:collapse;font-size:11.5px}td{border-bottom:1px solid #ddd;padding:6px 4px;vertical-align:top}td:first-child{width:28%;color:#777}
+.qr{width:120px;text-align:center;font-size:10.5px}.qr svg{width:100px;height:100px;display:block;margin:6px auto 8px}.qr small{display:block;color:#999;font-size:8px;margin-top:2px}
+ol.cp{list-style:none;margin:0;padding:0;font-size:11.5px}.cp li{padding:5px 0;display:flex;gap:14px}.cp b{color:#8a7f6a;font-weight:300;font-size:10px;padding-top:1px}
+.sv{background:#f1eee8;padding:11px 14px;margin-top:20px;font-size:11.5px}.sv b{font-weight:400}
+.cv{display:flex;flex-direction:column}.cv .mid{margin-top:auto;margin-bottom:auto}.cv .bar{width:34px;height:2px;background:#8a7f6a;margin-bottom:14px}.cv h1{font-size:44px;line-height:1.25}.cv .t2{color:#8a7f6a;font-size:17px;margin-top:8px}.cv .t3{color:#777;font-size:10px;letter-spacing:.06em;margin-top:6px}.cv .nt{border-top:1px solid #ddd;padding-top:10px;font-size:11px;color:#666;line-height:1.9}
+.tg{margin-bottom:16px}.tr{font-size:15px;font-weight:400;padding:6px 0;border-bottom:1px solid #222}.tr small{color:#8a7f6a;letter-spacing:.06em;font-weight:300;margin-left:8px}.ti{display:flex;justify-content:space-between;font-size:12.5px;padding:6px 0 6px 28px;border-bottom:1px solid #eee}.ti em{color:#888;font-style:normal;margin-left:6px}
+@media print{body{background:#fff}.pg{margin:0;box-shadow:none}}</style></head><body>
+<section class="pg cv">${hd('HOME HANDBOOK',dt)}<div class=mid><div class=bar></div><h1>${e(c.name)}</h1><div class=t2>完工使用手冊</div><div class=t3>PRODUCT SPECIFICATIONS &amp; OPERATING GUIDE</div></div><div class=nt>${d.gen?h(d.gen):'本手冊收錄本案使用之設備規格與官方使用說明書連結，請妥善保存。<br>掃描各頁 QR Code 即可開啟原廠說明書。'}</div></section>
+<section class=pg>${hd('CONTENTS','')}<h1 style="margin-bottom:22px">目錄</h1>${toc||'<span>尚未填寫設備</span>'}${ft(2)}</section>${pages}</body></html>`}
+async function HBG(){const c=S.cases.find(x=>x.id==hc),o=document.createElement('div');o.className='hbo';o.innerHTML='<div class=bar style="margin:0"><button id=hbdl>⬇ 下載手冊（HTML，可用瀏覽器列印成PDF）</button><button class=x style="background:#fff" onclick="this.closest(\'.hbo\').remove()">關閉預覽</button></div><iframe></iframe>';document.body.appendChild(o);const html=await hbHTML(c);o.querySelector('iframe').srcdoc=html;o.querySelector('#hbdl').onclick=async()=>{const dl=window.claude?await window.claude.use('downloads'):null;if(!dl){warn('這裡無法下載，請在發佈後的頁面使用。');return}try{await dl.save({filename:c.name+'-完工使用手冊.html',data:html})}catch(x){}}}
+
+/* ---- Notion 行事曆雙向同步 ---- */
+const NDS='0426695c-9862-45d8-b2df-bd4a2c6e1b09',NVIEW='https://www.notion.so/4e3b2f86b5614535ba2aca5a6abdca28?v=3fe09bdfd37a818c8fcd000c3b6cba35',NCUT=D(-30);
+let MC=null,NEV=[],NS={on:0,busy:0,t:'',err:'',at:0,ready:0},nqT=null,npT=null;
+const nst=s=>s=='done'?'完成':s=='todo'?'未開始':'進行中',ast=(n,o)=>n=='完成'?'done':n=='未開始'?'todo':(o=='stuck'?'stuck':'doing'),
+nname=t=>t.n+(cn(t.c)?'｜'+cn(t.c):''),nh=t=>JSON.stringify([nname(t),t.s,t.e,nst(t.st)]),
+npid=u=>{const m=String(u||'').replace(/-/g,'').match(/[0-9a-f]{32}/g);return m?m[m.length-1]:''},
+ndate=(v,dt)=>{if(!v)return '';if(!dt||v.length<=10)return v.slice(0,10);const x=new Date(v);return isNaN(x)?v.slice(0,10):new Date(x.getTime()+8*3600e3).toISOString().slice(0,10)},
+nprops=t=>({Name:nname(t),'date:Date:start':t.s,'date:Date:end':t.e>t.s?t.e:null,'date:Date:is_datetime':0,'狀態':nst(t.st),AppID:String(t.id)});
+async function ncall(tool,input){const r=await MC.callTool('Notion',tool,input,{cache:false});return r.payload}
+const nerr=x=>{const c=x&&x.code;return c=='needs_reauth'?'Notion 連線過期，請到 claude.ai 設定 → Connectors 重新連接 Notion。':c=='server_not_connected'?'尚未連接 Notion，請到 claude.ai 設定 → Connectors 加入 Notion。':c=='not_in_manifest'?'你沒有允許這個頁面使用 Notion，可從頁面的權限選單開啟。':c=='selection_required'?'你連了不只一個 Notion，請在跳出的視窗選擇要用哪一個。':c=='tool_error'?(/usage_limit|allowance/.test(x.message||'')?'Notion 查詢次數暫時用完了，約一小時內會自動恢復。':'Notion 回報錯誤：'+String(x.message||'').slice(0,120)):c=='server_unavailable'?'Notion 暫時連不上，稍後會再試。':'與 Notion 同步失敗（'+(c||String(x&&x.message||x).slice(0,120))+'）'};
+function nq(){if(!NS.on)return;clearTimeout(nqT);nqT=setTimeout(npush,1500)}
+async function nall(){let out=[],cur=null;for(let i=0;i<10;i++){const d={mode:'view',view_url:NVIEW,page_size:100};if(cur)d.start_cursor=cur;const p=await ncall('notion-query-data-sources',{data:d});out=out.concat((p&&p.results)||[]);if(!p||!p.has_more||!p.next_cursor)break;cur=p.next_cursor}return out}
+async function npush(){S.ndel=S.ndel||[];S.ndid=S.ndid||[];if(!MC||!NS.ready||NS.busy){if(NS.busy)nq();return}NS.busy=1;let ch=0;
+try{for(const np of (S.ndel||[]).slice()){try{await ncall('notion-delete-pages',{page_ids:[np],user_confirmed:true})}catch(x){if(x&&x.code!='tool_error')throw x}S.ndel=S.ndel.filter(z=>z!=np);ch=1}
+for(const t of S.tasks.filter(t=>!t.nx&&t.id>1e12&&(t.c===0||cn(t.c))&&(t.np||t.e>=NCUT))){const h=nh(t);if(t.nh===h||(!t.np&&t.npc))continue;
+if(t.np){await ncall('notion-update-page',{page_id:t.np,command:'update_properties',properties:nprops(t)})}
+else{t.npc=1;t.nh=h;const p=await ncall('notion-create-pages',{parent:{data_source_id:NDS},pages:[{properties:nprops(t)}]}),m=JSON.stringify(p||'').match(/notion\.(?:so|com)\/(?:p\/)?(?:[^"\s]*?-)?([0-9a-f]{32})/);if(m){t.np=m[1];delete t.npc}}
+t.nh=h;ch=1}
+for(const t of S.tasks.filter(t=>t.np&&!t.nx&&t.id>1e12)){const md=nbody(t),hh=hsh(md);if(t.ch===hh||(!md&&!t.ch))continue;
+try{await ncall('notion-update-page',{page_id:t.np,command:'replace_content',new_str:md||'> 此內容由工程管理 App 自動產生。',allow_async:false})}catch(x){if(x&&x.code=='tool_error'){t.ch=hh;ch=1;continue}throw x}t.ch=hh;ch=1}
+NS.err='';NS.t=new Date().toTimeString().slice(0,5)}catch(x){console.warn('notion sync',x);NS.err=nerr(x)}
+NS.busy=0;if(ch&&db)sync();if(V=='cal')R()}
+async function npull(force){if(!MC)return;if(NS.busy||(!force&&Date.now()-NS.at<90000))return;NS.busy=1;NS.at=Date.now();S.ndel=S.ndel||[];S.ndid=S.ndid||[];
+try{const rows=await nall(),seen={},ev=[];let chg=0;
+for(const r of rows){const id=npid(r.url);if(!id||seen[id])continue;seen[id]=1;const dt=r['date:Date:is_datetime']==1,s0=ndate(r['date:Date:start'],dt);if(!s0)continue;let e0=ndate(r['date:Date:end'],dt)||s0;if(e0<s0)e0=s0;
+const cs=S.cases.find(c=>(r.Name||'').endsWith('｜'+c.name)),mk=(c,w)=>{let n=cn(c)?(r.Name||'').split('｜'+cn(c)).join(' ').replace(/\s+/g,' ').trim():(r.Name||'');const t={id:Date.now()+Math.floor(Math.random()*1e3),c,n:n||'（無標題）',w:w||'',s:s0,e:e0,st:ast(r['狀態']),sub:[],np:id,nh:null};S.tasks.push(t);chg=1;return t};
+if(r.AppID){if(S.ndel.includes(id))continue;if(!(+r.AppID>1e12)){S.ndel.push(id);chg=1;continue}const t=S.tasks.find(x=>String(x.id)==r.AppID);if(!t){if(S.ndid.includes(r.AppID)){S.ndel.push(id);chg=1}continue}
+if(t.np&&t.np!=id){if(rows.some(z=>npid(z.url)==t.np)){mk(t.c,t.w);continue}t.np=id}if(!t.np){t.np=id;delete t.npc;chg=1}
+if(t.nh===nh(t)){let n=cn(t.c)?(r.Name||t.n).split('｜'+cn(t.c)).join(' ').replace(/\s+/g,' ').trim()||t.n:(r.Name||t.n);const st2=ast(r['狀態'],t.st);
+if(n!=t.n||s0!=t.s||e0!=t.e||st2!=t.st){t.n=n;t.s=s0;t.e=e0;t.st=st2;t.nh=nh(t);chg=1}}}
+else if(cs){mk(cs.id)}else ev.push({id:'n'+id,np:id,nv:1,n:r.Name||'（無標題）',s:s0,e:e0,st:ast(r['狀態']),c:null})}
+const lim=shd(T,-28),seenP=new Set(rows.map(r=>npid(r.url))),gone=S.tasks.filter(t=>t.c===0&&t.np&&t.e>=lim&&!seenP.has(t.np)&&rows.length);gone.forEach(t=>{S.trash=S.trash||[];S.trash.unshift({id:Date.now()+Math.random(),at:Date.now(),k:'tasks',nm:t.n+'（Notion 已刪除）',b:{tasks:[t]},lg:{}});S.tasks=S.tasks.filter(z=>z!==t);chg=1});
+NEV=ev.filter(x=>!S.tasks.some(t=>t.np==x.np));NS.err='';NS.ready=1;NS.t=new Date().toTimeString().slice(0,5);if(chg)save()}catch(x){console.warn('notion sync',x);NS.err=nerr(x)}
+NS.busy=0;if(V=='cal')R();npush()}
+const hsh=x=>{let h=5381;for(let i=0;i<x.length;i++)h=(h*33+x.charCodeAt(i))|0;return String(h)},mdx=x=>String(x||'').replace(/([\\*_`#\[\]<>|~])/g,'\\$1');
+function nbody(t){const ds=new Set(t.sub.map(x=>x.d));Object.keys(S.logs).forEach(k=>{const [a,b]=k.split('|');if(a==t.id&&(S.logs[k].n||S.logs[k].p.length))ds.add(b)});if(!ds.size)return '';
+return '> 此內容由工程管理 App 自動產生，請到 App 的「每日任務」編輯，在這裡修改會被覆蓋。\n\n'+[...ds].sort().map(d=>{const l=S.logs[t.id+'|'+d]||{n:'',p:[]},w=new Date(d+'T00:00:00Z').getUTCDay();
+return `## ${+d.slice(5,7)}/${+d.slice(8)}（${wd[w]}）\n`+t.sub.filter(x=>x.d==d).map(x=>`- [${x.done?'x':' '}] ${mdx(x.n)}${x.note?'：'+mdx(x.note).replace(/\n/g,' '):''}`).join('\n')+(l.n?`\n\n**備註**：${mdx(l.n).replace(/\n/g,'  \n')}`:'')+(l.p.length?`\n\n📷 ${l.p.length} 張現場照片（請在 App 查看）`:'')}).join('\n\n')}
+async function NUP(np,props){try{await ncall('notion-update-page',{page_id:np,command:'update_properties',properties:props});NS.err=''}catch(x){console.warn('notion sync',x);NS.err=nerr(x)}NS.at=0;npull(1)}
+function NTD(np,f,v){const x=NEV.find(z=>z.np==np);if(!x||!v)return;x[f]=v;if(x.e<x.s){if(f=='s')x.e=v;else x.s=v}R();NUP(np,{'date:Date:start':x.s,'date:Date:end':x.e>x.s?x.e:null,'date:Date:is_datetime':0})}
+async function NDEL(np){NEV=NEV.filter(z=>z.np!=np);R();try{await ncall('notion-delete-pages',{page_ids:[np],user_confirmed:true})}catch(x){NS.err=nerr(x);R()}}
+setInterval(()=>{if(NS.on&&V=='cal'&&!document.hidden)npull()},120000);
+
+/* ---- 經驗庫 ---- */
+let kbq='',kbw='',KBF=null,kbe=null,kbo={};
+const hlh=x=>e(x||'').replace(/==([\s\S]+?)==/g,'<mark>$1</mark>').replace(/\n/g,'<br>');
+function h2t(n){let o='';n.childNodes.forEach(c=>{if(c.nodeType==3)o+=c.nodeValue;else if(c.nodeName=='MARK'){const t=h2t(c);o+=t.trim()?'=='+t+'==':t}else if(c.nodeName=='BR')o+='\n';else{const t=h2t(c);if(/^(DIV|P)$/.test(c.nodeName)&&o&&!o.endsWith('\n'))o+='\n';o+=t}});return o}
+function HL(btn){const sel=getSelection(),box=btn.closest('form').querySelector('.kbsol');if(!sel.rangeCount)return;const a=sel.anchorNode,m=a&&(a.nodeType==3?a.parentNode:a).closest&&(a.nodeType==3?a.parentNode:a).closest('mark');
+if(m&&box.contains(m)){m.replaceWith(...m.childNodes);box.normalize();return}if(sel.isCollapsed||!box.contains(sel.anchorNode)){warn('請先在「做法」裡選取要標記的文字，再按螢光筆。');setTimeout(()=>warn(''),2500);return}
+document.execCommand('insertHTML',false,'<mark>'+e(sel.toString()).replace(/\n/g,'<br>')+'</mark>')}
+function kbsv(f){const t=h2t(f.querySelector('.kbsol')).replace(/====/g,'').trim();f.sol.value=t;if(!t){warn('請填寫做法／解決方式');return false}return true}
+const kbm=t=>(S.kb||[]).filter(k=>(k.k&&k.k.split(/[,，、\s]+/).some(w=>w&&t.n.includes(w))));
+const kbBox=t=>{const m=kbm(t);return m.length?`<details class=kbx><summary>💡 經驗提醒（${m.length}）<small class=m>　任務名稱符合關鍵字的過去經驗</small></summary>${m.map(k=>`<div class=kbi><b>${e(k.t||'')}</b><div>${hlh(k.sol)}</div><small class=m>${e(k.w||'')}${k.src?'・'+e(k.src):''}</small></div>`).join('')}</details>`:''};
+function kbForm(pre,save){return `<form class=kbf onsubmit="${save}"><div class=bar style="margin:0"><select name=w>${trs(pre.w).map(x=>`<option ${x==pre.w?'selected':''}>${e(x)}</option>`).join('')}<option value="">（不分工種）</option></select><input name=k value="${e(pre.k||'')}" placeholder="關鍵字（例：貼磚、整磚，用逗號分隔）" style="flex:1;min-width:200px"></div>
+<input name=t value="${e(pre.t||'')}" placeholder="情況／問題（例：算整磚數量時尺寸不對）" required style="width:100%;margin-top:6px">
+<div class=bar style="margin:6px 0 2px"><small class=m>做法／解決方式</small><button type=button class=hlb onmousedown="event.preventDefault();HL(this)" title="選取文字後按一下標記；游標放在已標記的文字上再按一下可取消">🖍 螢光筆</button><small class=m>選取文字後按螢光筆標記重點，再按一次取消</small></div><div class=kbsol contenteditable=true data-ph="例：牆面左右各扣 1.5 公分後再開始計算">${hlh(pre.sol||'')}</div><input type=hidden name=sol>
+<input type=hidden name=src value="${e(pre.src||'')}"><div class=bar style="margin:6px 0 0"><button>儲存到經驗庫</button>${pre.cancel?`<button type=button class=x onclick="${pre.cancel}">取消</button>`:''}</div></form>`}
+function KBA(ev){ev.preventDefault();if(!kbsv(ev.target))return;const o=Object.fromEntries(new FormData(ev.target));(S.kb=S.kb||[]).unshift({id:Date.now(),w:o.w,k:o.k.trim(),t:o.t.trim(),sol:o.sol.trim(),src:o.src||'',at:T});KBF=null;save();R()}
+function KBU(ev,id){ev.preventDefault();if(!kbsv(ev.target))return;const o=Object.fromEntries(new FormData(ev.target)),k=S.kb.find(x=>x.id==id);Object.assign(k,{w:o.w,k:o.k.trim(),t:o.t.trim(),sol:o.sol.trim()});kbe=null;save();R()}
+function KBD(id){if(!confirm('刪除這則經驗？'))return;S.kb=S.kb.filter(x=>x.id!=id);save();R()}
+function kb(){const L=(S.kb||[]).filter(k=>(!kbw||k.w==kbw)&&(!kbq||[k.t,k.sol,k.k,k.w,k.src].join(' ').toLowerCase().includes(kbq.toLowerCase()))),ws=[...new Set((S.kb||[]).map(k=>k.w||'（不分工種）'))];
+const g={};L.forEach(k=>(g[k.w||'（不分工種）']=g[k.w||'（不分工種）']||[]).push(k));
+return `<div class=chd><small>KNOWLEDGE</small><h2>經驗庫・我的工法 SOP</h2></div>
+<div class=m style="margin:-8px 0 14px">現場和工班討論到的小知識都存在這裡。之後在每日任務遇到名稱含有關鍵字的任務，會自動跳出「💡 經驗提醒」。</div>
+<div class=bar><input placeholder="搜尋（例：磁磚、防水）" value="${e(kbq)}" oninput="kbq=this.value;clearTimeout(window._kq);window._kq=setTimeout(()=>{R();const i=document.querySelector('#main input');i.focus();i.setSelectionRange(99,99)},300)" style="flex:1;min-width:200px"><select onchange="kbw=this.value;R()"><option value="">全部工種</option>${ws.map(w=>`<option ${w==kbw?'selected':''}>${e(w)}</option>`).join('')}</select><button class=pri onclick="KBF=KBF?null:{};R()">＋ 新增經驗</button><button class=x onclick="KBX()">匯出 SOP</button></div>
+${KBF&&!KBF.tid?`<div class=p>${kbForm({w:'泥作',cancel:'KBF=null;R()'},'KBA(event)')}</div>`:''}
+${Object.keys(g).sort().map(w=>`<details class="p kbg" ${kbo[w]||kbq||kbw||Object.keys(g).length==1||(kbe&&g[w].some(k=>k.id==kbe))?'open':''} ontoggle="kbo['${e(w)}']=this.open"><summary><b>${e(w)}</b> <small class=m>${g[w].length} 則</small></summary>${g[w].map(k=>kbe==k.id?kbForm({...k,cancel:'kbe=null;R()'},`KBU(event,${k.id})`):`<div class=kbi><div class=cet><b>${e(k.t)}</b><span><button class=lk onclick="kbe=${k.id};R()">編輯</button><button class=lk onclick="KBD(${k.id})">✕</button></span></div><div style="margin:4px 0">${hlh(k.sol)}</div><small class=m>${k.k?'關鍵字：'+e(k.k)+'・':''}${k.src?'來源：'+e(k.src)+'・':''}${k.at||''}</small></div>`).join('')}</details>`).join('')||'<div class=p><span class=m>'+((S.kb||[]).length?'沒有符合的經驗':'還沒有任何經驗。可以在這裡新增，或在每日任務的當天備註按「⭐ 存成經驗」。')+'</span></div>'}`}
+async function KBX(){const by={};(S.kb||[]).forEach(k=>(by[k.w||'不分工種']=by[k.w||'不分工種']||[]).push(k));const md='# '+S.co+'　工法 SOP\n\n'+Object.keys(by).sort().map(w=>'## '+w+'\n\n'+by[w].map((k,i)=>`${i+1}. **${k.t}**\n   - 做法：${k.sol.replace(/==([\s\S]+?)==/g,'**$1**').replace(/\n/g,'；')}${k.src?'\n   - 來源：'+k.src:''}`).join('\n')).join('\n\n')+'\n';
+const dl=window.claude?await window.claude.use('downloads'):null;if(!dl){warn('這裡無法下載，請在發佈後的頁面使用。');return}try{await dl.save({filename:'工法SOP-'+T+'.md',data:md})}catch(x){}}
+
+GATE().then(boot).catch(x=>{document.getElementById('main').innerHTML='<div class=p>連線失敗，請檢查網路後重新整理。</div>'});
+</script></body></html>
