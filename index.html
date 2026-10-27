@@ -38,6 +38,12 @@ table{width:100%;border-collapse:collapse}
 .vg label{font-size:12px;color:var(--m);display:block}.vg label input,.vg label select{width:100%;display:block}
 .vst{font-size:12px;padding:2px 8px;border-radius:10px;white-space:nowrap}.vst.ok{background:#3f7d5822;color:var(--ok)}.vst.hf{background:#c58a1b22;color:var(--w)}.vst.no{background:#b8432f1f;color:var(--bad)}
 .vps{margin:8px 0 4px;font-size:14px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vpc>summary.vsm{cursor:pointer;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;list-style:none}.vsm::-webkit-details-marker{display:none}
+.vsm:before{content:'▸';color:var(--m)}.vpc[open]>.vsm:before{content:'▾'}
+.vsw{font-size:12px;background:var(--bg);border-radius:4px;padding:1px 8px}.vsn{font-size:14px;margin-left:auto}.vsn b{margin:0 2px}
+.vtl{margin-top:8px}.vrow{display:grid;grid-template-columns:5.5em 1fr 1fr 1fr 1fr 7.5em 10.5em;gap:6px;align-items:center;padding:6px 0;border-top:1px solid var(--l)}
+.vrow label i{display:none}.vrow input{width:100%}.vhd{font-size:12px;color:var(--m);border-top:0}.vsx{display:flex;gap:4px;align-items:center;white-space:nowrap}.vrow .vin{font-weight:600}
+@media(max-width:700px){.vhd{display:none}.vrow{grid-template-columns:1fr 1fr}.vrow .vin{grid-column:1/-1}.vrow label i{display:block;font-style:normal;font-size:12px;color:var(--m)}.vsx{grid-column:span 1}.vsn{margin-left:0;width:100%}}
 .vpi{background:var(--bg);border-radius:6px;padding:8px 10px;margin:6px 0}
 .vih{display:flex;gap:6px;align-items:center;margin-bottom:6px}.vih .vin{width:5.5em;font-weight:600}.vih .x{white-space:nowrap}.vpi .vg{grid-template-columns:1fr 1fr}.vpc>.vg{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}.vps b{margin:0 2px}
 .vpf{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:14px}
@@ -99,7 +105,7 @@ mark{background:#ffe866;color:#1f2a33;padding:0 2px;border-radius:2px}.kbsol{min
 <footer id="meter" class="m" style="max-width:1100px;margin:0 auto;padding:0 16px 24px"></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="shim.js?v=5"></script>
+<script src="shim.js?v=6"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 const D=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};let T=D(0);setInterval(()=>{const n=D(0);if(n!=T){const old=T;T=n;if(typeof cm!='undefined'&&cm==old.slice(0,7))cm=T.slice(0,7);if(typeof csel!='undefined'&&csel==old)csel=T;try{R()}catch(x){}}},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&D(0)!=T){const old=T;T=D(0);if(cm==old.slice(0,7))cm=T.slice(0,7);if(csel==old)csel=T;try{R()}catch(x){}}});
@@ -338,7 +344,7 @@ ${Q.g.map(g=>gUI(g,Q.tot)).join('')||'<span class=m>尚未建立報價項目，�
 <form class=bar style="margin-top:10px" onsubmit="QGA(event,${c.id})"><input name=n placeholder="新增工程分組（例如：水電工程）" required size=26><button>新增分組</button></form></div>`}
 
 /* ---------- 廠商請款（可分期） ---------- */
-const VPC=id=>S.cases.find(y=>y.id==id),VPR=(cid,id)=>vins((VPC(cid).vp||[]).find(x=>x.id==id)),VPI=(cid,id,iid)=>(VPR(cid,id).ins||[]).find(z=>z.id==iid),VN=x=>+x||0;
+const VO=new Set(),VPC=id=>S.cases.find(y=>y.id==id),VPR=(cid,id)=>vins((VPC(cid).vp||[]).find(x=>x.id==id)),VPI=(cid,id,iid)=>(VPR(cid,id).ins||[]).find(z=>z.id==iid),VN=x=>+x||0;
 const CNUM='一二三四五六七八九十';const pnm=k=>'第'+(k<=10?CNUM[k-1]:k)+'期';
 function vins(x){if(x&&!x.ins){x.ins=(x.a||x.p||(x.f||[]).length)?[{id:x.id+1,n:'第一期',a:VN(x.a),p:VN(x.p),d:x.d||'',pd:x.pd||'',f:x.f||[]}]:[];delete x.a;delete x.p;delete x.pd;delete x.f}return x}
 const vsum=x=>{vins(x);const a=x.ins.reduce((s,z)=>s+VN(z.a),0),p=x.ins.reduce((s,z)=>s+VN(z.p),0);return{a,p}};
@@ -350,25 +356,28 @@ return `<div class=vp><b>廠商請款</b>
 <div class=vpk><div><small>發包總額</small><b>${M(st)}</b></div><div><small>已請款</small><b>${M(sa)}</b></div><div><small>已付款</small><b style="color:var(--ok)">${M(sp)}</b></div><div><small>未付款</small><b style="color:${sa-sp>0?'var(--bad)':'inherit'}">${M(sa-sp)}</b></div><div><small>發包佔合約</small><b>${c.contract?cr+'%':'—'}</b></div></div>
 付款進度（已付／已請款）${pr}%<div class=pb><i style="width:${Math.min(pr,100)}%"></i></div>
 ${L.length?`<div style="overflow-x:auto"><table><tr><th>工種<th>廠商數<th>發包<th>已請款<th>已付<th>未付</tr>${Object.entries(by).sort((a,b)=>b[1].t-a[1].t).map(([w,v])=>`<tr><td>${e(w)}<td>${v.n}<td>${M(v.t)}<td>${M(v.a)}<td>${M(v.p)}<td style="color:${v.a-v.p>0?'var(--bad)':'inherit'}">${M(v.a-v.p)}</tr>`).join('')}</table></div>`:''}
-${L.map(x=>{const {a,p}=vsum(x),t=VN(x.t);return `<div class=vpc><div class=vg>
-<label>工種${tsel('',x.w,`onchange="VPW(${c.id},${x.id},this)"`)}</label>
+${L.map(x=>{const {a,p}=vsum(x),t=VN(x.t),one=x.ins.length==1?x.ins[0]:null;return `<details class=vpc ${VO.has(x.id)?'open':''} ontoggle="VO[this.open?'add':'delete'](${x.id})"><summary class=vsm><span class=vsw>${e(x.w||'未填工種')}</span><b>${e(x.v||'（未填廠商）')}</b>${vst(a,p)}<span class=m>${x.ins.length} 期</span><span class=vsn>請款 <b>${M(a)}</b>・已付 <b style="color:var(--ok)">${M(p)}</b>・未付 <b style="color:${a-p>0?'var(--bad)':'inherit'}">${M(a-p)}</b></span>${one&&VN(one.a)>VN(one.p)?`<button class=x onclick="event.preventDefault();event.stopPropagation();VIP(${c.id},${x.id},${one.id})">✓ 確認已付款</button>`:''}</summary>
+<div class=vg style="margin-top:10px"><label>工種${tsel('',x.w,`onchange="VPW(${c.id},${x.id},this)"`)}</label>
 <label>廠商<input value="${e(x.v||'')}" placeholder="廠商名稱" onchange="VPU(${c.id},${x.id},'v',this.value)"></label>
 <label>發包總額（選填）<input type=number inputmode=numeric value="${x.t||''}" placeholder="例如 800000" onchange="VPU(${c.id},${x.id},'t',this.value)"></label></div>
-<div class=vps>${vst(a,p)} 已請款 <b>${M(a)}</b>・已付 <b style="color:var(--ok)">${M(p)}</b>・未付 <b style="color:${a-p>0?'var(--bad)':'inherit'}">${M(a-p)}</b>${t?`・尚未請款 <b>${M(Math.max(t-a,0))}</b>${a>t?' <span class="vst no">請款超過發包</span>':''}`:''}</div>
-${x.ins.map((z,k)=>`<div class=vpi><div class=vih><input class=vin value="${e(z.n||pnm(k+1))}" onchange="VIU(${c.id},${x.id},${z.id},'n',this.value)">${vst(VN(z.a),VN(z.p))}${VN(z.p)<VN(z.a)?`<button class=x onclick="VIP(${c.id},${x.id},${z.id})">付清</button>`:''}<button class=x style="margin-left:auto" title="刪除此期" onclick="VID(${c.id},${x.id},${z.id})">✕</button></div>
-<div class=vg><label>請款金額<input type=number inputmode=numeric value="${z.a||''}" onchange="VIU(${c.id},${x.id},${z.id},'a',this.value)"></label>
-<label>請款日期<input type=date value="${z.d||''}" onchange="VIU(${c.id},${x.id},${z.id},'d',this.value)"></label>
-<label>已付款<input type=number inputmode=numeric value="${z.p||''}" onchange="VIU(${c.id},${x.id},${z.id},'p',this.value)"></label>
-<label>付款日期<input type=date value="${z.pd||''}" onchange="VIU(${c.id},${x.id},${z.id},'pd',this.value)"></label></div>
-<div class=vpf>${(z.f||[]).map(q=>`<span>📄 <a href="#" data-i="${q.id}" data-n="${e(q.n)}" onclick="VQ(event,this.dataset.i,this.dataset.n)">${e(q.n)}</a> <button class=x onclick="VPX(${c.id},${x.id},${z.id},'${q.id}')">×</button></span>`).join('')}<label class=x style="cursor:pointer">＋ 請款單<input type=file accept=".pdf,image/*" multiple hidden onchange="VPF(${c.id},${x.id},${z.id},this)"></label></div></div>`).join('')||'<div class=m style="margin:6px 0">還沒有任何一期，按下方「＋ 新增一期」。</div>'}
+${t?`<div class=vps>尚未請款 <b>${M(Math.max(t-a,0))}</b>${a>t?' <span class="vst no">請款超過發包</span>':''}</div>`:''}
+<div class=vtl><div class="vrow vhd"><span>期別</span><span>請款金額</span><span>請款日期</span><span>已付款</span><span>付款日期</span><span>狀態</span><span></span></div>
+${x.ins.map((z,k)=>`<div class=vrow><input class=vin value="${e(z.n||pnm(k+1))}" onchange="VIU(${c.id},${x.id},${z.id},'n',this.value)">
+<label><i>請款金額</i><input type=number inputmode=numeric value="${z.a||''}" onchange="VIU(${c.id},${x.id},${z.id},'a',this.value)"></label>
+<label><i>請款日期</i><input type=date value="${z.d||''}" onchange="VIU(${c.id},${x.id},${z.id},'d',this.value)"></label>
+<label><i>已付款</i><input type=number inputmode=numeric value="${z.p||''}" onchange="VIU(${c.id},${x.id},${z.id},'p',this.value)"></label>
+<label><i>付款日期</i><input type=date value="${z.pd||''}" onchange="VIU(${c.id},${x.id},${z.id},'pd',this.value)"></label>
+<span class=vsx>${VN(z.p)<VN(z.a)?`<button class=x onclick="VIP(${c.id},${x.id},${z.id})">✓ 確認已付款</button>`:vst(VN(z.a),VN(z.p))}</span>
+<span class=vsx>${(z.f||[]).map(q=>`<a href="#" title="${e(q.n)}" data-i="${q.id}" data-n="${e(q.n)}" onclick="VQ(event,this.dataset.i,this.dataset.n)">📄</a><button class=x title="刪除請款單" onclick="VPX(${c.id},${x.id},${z.id},'${q.id}')">×</button>`).join('')}<label class=x style="cursor:pointer" title="上傳請款單">＋單據<input type=file accept=".pdf,image/*" multiple hidden onchange="VPF(${c.id},${x.id},${z.id},this)"></label><button class=x title="刪除此期" onclick="VID(${c.id},${x.id},${z.id})">✕</button></span></div>`).join('')}</div>
+${x.ins.length?'':'<div class=m style="margin:6px 0">還沒有任何一期，按下方「＋ 新增一期」。</div>'}
 <div class=vpf><button class=x onclick="VIA(${c.id},${x.id})">＋ 新增一期（${pnm(x.ins.length+1)}）</button>
 <input value="${e(x.nt||'')}" placeholder="備註（付款條件、匯款帳號…）" style="flex:1;min-width:160px" onchange="VPU(${c.id},${x.id},'nt',this.value)">
-<button class=x onclick="VPD(${c.id},${x.id})">刪除廠商</button></div></div>`}).join('')||'<div class=m style="margin:6px 0">尚未有廠商請款紀錄</div>'}
-<form class=bar style="margin-top:8px" onsubmit="VPA(event,${c.id})">${tsel('w','','onchange="TNF(this)"')}<input name=v placeholder="廠商名稱" size=10><input name=t type=number inputmode=numeric placeholder="發包總額（選填）" size=12><input name=a type=number inputmode=numeric placeholder="第一期請款金額（選填）" size=14><button>新增廠商</button></form>
+<button class=x onclick="VPD(${c.id},${x.id})">刪除廠商</button></div></details>`}).join('')||'<div class=m style="margin:6px 0">尚未有廠商請款紀錄</div>'}
+<form class="bar vadd" style="margin-top:8px" onsubmit="VPA(event,${c.id})">${tsel('w','','onchange="TNF(this)"')}<input name=v placeholder="廠商名稱" size=10><input name=t type=number inputmode=numeric placeholder="發包總額（選填）" size=12><input name=a type=number inputmode=numeric placeholder="第一期請款金額（選填）" size=14><label class=m style="white-space:nowrap"><input type=checkbox name=pp style="width:auto"> 已付款</label><input name=pd type=date value="${T}" title="付款日期"><button>新增廠商</button></form>
 <div class=m>同一個廠商可分多期請款，每期各自記錄金額、付款與請款單。照片會自動壓縮成約 200–400KB，PDF 單檔上限 10MB。</div></div>`}
-function VPA(ev,cid){ev.preventDefault();const f=new FormData(ev.target),c=VPC(cid),id=Date.now(),a=+f.get('a')||0;(c.vp=c.vp||[]).push({id,w:f.get('w')&&f.get('w')!='__new'?f.get('w'):'',v:(f.get('v')||'').trim(),t:+f.get('t')||0,nt:'',ins:a?[{id:id+1,n:'第一期',a,p:0,d:T,pd:'',f:[]}]:[]});save();R()}
+function VPA(ev,cid){ev.preventDefault();const f=new FormData(ev.target),c=VPC(cid),id=Date.now(),a=+f.get('a')||0;if(!f.get('pp'))VO.add(id);(c.vp=c.vp||[]).push({id,w:f.get('w')&&f.get('w')!='__new'?f.get('w'):'',v:(f.get('v')||'').trim(),t:+f.get('t')||0,nt:'',ins:a?[{id:id+1,n:'第一期',a,p:f.get('pp')?a:0,d:T,pd:f.get('pp')?(f.get('pd')||T):'',f:[]}]:[]});save();R()}
 function VPU(cid,id,k,v){const x=VPR(cid,id);if(!x)return;x[k]=k=='t'?(+v||0):v;save();R()}
-function VIA(cid,id){const x=VPR(cid,id);x.ins.push({id:Date.now(),n:pnm(x.ins.length+1),a:0,p:0,d:T,pd:'',f:[]});save();R()}
+function VIA(cid,id){VO.add(id);const x=VPR(cid,id);x.ins.push({id:Date.now(),n:pnm(x.ins.length+1),a:0,p:0,d:T,pd:'',f:[]});save();R()}
 function VIU(cid,id,iid,k,v){const z=VPI(cid,id,iid);if(!z)return;z[k]=(k=='a'||k=='p')?(+v||0):v;if(k=='p'&&z.p&&!z.pd)z.pd=T;save();R()}
 function VIP(cid,id,iid){const z=VPI(cid,id,iid);z.p=VN(z.a);z.pd=z.pd||T;save();R()}
 function VID(cid,id,iid){const x=VPR(cid,id),z=VPI(cid,id,iid);if(!z||!confirm('確定刪除「'+(z.n||'這一期')+'」？'+((z.f||[]).length?'（附上的請款單也會一起刪除）':'')))return;(z.f||[]).forEach(q=>AS&&AS.delete(q.id).catch(()=>{}));x.ins=x.ins.filter(y=>y.id!=iid);save();R();meter()}
