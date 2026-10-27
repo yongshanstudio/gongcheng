@@ -37,6 +37,9 @@ table{width:100%;border-collapse:collapse}
 .vpc .vg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px 10px;align-items:end}
 .vg label{font-size:12px;color:var(--m);display:block}.vg label input,.vg label select{width:100%;display:block}
 .vst{font-size:12px;padding:2px 8px;border-radius:10px;white-space:nowrap}.vst.ok{background:#3f7d5822;color:var(--ok)}.vst.hf{background:#c58a1b22;color:var(--w)}.vst.no{background:#b8432f1f;color:var(--bad)}
+.vps{margin:8px 0 4px;font-size:14px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.vpi{background:var(--bg);border-radius:6px;padding:8px 10px;margin:6px 0}
+.vih{display:flex;gap:6px;align-items:center;margin-bottom:6px}.vih .vin{width:5.5em;font-weight:600}.vih .x{white-space:nowrap}.vpi .vg{grid-template-columns:1fr 1fr}.vpc>.vg{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}.vps b{margin:0 2px}
 .vpf{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:14px}
 th,td{text-align:left;padding:8px;border-top:1px solid var(--l);white-space:nowrap}tr[onclick]{cursor:pointer}tr[onclick]:hover{background:var(--bg)}
 .pb{height:8px;background:var(--l);border-radius:4px;margin:4px 0 10px}.pb i{display:block;height:100%;background:var(--a);border-radius:4px}
@@ -96,7 +99,7 @@ mark{background:#ffe866;color:#1f2a33;padding:0 2px;border-radius:2px}.kbsol{min
 <footer id="meter" class="m" style="max-width:1100px;margin:0 auto;padding:0 16px 24px"></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="shim.js?v=4"></script>
+<script src="shim.js?v=5"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 const D=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};let T=D(0);setInterval(()=>{const n=D(0);if(n!=T){const old=T;T=n;if(typeof cm!='undefined'&&cm==old.slice(0,7))cm=T.slice(0,7);if(typeof csel!='undefined'&&csel==old)csel=T;try{R()}catch(x){}}},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&D(0)!=T){const old=T;T=D(0);if(cm==old.slice(0,7))cm=T.slice(0,7);if(csel==old)csel=T;try{R()}catch(x){}}});
@@ -334,40 +337,48 @@ ${Q.g.length?`<div style="margin-bottom:8px">報價項目完成 <b>${Math.round(
 ${Q.g.map(g=>gUI(g,Q.tot)).join('')||'<span class=m>尚未建立報價項目，請在下方新增工程分組。</span>'}
 <form class=bar style="margin-top:10px" onsubmit="QGA(event,${c.id})"><input name=n placeholder="新增工程分組（例如：水電工程）" required size=26><button>新增分組</button></form></div>`}
 
-/* ---------- 廠商請款 ---------- */
-const VPC=id=>S.cases.find(y=>y.id==id),VPR=(cid,id)=>(VPC(cid).vp||[]).find(x=>x.id==id);
-function vpUI(c){const L=(c.vp||[]).slice().sort((a,b)=>(b.d||'').localeCompare(a.d||'')||b.id-a.id),N=x=>+x||0;
-const sa=L.reduce((s,x)=>s+N(x.a),0),sp=L.reduce((s,x)=>s+N(x.p),0),pr=sa?Math.round(sp/sa*100):0,cr=c.contract?Math.round(sa/c.contract*100):0,by={};
-L.forEach(x=>{const w=x.w||'未填工種';by[w]=by[w]||{a:0,p:0,n:0};by[w].a+=N(x.a);by[w].p+=N(x.p);by[w].n++});
-const st=x=>N(x.a)&&N(x.p)>=N(x.a)?'<span class="vst ok">已付清</span>':N(x.p)>0?'<span class="vst hf">部分付款</span>':'<span class="vst no">未付款</span>';
+/* ---------- 廠商請款（可分期） ---------- */
+const VPC=id=>S.cases.find(y=>y.id==id),VPR=(cid,id)=>vins((VPC(cid).vp||[]).find(x=>x.id==id)),VPI=(cid,id,iid)=>(VPR(cid,id).ins||[]).find(z=>z.id==iid),VN=x=>+x||0;
+const CNUM='一二三四五六七八九十';const pnm=k=>'第'+(k<=10?CNUM[k-1]:k)+'期';
+function vins(x){if(x&&!x.ins){x.ins=(x.a||x.p||(x.f||[]).length)?[{id:x.id+1,n:'第一期',a:VN(x.a),p:VN(x.p),d:x.d||'',pd:x.pd||'',f:x.f||[]}]:[];delete x.a;delete x.p;delete x.pd;delete x.f}return x}
+const vsum=x=>{vins(x);const a=x.ins.reduce((s,z)=>s+VN(z.a),0),p=x.ins.reduce((s,z)=>s+VN(z.p),0);return{a,p}};
+const vst=(a,p)=>a&&p>=a?'<span class="vst ok">已付清</span>':p>0?'<span class="vst hf">部分付款</span>':a?'<span class="vst no">未付款</span>':'';
+function vpUI(c){const L=(c.vp||[]).map(vins).slice().sort((x,y)=>(x.w||'').localeCompare(y.w||'')||x.id-y.id);
+let sa=0,sp=0,st=0;const by={};L.forEach(x=>{const {a,p}=vsum(x),w=x.w||'未填工種';sa+=a;sp+=p;st+=VN(x.t)||a;by[w]=by[w]||{a:0,p:0,t:0,n:0};by[w].a+=a;by[w].p+=p;by[w].t+=VN(x.t)||a;by[w].n++});
+const pr=sa?Math.round(sp/sa*100):0,cr=c.contract?Math.round(st/c.contract*100):0;
 return `<div class=vp><b>廠商請款</b>
-<div class=vpk><div><small>請款總額</small><b>${M(sa)}</b></div><div><small>已付款</small><b style="color:var(--ok)">${M(sp)}</b></div><div><small>未付款</small><b style="color:${sa-sp>0?'var(--bad)':'inherit'}">${M(sa-sp)}</b></div><div><small>佔合約金額</small><b>${c.contract?cr+'%':'—'}</b></div></div>
-付款進度 ${pr}%<div class=pb><i style="width:${Math.min(pr,100)}%"></i></div>
-${L.length?`<div style="overflow-x:auto"><table><tr><th>工種<th>筆數<th>請款<th>已付<th>未付</tr>${Object.entries(by).sort((a,b)=>b[1].a-a[1].a).map(([w,v])=>`<tr><td>${e(w)}<td>${v.n}<td>${M(v.a)}<td>${M(v.p)}<td style="color:${v.a-v.p>0?'var(--bad)':'inherit'}">${M(v.a-v.p)}</tr>`).join('')}</table></div>`:''}
-${L.map(x=>`<div class=vpc><div class=vg>
+<div class=vpk><div><small>發包總額</small><b>${M(st)}</b></div><div><small>已請款</small><b>${M(sa)}</b></div><div><small>已付款</small><b style="color:var(--ok)">${M(sp)}</b></div><div><small>未付款</small><b style="color:${sa-sp>0?'var(--bad)':'inherit'}">${M(sa-sp)}</b></div><div><small>發包佔合約</small><b>${c.contract?cr+'%':'—'}</b></div></div>
+付款進度（已付／已請款）${pr}%<div class=pb><i style="width:${Math.min(pr,100)}%"></i></div>
+${L.length?`<div style="overflow-x:auto"><table><tr><th>工種<th>廠商數<th>發包<th>已請款<th>已付<th>未付</tr>${Object.entries(by).sort((a,b)=>b[1].t-a[1].t).map(([w,v])=>`<tr><td>${e(w)}<td>${v.n}<td>${M(v.t)}<td>${M(v.a)}<td>${M(v.p)}<td style="color:${v.a-v.p>0?'var(--bad)':'inherit'}">${M(v.a-v.p)}</tr>`).join('')}</table></div>`:''}
+${L.map(x=>{const {a,p}=vsum(x),t=VN(x.t);return `<div class=vpc><div class=vg>
 <label>工種${tsel('',x.w,`onchange="VPW(${c.id},${x.id},this)"`)}</label>
 <label>廠商<input value="${e(x.v||'')}" placeholder="廠商名稱" onchange="VPU(${c.id},${x.id},'v',this.value)"></label>
-<label>請款日期<input type=date value="${x.d||''}" onchange="VPU(${c.id},${x.id},'d',this.value)"></label>
-<label>請款金額<input type=number inputmode=numeric value="${x.a||''}" onchange="VPU(${c.id},${x.id},'a',this.value)"></label>
-<label>已付款<input type=number inputmode=numeric value="${x.p||''}" onchange="VPU(${c.id},${x.id},'p',this.value)"></label>
-<label>付款日期<input type=date value="${x.pd||''}" onchange="VPU(${c.id},${x.id},'pd',this.value)"></label></div>
-<div class=vpf>${st(x)}${N(x.p)<N(x.a)?`<button class=x onclick="VPP(${c.id},${x.id})">全額付清</button>`:''}
-${(x.f||[]).map(q=>`<span>📄 <a href="#" data-i="${q.id}" data-n="${e(q.n)}" onclick="VQ(event,this.dataset.i,this.dataset.n)">${e(q.n)}</a> <button class=x onclick="VPX(${c.id},${x.id},'${q.id}')">×</button></span>`).join('')}
-<label class=x style="cursor:pointer">＋ 請款單<input type=file accept=".pdf,image/*" multiple hidden onchange="VPF(${c.id},${x.id},this)"></label>
-<input value="${e(x.nt||'')}" placeholder="備註（發票號碼、付款方式…）" style="flex:1;min-width:160px" onchange="VPU(${c.id},${x.id},'nt',this.value)">
-<button class=x onclick="VPD(${c.id},${x.id})">刪除</button></div></div>`).join('')||'<div class=m style="margin:6px 0">尚未有廠商請款紀錄</div>'}
-<form class=bar style="margin-top:8px" onsubmit="VPA(event,${c.id})">${tsel('w','','onchange="TNF(this)"')}<input name=v placeholder="廠商名稱" size=10><input name=a type=number inputmode=numeric placeholder="請款金額" required size=9><input name=d type=date value="${T}"><button>新增請款</button></form>
-<div class=m>請款單可上傳 PDF 或拍照；照片會自動壓縮成約 200–400KB，PDF 單檔上限 10MB。</div></div>`}
-function VPA(ev,cid){ev.preventDefault();const f=new FormData(ev.target),c=VPC(cid);(c.vp=c.vp||[]).push({id:Date.now(),w:f.get('w')&&f.get('w')!='__new'?f.get('w'):'',v:(f.get('v')||'').trim(),a:+f.get('a')||0,p:0,d:f.get('d')||T,pd:'',nt:'',f:[]});save();R()}
-function VPU(cid,id,k,v){const x=VPR(cid,id);if(!x)return;x[k]=(k=='a'||k=='p')?(+v||0):v;if(k=='p'&&x.p&&!x.pd)x.pd=T;save();R()}
-function VPP(cid,id){const x=VPR(cid,id);x.p=+x.a||0;x.pd=x.pd||T;save();R()}
+<label>發包總額（選填）<input type=number inputmode=numeric value="${x.t||''}" placeholder="例如 800000" onchange="VPU(${c.id},${x.id},'t',this.value)"></label></div>
+<div class=vps>${vst(a,p)} 已請款 <b>${M(a)}</b>・已付 <b style="color:var(--ok)">${M(p)}</b>・未付 <b style="color:${a-p>0?'var(--bad)':'inherit'}">${M(a-p)}</b>${t?`・尚未請款 <b>${M(Math.max(t-a,0))}</b>${a>t?' <span class="vst no">請款超過發包</span>':''}`:''}</div>
+${x.ins.map((z,k)=>`<div class=vpi><div class=vih><input class=vin value="${e(z.n||pnm(k+1))}" onchange="VIU(${c.id},${x.id},${z.id},'n',this.value)">${vst(VN(z.a),VN(z.p))}${VN(z.p)<VN(z.a)?`<button class=x onclick="VIP(${c.id},${x.id},${z.id})">付清</button>`:''}<button class=x style="margin-left:auto" title="刪除此期" onclick="VID(${c.id},${x.id},${z.id})">✕</button></div>
+<div class=vg><label>請款金額<input type=number inputmode=numeric value="${z.a||''}" onchange="VIU(${c.id},${x.id},${z.id},'a',this.value)"></label>
+<label>請款日期<input type=date value="${z.d||''}" onchange="VIU(${c.id},${x.id},${z.id},'d',this.value)"></label>
+<label>已付款<input type=number inputmode=numeric value="${z.p||''}" onchange="VIU(${c.id},${x.id},${z.id},'p',this.value)"></label>
+<label>付款日期<input type=date value="${z.pd||''}" onchange="VIU(${c.id},${x.id},${z.id},'pd',this.value)"></label></div>
+<div class=vpf>${(z.f||[]).map(q=>`<span>📄 <a href="#" data-i="${q.id}" data-n="${e(q.n)}" onclick="VQ(event,this.dataset.i,this.dataset.n)">${e(q.n)}</a> <button class=x onclick="VPX(${c.id},${x.id},${z.id},'${q.id}')">×</button></span>`).join('')}<label class=x style="cursor:pointer">＋ 請款單<input type=file accept=".pdf,image/*" multiple hidden onchange="VPF(${c.id},${x.id},${z.id},this)"></label></div></div>`).join('')||'<div class=m style="margin:6px 0">還沒有任何一期，按下方「＋ 新增一期」。</div>'}
+<div class=vpf><button class=x onclick="VIA(${c.id},${x.id})">＋ 新增一期（${pnm(x.ins.length+1)}）</button>
+<input value="${e(x.nt||'')}" placeholder="備註（付款條件、匯款帳號…）" style="flex:1;min-width:160px" onchange="VPU(${c.id},${x.id},'nt',this.value)">
+<button class=x onclick="VPD(${c.id},${x.id})">刪除廠商</button></div></div>`}).join('')||'<div class=m style="margin:6px 0">尚未有廠商請款紀錄</div>'}
+<form class=bar style="margin-top:8px" onsubmit="VPA(event,${c.id})">${tsel('w','','onchange="TNF(this)"')}<input name=v placeholder="廠商名稱" size=10><input name=t type=number inputmode=numeric placeholder="發包總額（選填）" size=12><input name=a type=number inputmode=numeric placeholder="第一期請款金額（選填）" size=14><button>新增廠商</button></form>
+<div class=m>同一個廠商可分多期請款，每期各自記錄金額、付款與請款單。照片會自動壓縮成約 200–400KB，PDF 單檔上限 10MB。</div></div>`}
+function VPA(ev,cid){ev.preventDefault();const f=new FormData(ev.target),c=VPC(cid),id=Date.now(),a=+f.get('a')||0;(c.vp=c.vp||[]).push({id,w:f.get('w')&&f.get('w')!='__new'?f.get('w'):'',v:(f.get('v')||'').trim(),t:+f.get('t')||0,nt:'',ins:a?[{id:id+1,n:'第一期',a,p:0,d:T,pd:'',f:[]}]:[]});save();R()}
+function VPU(cid,id,k,v){const x=VPR(cid,id);if(!x)return;x[k]=k=='t'?(+v||0):v;save();R()}
+function VIA(cid,id){const x=VPR(cid,id);x.ins.push({id:Date.now(),n:pnm(x.ins.length+1),a:0,p:0,d:T,pd:'',f:[]});save();R()}
+function VIU(cid,id,iid,k,v){const z=VPI(cid,id,iid);if(!z)return;z[k]=(k=='a'||k=='p')?(+v||0):v;if(k=='p'&&z.p&&!z.pd)z.pd=T;save();R()}
+function VIP(cid,id,iid){const z=VPI(cid,id,iid);z.p=VN(z.a);z.pd=z.pd||T;save();R()}
+function VID(cid,id,iid){const x=VPR(cid,id),z=VPI(cid,id,iid);if(!z||!confirm('確定刪除「'+(z.n||'這一期')+'」？'+((z.f||[]).length?'（附上的請款單也會一起刪除）':'')))return;(z.f||[]).forEach(q=>AS&&AS.delete(q.id).catch(()=>{}));x.ins=x.ins.filter(y=>y.id!=iid);save();R();meter()}
 function VPW(cid,id,sel){const x=VPR(cid,id);if(sel.value!='__new'){x.w=sel.value;save();R();return}const i=document.createElement('input');i.placeholder='輸入新工種';i.onkeydown=ev=>{if(ev.key=='Enter'){ev.preventDefault();i.blur()}};i.onblur=()=>{const v=i.value.trim();if(v){x.w=v;save()}R()};sel.replaceWith(i);i.focus()}
-function VPD(cid,id){const c=VPC(cid),x=VPR(cid,id);if(!x||!confirm('確定刪除這筆廠商請款？'+((x.f||[]).length?'（附上的請款單也會一起刪除）':'')))return;(x.f||[]).forEach(q=>AS&&AS.delete(q.id).catch(()=>{}));c.vp=c.vp.filter(y=>y.id!=id);save();R();meter()}
-function VPX(cid,id,fid){const x=VPR(cid,id);x.f=(x.f||[]).filter(q=>q.id!=fid);if(AS)AS.delete(fid).catch(()=>{});save();R();meter()}
+function VPD(cid,id){const c=VPC(cid),x=VPR(cid,id);if(!x)return;const fs=x.ins.flatMap(z=>z.f||[]);if(!confirm('確定刪除廠商「'+(x.v||x.w||'')+'」的所有請款紀錄？'+(fs.length?'（'+fs.length+' 份請款單也會一起刪除）':'')))return;fs.forEach(q=>AS&&AS.delete(q.id).catch(()=>{}));c.vp=c.vp.filter(y=>y.id!=id);save();R();meter()}
+function VPX(cid,id,iid,fid){const z=VPI(cid,id,iid);z.f=(z.f||[]).filter(q=>q.id!=fid);if(AS)AS.delete(fid).catch(()=>{});save();R();meter()}
 const shrink=(f,mx=1600,q=.75)=>new Promise((ok,no)=>{const u=URL.createObjectURL(f),im=new Image;im.onload=()=>{const k=Math.min(1,mx/Math.max(im.width,im.height)),cv=document.createElement('canvas');cv.width=Math.round(im.width*k);cv.height=Math.round(im.height*k);cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);URL.revokeObjectURL(u);cv.toBlob(b=>b?ok(b):no(),'image/jpeg',q)};im.onerror=()=>{URL.revokeObjectURL(u);no()};im.src=u});
-async function VPF(cid,id,inp){const fs=[...inp.files];if(!fs.length)return;if(!AS){warn('目前未連上雲端，無法上傳檔案。');return}const x=VPR(cid,id);x.f=x.f||[];
-for(const f of fs){const pdf=/\.pdf$/i.test(f.name)||f.type=='application/pdf';try{if(pdf){if(f.size>10*1048576){warn(f.name+' 超過 10MB，請先壓縮再上傳。');continue}const u=await AS.upload(f,{type:'application/pdf'});x.f.push({id:u.id,n:f.name,d:T})}
-else if(f.type.startsWith('image/')){const b=await shrink(f),u=await AS.upload(b,{type:'image/jpeg'});x.f.push({id:u.id,n:f.name.replace(/\.[^.]+$/,'')+'.jpg',d:T})}else warn('只能上傳 PDF 或照片。')}catch(err){warn('請款單上傳失敗：'+f.name)}}
+async function VPF(cid,id,iid,inp){const fs=[...inp.files];if(!fs.length)return;if(!AS){warn('目前未連上雲端，無法上傳檔案。');return}const z=VPI(cid,id,iid);z.f=z.f||[];
+for(const f of fs){const pdf=/\.pdf$/i.test(f.name)||f.type=='application/pdf';try{if(pdf){if(f.size>10*1048576){warn(f.name+' 超過 10MB，請先壓縮再上傳。');continue}const u=await AS.upload(f,{type:'application/pdf'});z.f.push({id:u.id,n:f.name,d:T})}
+else if(f.type.startsWith('image/')){const b=await shrink(f),u=await AS.upload(b,{type:'image/jpeg'});z.f.push({id:u.id,n:f.name.replace(/\.[^.]+$/,'')+'.jpg',d:T})}else warn('只能上傳 PDF 或照片。')}catch(err){warn('請款單上傳失敗：'+f.name)}}
 save();R();meter()}
 const TR0=['拆除','保護','泥作','水電','木作','系統櫃','廚具','油漆','燈具','衛浴','玻璃','鋁窗','大門','空調','清潔','驗收','設計','磁磚','地板','鐵工'];
 const trs=v=>[...new Set([...TR0,...S.tasks.map(t=>t.w).filter(Boolean),v].filter(Boolean))];
