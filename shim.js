@@ -19,7 +19,7 @@ const db={
 
 /* ---------- 檔案：Storage bucket "files"，用短效簽名網址顯示 ---------- */
 const SU={};let suAt=0;
-const hex=()=>crypto.randomUUID().replace(/-/g,'');
+const hex=()=>[...crypto.getRandomValues(new Uint8Array(16))].map(b=>b.toString(16).padStart(2,'0')).join('');
 async function sign(ids){ids=[...new Set(ids)].filter(i=>i&&!SU[i]);for(let k=0;k<ids.length;k+=200){const r=await sb.storage.from(BUCKET).createSignedUrls(ids.slice(k,k+200),7*86400);(r.data||[]).forEach(x=>{if(x.signedUrl&&!x.error)SU[x.path]=x.signedUrl})}}
 window.SIGNALL=async(st)=>{try{for(const k in SU)delete SU[k];const s=JSON.stringify(st||{});await sign((s.match(/[0-9a-f]{32}/g)||[]));suAt=Date.now()}catch(x){}};
 window.SURL=u=>SU[u]||'data:,';
