@@ -32,7 +32,7 @@ button{font:inherit;cursor:pointer}form button,.pri{background:var(--a);color:#f
 table{width:100%;border-collapse:collapse}
 .vp{margin-top:18px;padding-top:12px;border-top:2px solid var(--l)}
 .vpk{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:8px 0}
-.vpk div{background:var(--bg);border-radius:6px;padding:8px 10px}.vpk b{display:block;font-size:18px}
+.vpk div{background:var(--bg);border-radius:6px;padding:8px 10px}.vpk b{display:block;font-size:18px}.vpk small{display:block}
 .vpc{border:1px solid var(--l);border-radius:6px;padding:10px;margin:8px 0}
 .vpc .vg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px 10px;align-items:end}
 .vg label{font-size:12px;color:var(--m);display:block}.vg label input,.vg label select{width:100%;display:block}
@@ -348,19 +348,19 @@ const VO=new Set(),VPC=id=>S.cases.find(y=>y.id==id),VPR=(cid,id)=>vins((VPC(cid
 const CNUM='一二三四五六七八九十';const pnm=k=>'第'+(k<=10?CNUM[k-1]:k)+'期';
 function vins(x){if(x&&!x.ins){x.ins=(x.a||x.p||(x.f||[]).length)?[{id:x.id+1,n:'第一期',a:VN(x.a),p:VN(x.p),d:x.d||'',pd:x.pd||'',f:x.f||[]}]:[];delete x.a;delete x.p;delete x.pd;delete x.f}return x}
 const vsum=x=>{vins(x);const a=x.ins.reduce((s,z)=>s+VN(z.a),0),p=x.ins.reduce((s,z)=>s+VN(z.p),0);return{a,p}};
-const vst=(a,p)=>a&&p>=a?'<span class="vst ok">已付清</span>':p>0?'<span class="vst hf">部分付款</span>':a?'<span class="vst no">未付款</span>':'';
+const vst=(a,p,t)=>(t=Math.max(t||0,a))&&p>=t?'<span class="vst ok">已付清</span>':p>0?'<span class="vst hf">部分付款</span>':a?'<span class="vst no">未付款</span>':'';
 function vpUI(c){const L=(c.vp||[]).map(vins).slice().sort((x,y)=>(x.w||'').localeCompare(y.w||'')||x.id-y.id);
-let sa=0,sp=0,st=0;const by={};L.forEach(x=>{const {a,p}=vsum(x),w=x.w||'未填工種';sa+=a;sp+=p;st+=VN(x.t)||a;by[w]=by[w]||{a:0,p:0,t:0,n:0};by[w].a+=a;by[w].p+=p;by[w].t+=VN(x.t)||a;by[w].n++});
-const pr=sa?Math.round(sp/sa*100):0,cr=c.contract?Math.round(st/c.contract*100):0;
+let sa=0,sp=0,st=0;const by={};L.forEach(x=>{const {a,p}=vsum(x),w=x.w||'未填工種';sa+=a;sp+=p;st+=Math.max(VN(x.t),a);by[w]=by[w]||{a:0,p:0,t:0,n:0};by[w].a+=a;by[w].p+=p;by[w].t+=Math.max(VN(x.t),a);by[w].n++});
+const pr=st?Math.round(sp/st*100):0,cr=c.contract?Math.round(st/c.contract*100):0;
 return `<div class=vp><b>廠商請款</b>
-<div class=vpk><div><small>發包總額</small><b>${M(st)}</b></div><div><small>已請款</small><b>${M(sa)}</b></div><div><small>已付款</small><b style="color:var(--ok)">${M(sp)}</b></div><div><small>未付款</small><b style="color:${sa-sp>0?'var(--bad)':'inherit'}">${M(sa-sp)}</b></div><div><small>發包佔合約</small><b>${c.contract?cr+'%':'—'}</b></div></div>
-付款進度（已付／已請款）${pr}%<div class=pb><i style="width:${Math.min(pr,100)}%"></i></div>
-${L.length?`<div style="overflow-x:auto"><table><tr><th>工種<th>廠商數<th>發包<th>已請款<th>已付<th>未付</tr>${Object.entries(by).sort((a,b)=>b[1].t-a[1].t).map(([w,v])=>`<tr><td>${e(w)}<td>${v.n}<td>${M(v.t)}<td>${M(v.a)}<td>${M(v.p)}<td style="color:${v.a-v.p>0?'var(--bad)':'inherit'}">${M(v.a-v.p)}</tr>`).join('')}</table></div>`:''}
-${L.map(x=>{const {a,p}=vsum(x),t=VN(x.t),one=x.ins.length==1?x.ins[0]:null;return `<details class=vpc ${VO.has(x.id)?'open':''} ontoggle="VO[this.open?'add':'delete'](${x.id})"><summary class=vsm><span class=vsw>${e(x.w||'未填工種')}</span><b>${e(x.v||'（未填廠商）')}</b>${vst(a,p)}<span class=m>${x.ins.length} 期</span><span class=vsn>請款 <b>${M(a)}</b>・已付 <b style="color:var(--ok)">${M(p)}</b>・未付 <b style="color:${a-p>0?'var(--bad)':'inherit'}">${M(a-p)}</b></span>${one&&VN(one.a)>VN(one.p)?`<button class=x onclick="event.preventDefault();event.stopPropagation();VIP(${c.id},${x.id},${one.id})">✓ 確認已付款</button>`:(!x.ins.length&&t?`<button class=x onclick="event.preventDefault();event.stopPropagation();VP1(${c.id},${x.id})">✓ 確認已付款（一次付清 ${M(t)}）</button>`:'')}</summary>
+<div class=vpk><div><small>發包總額</small><b>${M(st)}</b></div><div><small>已請款</small><b>${M(sa)}</b></div><div><small>已付款</small><b style="color:var(--ok)">${M(sp)}</b></div><div><small>未付款（發包−已付）</small><b style="color:${st-sp>0?'var(--bad)':'inherit'}">${M(st-sp)}</b><small>其中已請款待付 ${M(Math.max(sa-sp,0))}</small></div><div><small>發包佔合約</small><b>${c.contract?cr+'%':'—'}</b></div></div>
+付款進度（已付／發包）${pr}%<div class=pb><i style="width:${Math.min(pr,100)}%"></i></div>
+${L.length?`<div style="overflow-x:auto"><table><tr><th>工種<th>廠商數<th>發包<th>已請款<th>已付<th>未付</tr>${Object.entries(by).sort((a,b)=>b[1].t-a[1].t).map(([w,v])=>`<tr><td>${e(w)}<td>${v.n}<td>${M(v.t)}<td>${M(v.a)}<td>${M(v.p)}<td style="color:${v.t-v.p>0?'var(--bad)':'inherit'}">${M(v.t-v.p)}</tr>`).join('')}</table></div>`:''}
+${L.map(x=>{const {a,p}=vsum(x),t=VN(x.t),tt=Math.max(t,a),one=x.ins.length==1?x.ins[0]:null;return `<details class=vpc ${VO.has(x.id)?'open':''} ontoggle="VO[this.open?'add':'delete'](${x.id})"><summary class=vsm><span class=vsw>${e(x.w||'未填工種')}</span><b>${e(x.v||'（未填廠商）')}</b>${vst(a,p,t)}<span class=m>${x.ins.length} 期</span><span class=vsn>請款 <b>${M(a)}</b>・已付 <b style="color:var(--ok)">${M(p)}</b>・未付 <b style="color:${tt-p>0?'var(--bad)':'inherit'}">${M(tt-p)}</b></span>${one&&VN(one.a)>VN(one.p)?`<button class=x onclick="event.preventDefault();event.stopPropagation();VIP(${c.id},${x.id},${one.id})">✓ 確認已付款</button>`:(!x.ins.length&&t?`<button class=x onclick="event.preventDefault();event.stopPropagation();VP1(${c.id},${x.id})">✓ 確認已付款（一次付清 ${M(t)}）</button>`:'')}</summary>
 <div class=vg style="margin-top:10px"><label>工種${tsel('',x.w,`onchange="VPW(${c.id},${x.id},this)"`)}</label>
 <label>廠商<input value="${e(x.v||'')}" placeholder="廠商名稱" onchange="VPU(${c.id},${x.id},'v',this.value)"></label>
 <label>發包總額（選填）<input type=number inputmode=numeric value="${x.t||''}" placeholder="例如 800000" onchange="VPU(${c.id},${x.id},'t',this.value)"></label></div>
-${t?`<div class=vps>尚未請款 <b>${M(Math.max(t-a,0))}</b>${a>t?' <span class="vst no">請款超過發包</span>':''}</div>`:''}
+${t?`<div class=vps>發包 <b>${M(t)}</b>・已請款待付 <b>${M(Math.max(a-p,0))}</b>・尚未請款 <b>${M(Math.max(t-a,0))}</b>${a>t?' <span class="vst no">請款超過發包</span>':''}</div>`:''}
 <div class=vtl><div class="vrow vhd"><span>期別</span><span>請款金額</span><span>請款日期</span><span>已付款</span><span>付款日期</span><span>狀態</span><span></span></div>
 ${x.ins.map((z,k)=>`<div class=vrow><input class=vin value="${e(z.n||pnm(k+1))}" onchange="VIU(${c.id},${x.id},${z.id},'n',this.value)">
 <label><i>請款金額</i><input type=number inputmode=numeric value="${z.a||''}" onchange="VIU(${c.id},${x.id},${z.id},'a',this.value)"></label>
