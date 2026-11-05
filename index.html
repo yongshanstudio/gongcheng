@@ -18,7 +18,7 @@ header{position:relative;background:#1f2a33;color:#fff;padding:14px 16px 0}
 .thm{display:flex;border:1px solid #3a4852;border-radius:4px;overflow:hidden}.thm button{background:none;border:0;color:#9fb0bc;padding:5px 9px;cursor:pointer;font-size:13px}.thm .on{background:#c9a46a;color:#1f2a33}
 #hsum{margin:14px 0 4px}#hsum:empty{display:none}
 .hg{color:#c9a46a;font-size:13px;letter-spacing:.08em}.hg b{display:block;color:#fff;font:400 22px/1.4 "Noto Serif TC","Songti TC",serif;letter-spacing:.05em;margin-top:2px}
-.hk{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+.hk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px}
 .hk button{background:#26333d;border:0;border-radius:6px;color:#c7d2da;text-align:left;padding:8px 10px;cursor:pointer;font:inherit;font-size:12px;min-width:0}
 .hk button b{display:block;font:600 22px/1.2 ui-monospace,"SF Mono",Menlo,monospace;color:#fff}.hk button.al b{color:#f08a6c}.hk button i{display:block;font-style:normal;color:#8fa0ac;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media(max-width:640px){.htop{flex-wrap:nowrap}.brand h1{font-size:19px;letter-spacing:.12em}.brand .sub{font-size:8px;letter-spacing:.12em}.hact{gap:4px}.hb .lg{display:none}.hb{padding:4px 7px;font-size:12px}.thm button{padding:4px 6px}.hk{gap:6px}.hk button{padding:6px 7px;font-size:11px}.hk button b{font-size:18px}.hg b{font-size:18px}#hsum{margin-top:10px}#nav button{padding:8px 12px}}
@@ -460,11 +460,10 @@ const gof=v=>(GRP.find(([g,ks])=>ks.includes(v))||GRP[0])[0];
 function GV(k){V=k;cur=null;fin=null;R();window.scrollTo(0,0)}
 function vpTot(){let a=0;S.cases.forEach(c=>(c.vp||[]).forEach(x=>{const r=vsum(x);a+=Math.max(VN(x.t),r.a)-r.p}));return a}
 function hsum(){if(V!='cal')return '';const h=new Date().getHours(),gr=h<5?'夜深了':h<11?'早安':h<14?'午安':h<18?'午安':'晚安',d=new Date(T+'T00:00:00Z'),dow=d.getUTCDay(),we=shd(T,(7-dow)%7);
-const td=S.tasks.filter(t=>t.st!='done'&&t.s<=T&&t.e>=T),od=S.tasks.filter(t=>t.c&&t.st!='done'&&t.e<T),ws=[...new Set(S.tasks.filter(t=>t.c&&t.s>=T&&t.s<=we&&t.st!='done').map(t=>t.w).filter(Boolean))],up=vpTot();
+const td=S.tasks.filter(t=>t.st!='done'&&t.s<=T&&t.e>=T),od=S.tasks.filter(t=>t.c&&t.st!='done'&&t.e<T),ws=[...new Set(S.tasks.filter(t=>t.c&&t.s>=T&&t.s<=we&&t.st!='done').map(t=>t.w).filter(Boolean))];
 return `<div class=hg>${d.getUTCMonth()+1}月${d.getUTCDate()}日 星期${wd[dow]}<b>${gr}</b></div><div class=hk>
 <button onclick="GV('day')"><b>${td.length}</b>今天任務</button>
 <button class="${od.length?'al':''}" onclick="GV('dash')"><b>${od.length}</b>逾期任務</button>
-<button class="${up>0?'al':''}" onclick="GV('pay')"><b>${up>=1e4?(Math.round(up/1e3)/10)+'萬':M(up)}</b>廠商未付款</button>
 <button onclick="GV('plan')"><b>${ws.length}</b>本週進場工種<i>${ws.length?e(ws.join('、')):'—'}</i></button></div>`}
 const THM=['light','dark','auto'];function thm(v){try{v?localStorage.setItem('thm',v):0}catch(x){}const m=v||(()=>{try{return localStorage.getItem('thm')}catch(x){return null}})()||'auto';if(m=='auto')delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=m;const el=$('#thm');if(el)el.innerHTML=[['light','☀','淺色'],['dark','☾','深色'],['auto','A','跟隨系統']].map(([k,i,t])=>`<button class="${k==m?'on':''}" title="${t}" onclick="thm('${k}')">${i}</button>`).join('')}
 function R(){if(!NM[V])V='cal';const g=gof(V),ks=GRP.find(x=>x[0]==g)[1];const kp=KBP().length;$('#nav').innerHTML=GRP.map(([n,k2])=>`<button class="${n==g?'on':''}" onclick="GV('${k2.includes(GL[n])?GL[n]:k2[0]}')">${n}${n=='經驗庫'&&kp?` <span class=nbg>${kp}</span>`:''}</button>`).join('');
