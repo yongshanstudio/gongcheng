@@ -9,11 +9,25 @@
 :root[data-theme=dark]{--bg:#141a1f;--c:#1e262d;--t:#e6ecf0;--m:#8fa0ac;--l:#33404a}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:15px/1.6 "Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
-header{position:relative;background:#1f2a33;color:#fff;padding:12px 16px 0}
-h1{margin:0 0 8px;font-size:18px;outline:0}
-#nav{display:flex;gap:4px;overflow-x:auto}
-#nav button{background:none;border:0;color:#9fb0bc;padding:8px 14px;font:inherit;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
-#nav .on{color:#fff;border-color:#4fb3c0}
+header{position:relative;background:#1f2a33;color:#fff;padding:14px 16px 0}
+.htop{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.brand h1{margin:0;font:600 24px/1.2 "Noto Serif TC","Songti TC","PMingLiU",serif;letter-spacing:.18em;outline:0}
+.brand .sub{white-space:nowrap;font-size:10px;letter-spacing:.32em;color:#9fb0bc;margin-top:4px}
+.hact{display:flex;gap:8px;align-items:center}
+.hb{white-space:nowrap;background:none;border:1px solid #3a4852;color:#c7d2da;border-radius:4px;padding:5px 10px;font:inherit;font-size:13px;cursor:pointer}
+.thm{display:flex;border:1px solid #3a4852;border-radius:4px;overflow:hidden}.thm button{background:none;border:0;color:#9fb0bc;padding:5px 9px;cursor:pointer;font-size:13px}.thm .on{background:#c9a46a;color:#1f2a33}
+#hsum{margin:14px 0 4px}#hsum:empty{display:none}
+.hg{color:#c9a46a;font-size:13px;letter-spacing:.08em}.hg b{display:block;color:#fff;font:400 22px/1.4 "Noto Serif TC","Songti TC",serif;letter-spacing:.05em;margin-top:2px}
+.hk{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+.hk button{background:#26333d;border:0;border-radius:6px;color:#c7d2da;text-align:left;padding:8px 10px;cursor:pointer;font:inherit;font-size:12px;min-width:0}
+.hk button b{display:block;font:600 22px/1.2 ui-monospace,"SF Mono",Menlo,monospace;color:#fff}.hk button.al b{color:#f08a6c}.hk button i{display:block;font-style:normal;color:#8fa0ac;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:640px){.htop{flex-wrap:nowrap}.brand h1{font-size:19px;letter-spacing:.12em}.brand .sub{font-size:8px;letter-spacing:.12em}.hact{gap:4px}.hb .lg{display:none}.hb{padding:4px 7px;font-size:12px}.thm button{padding:4px 6px}.hk{gap:6px}.hk button{padding:6px 7px;font-size:11px}.hk button b{font-size:18px}.hg b{font-size:18px}#hsum{margin-top:10px}#nav button{padding:8px 12px}}
+#nav{display:flex;gap:4px;overflow-x:auto;margin-top:8px}
+#nav button{background:none;border:0;color:#9fb0bc;padding:9px 16px;font:inherit;font-size:16px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+#nav .on{color:#fff;border-color:#c9a46a}
+#sub{display:flex;gap:6px;overflow-x:auto;background:#26333d;margin:0 -16px;padding:8px 16px}#sub:empty{display:none}
+#sub button{background:none;border:1px solid transparent;color:#9fb0bc;border-radius:14px;padding:4px 12px;font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
+#sub .on{background:#1f2a33;border-color:#4fb3c0;color:#fff}
 main{max-width:1100px;margin:0 auto;padding:16px}
 .g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
 .k{background:var(--c);border-left:4px solid var(--a);padding:10px 14px;border-radius:4px}.k b{display:block;font-size:24px}
@@ -99,13 +113,15 @@ main.wide{max-width:none;padding:16px 10%}.cly{display:grid;grid-template-column
 .dsg{border-top:1px solid var(--l);padding:8px 0}.dsg summary{cursor:pointer}.dig{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.dif{display:flex;flex-direction:column;font-size:12px;color:var(--m);gap:2px}.dif input,.dif select{font-size:14px;padding:5px 8px;width:100%}.mtg{margin:6px 0}.mtr{display:grid;grid-template-columns:1.2fr 1fr 1.2fr 1.6fr auto;gap:6px;margin:4px 0;align-items:center}.mtr input{font-size:13px;padding:4px 8px;min-width:0}@media(max-width:640px){.dig{grid-template-columns:1fr 1fr}.dif[style]{grid-column:1/-1!important}.mtr{grid-template-columns:1fr 1fr}}
 mark{background:#ffe866;color:#1f2a33;padding:0 2px;border-radius:2px}.kbsol{min-height:70px;border:1px solid var(--l);border-radius:4px;padding:6px 8px;background:var(--c);color:var(--t);font-size:14px;line-height:1.7;outline:0}.kbsol:focus{border-color:var(--a)}.kbsol:empty:before{content:attr(data-ph);color:var(--m)}.hlb{background:#ffe866;border:1px solid #e5c93a;border-radius:4px;padding:2px 10px;color:#1f2a33}.kbg>summary{cursor:pointer;font-size:16px;list-style:none;display:flex;gap:8px;align-items:center}.kbg>summary:before{content:'▸';color:var(--m);transition:transform .15s}.kbg[open]>summary:before{transform:rotate(90deg)}.kbg[open]>summary{margin-bottom:6px}
 </style></head><body>
-<header><button class="x" onclick="EX()" style="position:absolute;right:16px;top:10px;color:#9fb0bc;border-color:#3a4852">匯出備份</button><h1 id="co" contenteditable onblur="S.co=this.textContent;save()"></h1><nav id="nav"></nav></header>
+<header><div class=htop><div class=brand><h1 id="co" contenteditable spellcheck=false onblur="S.co=this.textContent.trim()||'永山設計';save()"></h1><div class=sub>YONGSHAN INTERIOR DESIGN</div></div>
+<div class=hact><div class=thm id=thm></div><button class=hb onclick="EX()" title="匯出備份"><span class=lg>匯出</span>備份</button><button class=hb onclick="LOGOUT&&LOGOUT()">登出</button></div></div>
+<div id=hsum></div><nav id="nav"></nav><nav id="sub"></nav></header>
 <div id="warn" class="p" hidden style="margin:12px 16px 0;color:var(--bad)">儲存空間已滿，最新的變更沒有存下來。請刪除一些照片後再試。</div>
 <main id="main"></main>
 <footer id="meter" class="m" style="max-width:1100px;margin:0 auto;padding:0 16px 24px"></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="shim.js?v=6"></script>
+<script src="shim.js?v=7"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <script>
 const D=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};let T=D(0);setInterval(()=>{const n=D(0);if(n!=T){const old=T;T=n;if(typeof cm!='undefined'&&cm==old.slice(0,7))cm=T.slice(0,7);if(typeof csel!='undefined'&&csel==old)csel=T;try{R()}catch(x){}}},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden&&D(0)!=T){const old=T;T=D(0);if(cm==old.slice(0,7))cm=T.slice(0,7);if(csel==old)csel=T;try{R()}catch(x){}}});
@@ -375,6 +391,11 @@ ${x.ins.length?'':'<div class=m style="margin:6px 0">還沒有任何一期，按
 <button class=x onclick="VPD(${c.id},${x.id})">刪除廠商</button></div></details>`}).join('')||'<div class=m style="margin:6px 0">尚未有廠商請款紀錄</div>'}
 <form class="bar vadd" style="margin-top:8px" onsubmit="VPA(event,${c.id})">${tsel('w','','onchange="TNF(this)"')}<input name=v placeholder="廠商名稱" size=10><input name=t type=number inputmode=numeric placeholder="發包總額（選填）" size=12><input name=a type=number inputmode=numeric placeholder="請款金額（第一期）" size=14><label class=m style="white-space:nowrap"><input type=checkbox name=pp style="width:auto"> 已付款</label><input name=pd type=date value="${T}" title="付款日期"><button>新增廠商</button></form>
 <div class=m>同一個廠商可分多期請款，每期各自記錄金額、付款與請款單。照片會自動壓縮成約 200–400KB，PDF 單檔上限 10MB。</div></div>`}
+function pay(){const R0=[];S.cases.forEach(c=>(c.vp||[]).forEach(x=>{const r=vsum(x),t=Math.max(VN(x.t),r.a),last=x.ins.map(z=>z.d).filter(Boolean).sort().pop()||'';R0.push({c,x,t,a:r.a,p:r.p,u:t-r.p,last})}));
+const op=R0.filter(r=>r.u>0).sort((a,b)=>b.u-a.u),U=op.reduce((s,r)=>s+r.u,0),W=op.reduce((s,r)=>s+Math.max(r.a-r.p,0),0),by={};op.forEach(r=>{by[r.c.id]=(by[r.c.id]||0)+r.u});
+return `<div class=p><h2 style="margin:0 0 4px">廠商請款總表</h2><div class=m>所有案件中還沒付清的廠商，依未付金額排序。點一列可打開該案件的廠商請款。</div>
+<div class=vpk><div><small>未付款合計</small><b style="color:${U?'var(--bad)':'inherit'}">${M(U)}</b></div><div><small>其中已請款待付</small><b>${M(W)}</b></div><div><small>未付清廠商</small><b>${op.length}</b></div><div><small>涉及案件</small><b>${Object.keys(by).length}</b></div></div>
+${op.length?`<div style="overflow-x:auto"><table><tr><th>案件<th>工種<th>廠商<th>發包<th>已請款<th>已付<th>未付<th>最近請款</tr>${op.map(r=>`<tr style="cursor:pointer" onclick="VO.add(${r.x.id});V='cases';cur=${r.c.id};fin=${r.c.id};R();setTimeout(()=>{const el=document.querySelector('.vp');el&&el.scrollIntoView({behavior:'smooth'})},50)"><td>${e(r.c.name)}<td>${e(r.x.w||'—')}<td>${e(r.x.v||'—')}<td>${M(r.t)}<td>${M(r.a)}<td>${M(r.p)}<td style="color:var(--bad)">${M(r.u)}<td>${r.last?r.last.slice(5).replace('-','/'):'—'}</tr>`).join('')}</table></div>`:'<div class=m style="margin-top:10px">目前沒有未付清的廠商款項 🎉</div>'}</div>`}
 function VPA(ev,cid){ev.preventDefault();const f=new FormData(ev.target),c=VPC(cid),id=Date.now(),a=+f.get('a')||0;if(!f.get('pp'))VO.add(id);(c.vp=c.vp||[]).push({id,w:f.get('w')&&f.get('w')!='__new'?f.get('w'):'',v:(f.get('v')||'').trim(),t:+f.get('t')||0,nt:'',ins:a?[{id:id+1,n:'第一期',a,p:f.get('pp')?a:0,d:T,pd:f.get('pp')?(f.get('pd')||T):'',f:[]}]:[]});save();R()}
 function VPU(cid,id,k,v){const x=VPR(cid,id);if(!x)return;x[k]=k=='t'?(+v||0):v;save();R()}
 function VP1(cid,id){const x=VPR(cid,id),t=VN(x.t);if(!t)return;x.ins.push({id:Date.now(),n:'第一期',a:t,p:t,d:T,pd:T,f:[]});save();R()}
@@ -434,7 +455,21 @@ return `<details class=tg ${ao[a.id]?'open':''} ontoggle="ao[${a.id}]=this.open"
 function addonPanel(c){const A=S.addons.filter(a=>a.c==c.id);
 return `<div class=p><h3>追加工程</h3><div class=m style="margin-bottom:8px">每張追加單各自計算進度，不計入原合約的工程進度。金額跟著上面的「顯示金額」開關。</div>${A.map(aUI).join('')||'<span class=m>目前沒有追加單</span>'}
 <form class=bar style="margin-top:10px" onsubmit="AA(event,${c.id})"><input name=n placeholder="追加單名稱，例如：追加一" required size=20><label>追加日期 <input type=date name=d value=${T}></label><button>新增追加單</button></form></div>`}
-function R(){$('#nav').innerHTML=NAV.map(([k,n])=>`<button class="${k==V?'on':''}" onclick="V='${k}';cur=null;fin=null;R()">${n}</button>`).join('');$('#co').textContent=S.co;$('#main').innerHTML=({cal,plan,day,dash,board,cases,chk,mat,hb,kb})[V]();$('#main').classList.toggle('wide',V=='cal')}
+const GRP=[['工程',['cal','day','plan','board','chk','mat']],['帳務',['dash','pay']],['案場',['cases','hb']],['知識',['kb']]],NM=Object.assign(Object.fromEntries(NAV),{pay:'廠商請款總表'}),GL={};GRP.forEach(([g,ks])=>{GL[g]=ks[0]});
+const gof=v=>(GRP.find(([g,ks])=>ks.includes(v))||GRP[0])[0];
+function GV(k){V=k;cur=null;fin=null;R();window.scrollTo(0,0)}
+function vpTot(){let a=0;S.cases.forEach(c=>(c.vp||[]).forEach(x=>{const r=vsum(x);a+=Math.max(VN(x.t),r.a)-r.p}));return a}
+function hsum(){if(V!='cal')return '';const h=new Date().getHours(),gr=h<5?'夜深了':h<11?'早安':h<14?'午安':h<18?'午安':'晚安',d=new Date(T+'T00:00:00Z'),dow=d.getUTCDay(),we=shd(T,(7-dow)%7);
+const td=S.tasks.filter(t=>t.st!='done'&&t.s<=T&&t.e>=T),od=S.tasks.filter(t=>t.c&&t.st!='done'&&t.e<T),ws=[...new Set(S.tasks.filter(t=>t.c&&t.s>=T&&t.s<=we&&t.st!='done').map(t=>t.w).filter(Boolean))],up=vpTot();
+return `<div class=hg>${d.getUTCMonth()+1}月${d.getUTCDate()}日 星期${wd[dow]}<b>${gr}</b></div><div class=hk>
+<button onclick="GV('day')"><b>${td.length}</b>今天任務</button>
+<button class="${od.length?'al':''}" onclick="GV('dash')"><b>${od.length}</b>逾期任務</button>
+<button class="${up>0?'al':''}" onclick="GV('pay')"><b>${up>=1e4?(Math.round(up/1e3)/10)+'萬':M(up)}</b>廠商未付款</button>
+<button onclick="GV('plan')"><b>${ws.length}</b>本週進場工種<i>${ws.length?e(ws.join('、')):'—'}</i></button></div>`}
+const THM=['light','dark','auto'];function thm(v){try{v?localStorage.setItem('thm',v):0}catch(x){}const m=v||(()=>{try{return localStorage.getItem('thm')}catch(x){return null}})()||'auto';if(m=='auto')delete document.documentElement.dataset.theme;else document.documentElement.dataset.theme=m;const el=$('#thm');if(el)el.innerHTML=[['light','☀','淺色'],['dark','☾','深色'],['auto','A','跟隨系統']].map(([k,i,t])=>`<button class="${k==m?'on':''}" title="${t}" onclick="thm('${k}')">${i}</button>`).join('')}
+function R(){if(!NM[V])V='cal';const g=gof(V),ks=GRP.find(x=>x[0]==g)[1];$('#nav').innerHTML=GRP.map(([n,k2])=>`<button class="${n==g?'on':''}" onclick="GV('${k2.includes(GL[n])?GL[n]:k2[0]}')">${n}</button>`).join('');
+$('#sub').innerHTML=ks.length>1?ks.map(k=>`<button class="${k==V?'on':''}" onclick="GV('${k}')">${NM[k]}</button>`).join(''):'';GL[g]=V;
+if(S.co=='我的設計公司')S.co='永山設計';$('#co').textContent=S.co;$('#hsum').innerHTML=hsum();if(!$('#thm').innerHTML)thm();$('#main').innerHTML=({cal,plan,day,dash,board,cases,chk,mat,hb,kb,pay})[V]();$('#main').classList.toggle('wide',V=='cal')}
 let hc=null;
 const HBR={玄關:'ENTRANCE',客廳:'LIVING ROOM',餐廳:'DINING',廚房:'KITCHEN',主臥:'MASTER BEDROOM',次臥:'BEDROOM',書房:'STUDY',主浴:'MASTER BATH',客浴:'BATHROOM',陽台:'BALCONY'},HBI=['IH 調理爐','電視','冷氣','燈具','開關插座','對講機','電鎖','抽油煙機','瓦斯爐','烘碗機','洗碗機','冰箱','熱水器','洗衣機','烘衣機','馬桶','水龍頭','淋浴龍頭','暖風機'];
 const hbd=c=>{S.hb=S.hb||[];let d=S.hb.find(x=>x.id==c);if(!d){d={id:+c,rooms:[],gen:''};S.hb.push(d)}return d};
