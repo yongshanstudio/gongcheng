@@ -455,7 +455,7 @@ return `<details class=tg ${ao[a.id]?'open':''} ontoggle="ao[${a.id}]=this.open"
 function addonPanel(c){const A=S.addons.filter(a=>a.c==c.id);
 return `<div class=p><h3>追加工程</h3><div class=m style="margin-bottom:8px">每張追加單各自計算進度，不計入原合約的工程進度。金額跟著上面的「顯示金額」開關。</div>${A.map(aUI).join('')||'<span class=m>目前沒有追加單</span>'}
 <form class=bar style="margin-top:10px" onsubmit="AA(event,${c.id})"><input name=n placeholder="追加單名稱，例如：追加一" required size=20><label>追加日期 <input type=date name=d value=${T}></label><button>新增追加單</button></form></div>`}
-const GRP=[['工程',['cal','day','plan','board','chk','mat']],['帳務',['dash','pay']],['案場',['cases','hb']],['知識',['kb']]],NM=Object.assign(Object.fromEntries(NAV),{pay:'廠商請款總表'}),GL={};GRP.forEach(([g,ks])=>{GL[g]=ks[0]});
+const GRP=[['工程',['cal','day','plan','board','chk','mat']],['帳務',['dash','pay']],['案場',['cases','hb']],['經驗庫',['kb']]],NM=Object.assign(Object.fromEntries(NAV),{pay:'廠商請款總表'}),GL={};GRP.forEach(([g,ks])=>{GL[g]=ks[0]});
 const gof=v=>(GRP.find(([g,ks])=>ks.includes(v))||GRP[0])[0];
 function GV(k){V=k;cur=null;fin=null;R();window.scrollTo(0,0)}
 function vpTot(){let a=0;S.cases.forEach(c=>(c.vp||[]).forEach(x=>{const r=vsum(x);a+=Math.max(VN(x.t),r.a)-r.p}));return a}
