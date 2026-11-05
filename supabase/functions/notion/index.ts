@@ -244,8 +244,38 @@ async function siri(text: string) {
   return `已加入 ${dd.getUTCMonth() + 1}/${dd.getUTCDate()}（${WD[dd.getUTCDay()]}）：${name}${hit ? "，案件 " + hit.name : "，其他行程"}`;
 }
 
+// ---------- 經驗庫每日建議（Claude 排程任務用） ----------
+async function kbApi(b: any) {
+  const all: any[] = (await rest("GET", "docs?col=eq.kb&select=data")).map((x: any) => x.data);
+  if (b.action === "list") {
+    return { items: all.map((k) => ({ t: k.t, w: k.w || "", k: k.k || "", sol: String(k.sol || "").slice(0, 400), status: k.rj ? "rejected" : k.pd ? "pending" : "approved", at: k.at || "" })) };
+  }
+  if (b.action === "add") {
+    const items = (Array.isArray(b.items) ? b.items : []).slice(0, 5);
+    const have = new Set(all.map((k) => String(k.t || "").replace(/\s/g, "")));
+    const today = new Date(Date.now() + 8 * 3600e3).toISOString().slice(0, 10);
+    let n = 0;
+    for (const [i, it] of items.entries()) {
+      const t = String(it.t || "").trim().slice(0, 80), sol = String(it.sol || "").trim().slice(0, 1500);
+      if (!t || !sol || have.has(t.replace(/\s/g, ""))) continue;
+      const id = Date.now() + i;
+      await rest("POST", "docs", { col: "kb", id: String(id), data: { id, t, w: String(it.w || "").slice(0, 20), k: String(it.k || "").slice(0, 80), sol, src: String(it.src || "Claude 每日建議").slice(0, 200), at: today, pd: 1 } });
+      n++;
+    }
+    return { added: n };
+  }
+  throw new TE("tool_error", "unknown action");
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
+  const kk = req.headers.get("x-kb-key");
+  if (kk !== null) {
+    const want = Deno.env.get("KB_KEY") || "";
+    if (!want || kk !== want) return new Response(JSON.stringify({ ok: false, message: "bad key" }), { status: 401, headers: { "Content-Type": "application/json" } });
+    try { return new Response(JSON.stringify({ ok: true, ...(await kbApi(await req.json())) }), { headers: { "Content-Type": "application/json; charset=utf-8" } }); }
+    catch (x) { return new Response(JSON.stringify({ ok: false, message: String((x as Error).message || x).slice(0, 200) }), { status: 500, headers: { "Content-Type": "application/json" } }); }
+  }
   const sk = req.headers.get("x-siri-key");
   if (sk !== null) {
     const want = Deno.env.get("SIRI_KEY") || "";
